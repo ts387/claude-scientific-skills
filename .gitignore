@@ -11,3 +11,8 @@ uv.lock
 main.py
 
 __pycache__/
+
+# API tokens and credentials
+.protocols_config
+config.yaml
+.env

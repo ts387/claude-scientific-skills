@@ -4,6 +4,48 @@
 
 The protocols.io API supports two types of access tokens for authentication, enabling access to both public and private content.
 
+## Quick Start: One-Time Setup
+
+For the easiest experience, use the setup script to configure your token once, then it will be automatically loaded for all future uses:
+
+### Step 1: Get Your Access Token
+
+1. Log into protocols.io at https://www.protocols.io/
+2. Go to your **Profile Settings** (click your profile picture → Settings)
+3. Look for the **API** or **Developer** section
+4. Copy your **CLIENT_ACCESS_TOKEN**
+
+### Step 2: Run the Setup Script
+
+```bash
+cd scientific-skills/protocolsio-integration/scripts
+python setup_config.py --token YOUR_TOKEN_HERE
+```
+
+This will:
+- Save your token securely (file permissions set to 600)
+- Test that the token works
+- Configure automatic loading for future uses
+
+### Step 3: Use the Client
+
+Now you can use the `protocols_client.py` module without entering your token each time:
+
+```python
+from protocols_client import ProtocolsClient
+
+# Token is loaded automatically!
+client = ProtocolsClient()
+
+# Search for protocols
+results = client.search_protocols(key="CRISPR")
+
+# Get a protocol
+protocol = client.get_protocol(protocol_id=12345)
+```
+
+**That's it!** Your token is now configured and will be automatically loaded.
+
 ## Access Token Types
 
 ### 1. CLIENT_ACCESS_TOKEN
