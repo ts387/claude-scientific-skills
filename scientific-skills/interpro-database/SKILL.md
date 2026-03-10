@@ -23,7 +23,7 @@ InterPro classifies proteins into:
 - InterPro website: https://www.ebi.ac.uk/interpro/
 - REST API: https://www.ebi.ac.uk/interpro/api/
 - API documentation: https://github.com/ProteinsWebTeam/interpro7-api/blob/master/docs/
-- Python client: via `requests`
+- Python client: `requests` library (install via `uv pip install requests`)
 
 ## When to Use This Skill
 
@@ -287,6 +287,15 @@ def characterize_protein(uniprot_id):
 | NCBIfam | NCBI curated TIGRFAMs |
 | Gene3D | CATH structural classification |
 | PIRSR | PIR site rules |
+
+## Installation and Setup
+
+### Python Libraries
+
+```bash
+# Install requests for API access
+uv pip install requests
+```
 
 ## Best Practices
 
