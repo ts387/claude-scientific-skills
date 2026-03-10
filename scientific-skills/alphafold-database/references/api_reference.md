@@ -54,13 +54,13 @@ curl https://alphafold.ebi.ac.uk/api/prediction/P00520
     "uniprotEnd": 1130,
     "uniprotSequence": "MLEICLKLVGCKSKKGLSSSSSCYLEEALQRPVASDFEPQGLSEAARWNSKENLLAGPSENDPNLFVALYDFVASGDNTLSITKGEKLRVLGYNHNGEWCEAQTKNGQGWVPSNYITPVNSLEKHSWYHGPVSRNAAEYLLSSGINGSFLVRESESSPGQRSISLRYEGRVYHYRINTASDGKLYVSSESRFNTLAELVHHHSTVADGLITTLHYPAPKRNKPTVYGVSPNYDKWEMERTDITMKHKLGGGQYGEVYEGVWKKYSLTVAVKTLKEDTMEVEEFLKEAAVMKEIKHPNLVQLLGVCTREPPFYIITEFMTYGNLLDYLRECNRQEVNAVVLLYMATQISSAMEYLEKKNFIHRDLAARNCLVGENHLVKVADFGLSRLMTGDTYTAHAGAKFPIKWTAPESLAYNKFSIKSDVWAFGVLLWEIATYGMSPYPGIDLSQVYELLEKDYRMERPEGCPEKVYELMRACWQWNPSDRPSFAEIHQAFETMFQESSISDEVEKELGKQGVRGAVSTLLQAPELPTKTRTSRRAAEHRDTTDVPEMPHSKGQGESDPLDHEPAVSPLLPRKERGPPEGGLNEDERLLPKDKKTNLFSALIKKKKKTAPTPPKRSSSFREMDGQPERRGAGEEEGRDISNGALAFTPLDTADPAKSPKPSNGAGVPNGALRESGGSGFRSPHLWKKSSTLTSSRLATGEEEGGGSSSKRFLRSCSASCVPHGAKDTEWRSVTLPRDLQSTGRQFDSSTFGGHKSEKPALPRKRAGENRSDQVTRGTVTPPPRLVKKNEEAADEVFKDIMESSPGSSPPNLTPKPLRRQVTVAPASGLPHKEEAGKGSALGTPAAAEPVTPTSKAGSGAPGGTSKGPAEESRVRRHKHSSESPGRDKGKLSRLKPAPPPPPAASAGKAGGKPSQSPSQEAAGEAVLGAKTKATSLVDAVNSDAAKPSQPGEGLKKPVLPATPKPQSAKPSGTPISPAPVPSTLPSASSALAGDQPSSTAFIPLISTRVSLRKTRQPPERIASGAITKGVVLDSTEALCLAISRNSEQMASHSAVLEAGKNLYTFCVSYVDSIQQMRNKFAFREAINKLENNLRELQICPATAGSGPAATQDFSKLLSSVKEISDIVQR",
     "modelCreatedDate": "2021-07-01",
-    "latestVersion": 4,
-    "allVersions": [1, 2, 3, 4],
-    "cifUrl": "https://alphafold.ebi.ac.uk/files/AF-P00520-F1-model_v4.cif",
-    "bcifUrl": "https://alphafold.ebi.ac.uk/files/AF-P00520-F1-model_v4.bcif",
-    "pdbUrl": "https://alphafold.ebi.ac.uk/files/AF-P00520-F1-model_v4.pdb",
-    "paeImageUrl": "https://alphafold.ebi.ac.uk/files/AF-P00520-F1-predicted_aligned_error_v4.png",
-    "paeDocUrl": "https://alphafold.ebi.ac.uk/files/AF-P00520-F1-predicted_aligned_error_v4.json"
+    "latestVersion": 6,
+    "allVersions": [1, 2, 3, 4, 5, 6],
+    "cifUrl": "https://alphafold.ebi.ac.uk/files/AF-P00520-F1-model_v6.cif",
+    "bcifUrl": "https://alphafold.ebi.ac.uk/files/AF-P00520-F1-model_v6.bcif",
+    "pdbUrl": "https://alphafold.ebi.ac.uk/files/AF-P00520-F1-model_v6.pdb",
+    "paeImageUrl": "https://alphafold.ebi.ac.uk/files/AF-P00520-F1-predicted_aligned_error_v6.png",
+    "paeDocUrl": "https://alphafold.ebi.ac.uk/files/AF-P00520-F1-predicted_aligned_error_v6.json"
   }
 ]
 ```
@@ -120,7 +120,7 @@ https://alphafold.ebi.ac.uk/files/{alphafold_id}-{file_type}_{version}.{extensio
 **Components:**
 - `{alphafold_id}`: Entry identifier (e.g., "AF-P00520-F1")
 - `{file_type}`: Type of file (see below)
-- `{version}`: Database version (e.g., "v4")
+- `{version}`: Database version (e.g., "v6")
 - `{extension}`: File format extension
 
 ### Available File Types
@@ -129,7 +129,7 @@ https://alphafold.ebi.ac.uk/files/{alphafold_id}-{file_type}_{version}.{extensio
 
 **mmCIF Format (Recommended):**
 ```
-https://alphafold.ebi.ac.uk/files/AF-P00520-F1-model_v4.cif
+https://alphafold.ebi.ac.uk/files/AF-P00520-F1-model_v6.cif
 ```
 - Standard crystallographic format
 - Contains full metadata
@@ -138,7 +138,7 @@ https://alphafold.ebi.ac.uk/files/AF-P00520-F1-model_v4.cif
 
 **Binary CIF Format:**
 ```
-https://alphafold.ebi.ac.uk/files/AF-P00520-F1-model_v4.bcif
+https://alphafold.ebi.ac.uk/files/AF-P00520-F1-model_v6.bcif
 ```
 - Compressed binary version of mmCIF
 - Smaller file size (~70% reduction)
@@ -147,7 +147,7 @@ https://alphafold.ebi.ac.uk/files/AF-P00520-F1-model_v4.bcif
 
 **PDB Format (Legacy):**
 ```
-https://alphafold.ebi.ac.uk/files/AF-P00520-F1-model_v4.pdb
+https://alphafold.ebi.ac.uk/files/AF-P00520-F1-model_v6.pdb
 ```
 - Traditional PDB text format
 - Limited to 99,999 atoms
@@ -158,7 +158,7 @@ https://alphafold.ebi.ac.uk/files/AF-P00520-F1-model_v4.pdb
 
 **Per-Residue Confidence (JSON):**
 ```
-https://alphafold.ebi.ac.uk/files/AF-P00520-F1-confidence_v4.json
+https://alphafold.ebi.ac.uk/files/AF-P00520-F1-confidence_v6.json
 ```
 
 **Structure:**
@@ -176,7 +176,7 @@ https://alphafold.ebi.ac.uk/files/AF-P00520-F1-confidence_v4.json
 #### 3. Predicted Aligned Error (JSON)
 
 ```
-https://alphafold.ebi.ac.uk/files/AF-P00520-F1-predicted_aligned_error_v4.json
+https://alphafold.ebi.ac.uk/files/AF-P00520-F1-predicted_aligned_error_v6.json
 ```
 
 **Structure:**
@@ -194,7 +194,7 @@ https://alphafold.ebi.ac.uk/files/AF-P00520-F1-predicted_aligned_error_v4.json
 #### 4. PAE Visualization (PNG)
 
 ```
-https://alphafold.ebi.ac.uk/files/AF-P00520-F1-predicted_aligned_error_v4.png
+https://alphafold.ebi.ac.uk/files/AF-P00520-F1-predicted_aligned_error_v6.png
 ```
 - Pre-rendered PAE heatmap
 - Useful for quick visual assessment
@@ -284,7 +284,7 @@ AlphaFold DB is hosted on Google Cloud Platform for bulk access.
 
 ### Cloud Storage Bucket
 
-**Bucket:** `gs://public-datasets-deepmind-alphafold-v4`
+**Bucket:** `gs://public-datasets-deepmind-alphafold-v4` (bucket name retains "v4" for historical reasons)
 
 **Directory Structure:**
 ```
@@ -311,7 +311,7 @@ curl https://sdk.cloud.google.com | bash
 ```bash
 # Download all archives for a species
 TAX_ID=9606  # Human
-gsutil -m cp gs://public-datasets-deepmind-alphafold-v4/proteomes/proteome-tax_id-${TAX_ID}-*_v4.tar .
+gsutil -m cp gs://public-datasets-deepmind-alphafold-v4/proteomes/proteome-tax_id-${TAX_ID}-*_v6.tar .
 ```
 
 ---
@@ -372,7 +372,7 @@ For processing many proteins, use concurrent downloads with appropriate rate lim
 
 ### 4. Version Management
 
-Always specify and track database versions in your code (current: v4).
+Always specify and track database versions in your code (current: v6). Query the API to get current file URLs rather than hardcoding version strings.
 
 ---
 
@@ -413,7 +413,18 @@ Always specify and track database versions in your code (current: v4).
 - **v1** (2021): Initial release with ~350K structures
 - **v2** (2022): Expanded to 200M+ structures
 - **v3** (2023): Updated models and expanded coverage
-- **v4** (2024): Current version with improved confidence metrics
+- **v4** (2024): Improved confidence metrics
+- **v5** (2024): Database refresh with updated UniProt alignment
+- **v6** (2025): Current version — synced with UniProt 2025_03, 241M+ structures, AlphaMissense integration, Foldseek search, community datasets (bacteria, viruses, parasites)
+
+### API Field Deprecation Notice
+
+The prediction API is transitioning to new field names. Old fields (`cifUrl`, `pdbUrl`, `bcifUrl`, `paeDocUrl`, `paeImageUrl`) are deprecated with a sunset date of **25 June 2026**. Both old and new fields are served during the transition period.
+
+- **Details:** https://www.ebi.ac.uk/pdbe/news/breaking-changes-afdb-predictions-api
+- **API docs:** https://alphafold.ebi.ac.uk/api-docs
+
+**Best practice:** Always extract file URLs from the API response rather than constructing them manually, as version suffixes change between database releases.
 
 ## Citation
 

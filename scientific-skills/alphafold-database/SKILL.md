@@ -97,9 +97,11 @@ AlphaFold provides multiple file formats for each prediction:
 
 **File Types Available:**
 
-- **Model coordinates** (`model_v4.cif`): Atomic coordinates in mmCIF/PDBx format
-- **Confidence scores** (`confidence_v4.json`): Per-residue pLDDT scores (0-100)
-- **Predicted Aligned Error** (`predicted_aligned_error_v4.json`): PAE matrix for residue pair confidence
+- **Model coordinates** (`model_v6.cif`): Atomic coordinates in mmCIF/PDBx format
+- **Confidence scores** (`confidence_v6.json`): Per-residue pLDDT scores (0-100)
+- **Predicted Aligned Error** (`predicted_aligned_error_v6.json`): PAE matrix for residue pair confidence
+
+> **Important:** Version suffixes in file URLs change between database releases. Always query the prediction API first and extract URLs from the response rather than hardcoding a version string. The examples below use `v6` (current as of 2025), but this will change in future releases.
 
 **Download URLs:**
 
@@ -107,7 +109,7 @@ AlphaFold provides multiple file formats for each prediction:
 import requests
 
 alphafold_id = "AF-P00520-F1"
-version = "v4"
+version = "v6"
 
 # Model coordinates (mmCIF)
 model_url = f"https://alphafold.ebi.ac.uk/files/{alphafold_id}-model_{version}.cif"
@@ -148,7 +150,7 @@ import requests
 
 # Load confidence scores
 alphafold_id = "AF-P00520-F1"
-confidence_url = f"https://alphafold.ebi.ac.uk/files/{alphafold_id}-confidence_v4.json"
+confidence_url = f"https://alphafold.ebi.ac.uk/files/{alphafold_id}-confidence_v6.json"
 confidence = requests.get(confidence_url).json()
 
 # Extract pLDDT scores
@@ -173,7 +175,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 # Load PAE matrix
-pae_url = f"https://alphafold.ebi.ac.uk/files/{alphafold_id}-predicted_aligned_error_v4.json"
+pae_url = f"https://alphafold.ebi.ac.uk/files/{alphafold_id}-predicted_aligned_error_v6.json"
 pae = requests.get(pae_url).json()
 
 # Visualize PAE matrix
@@ -250,7 +252,7 @@ def download_proteome(taxonomy_id, output_dir="./proteomes"):
     if not isinstance(taxonomy_id, int):
         raise ValueError("taxonomy_id must be an integer")
     
-    pattern = f"gs://public-datasets-deepmind-alphafold-v4/proteomes/proteome-tax_id-{taxonomy_id}-*_v4.tar"
+    pattern = f"gs://public-datasets-deepmind-alphafold-v4/proteomes/proteome-tax_id-{taxonomy_id}-*_v6.tar"
     # Use list form instead of shell=True for security
     subprocess.run(["gsutil", "-m", "cp", pattern, f"{output_dir}/"], check=True)
 
@@ -271,7 +273,7 @@ import numpy as np
 
 # Parse mmCIF file
 parser = MMCIFParser(QUIET=True)
-structure = parser.get_structure("protein", "AF-P00520-F1-model_v4.cif")
+structure = parser.get_structure("protein", "AF-P00520-F1-model_v6.cif")
 
 # Extract coordinates
 coords = []
@@ -301,7 +303,7 @@ AlphaFold stores pLDDT scores in the B-factor column:
 from Bio.PDB import MMCIFParser
 
 parser = MMCIFParser(QUIET=True)
-structure = parser.get_structure("protein", "AF-P00520-F1-model_v4.cif")
+structure = parser.get_structure("protein", "AF-P00520-F1-model_v6.cif")
 
 # Extract pLDDT from B-factors
 plddt_scores = []
@@ -340,7 +342,7 @@ for uniprot_id in uniprot_ids:
 
             # Get confidence data
             alphafold_id = pred['entryId']
-            conf_url = f"https://alphafold.ebi.ac.uk/files/{alphafold_id}-confidence_v4.json"
+            conf_url = f"https://alphafold.ebi.ac.uk/files/{alphafold_id}-confidence_v6.json"
             conf_data = requests.get(conf_url).json()
 
             # Calculate statistics
@@ -434,7 +436,7 @@ af_structures = [s for s in data['structures'] if s['provider'] == 'AlphaFold DB
 
 **PAE (Predicted Aligned Error):** Matrix indicating confidence in relative positions between residue pairs. Low values (<5 Å) suggest confident relative positioning.
 
-**Database Version:** Current version is v4. File URLs include version suffix (e.g., `model_v4.cif`).
+**Database Version:** Current version is v6. File URLs include version suffix (e.g., `model_v6.cif`). Always query the API to get current URLs rather than hardcoding version strings.
 
 **Fragment Number:** Large proteins may be split into fragments. Fragment number appears in AlphaFold ID (e.g., F1, F2).
 
@@ -476,10 +478,11 @@ Consult this reference for detailed API information, bulk download strategies, o
 
 ### Version Management
 
-- Current database version: v4 (as of 2024-2025)
-- File URLs include version suffix (e.g., `_v4.cif`)
-- Check for database updates regularly
-- Older versions may be deprecated over time
+- Current database version: v6 (as of 2025)
+- File URLs include version suffix (e.g., `_v6.cif`)
+- Always query the API to get current file URLs — version suffixes change between releases
+- API field deprecation in progress — old fields sunset 25 June 2026 (see references/api_reference.md)
+- The Google Cloud Storage bucket retains the name `alphafold-v4` for historical reasons
 
 ### Data Quality Considerations
 
