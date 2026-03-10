@@ -373,6 +373,15 @@ Load the appropriate reference file based on your task:
 
 To load a reference file, read the file from the `references/` directory when needed for specific functionality.
 
+## Installation and Setup
+
+### Python Libraries
+
+```bash
+# Install requests for API access
+uv pip install requests
+```
+
 ## Best Practices
 
 1. **Authentication**: Store tokens securely, never in code or version control

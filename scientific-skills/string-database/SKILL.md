@@ -461,6 +461,15 @@ Only includes evidence for direct physical binding (experimental data and databa
 - Direct binding validation
 - When physical contact is required
 
+## Installation and Setup
+
+### Python Libraries
+
+```bash
+# Install pandas for data analysis of STRING results
+uv pip install pandas
+```
+
 ## API Best Practices
 
 1. **Always map identifiers first**: Use `string_map_ids()` before other operations for faster queries

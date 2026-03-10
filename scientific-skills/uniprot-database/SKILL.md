@@ -162,6 +162,15 @@ protein_name:kinase*
 
 See `/references/query_syntax.md` for comprehensive syntax documentation.
 
+## Installation and Setup
+
+### Python Libraries
+
+```bash
+# Install requests for API access
+uv pip install requests
+```
+
 ## Best Practices
 
 1. **Use reviewed entries when possible**: Filter with `reviewed:true` for Swiss-Prot (manually curated) entries
