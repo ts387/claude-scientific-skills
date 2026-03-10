@@ -314,6 +314,21 @@ Contact: clinvar@ncbi.nlm.nih.gov for submission account setup.
 4. Implement version tracking for updates
 5. Schedule monthly updates from FTP site
 
+## Installation and Setup
+
+### Python Libraries
+
+```bash
+# Install Biopython for NCBI E-utilities access
+uv pip install biopython
+
+# Install PyVCF for VCF file processing
+uv pip install pyvcf
+
+# Install pandas for tabular data analysis
+uv pip install pandas
+```
+
 ## Important Limitations and Considerations
 
 ### Data Quality
