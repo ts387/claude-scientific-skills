@@ -72,23 +72,29 @@ print(f"AlphaFold ID: {alphafold_id}")
 Search UniProt to find protein accessions first:
 
 ```python
-import urllib.parse, urllib.request
+import requests
+import time
 
-def get_uniprot_ids(query, query_type='PDB_ID'):
-    """Query UniProt to get accession IDs"""
-    url = 'https://www.uniprot.org/uploadlists/'
-    params = {
-        'from': query_type,
-        'to': 'ACC',
-        'format': 'txt',
-        'query': query
-    }
-    data = urllib.parse.urlencode(params).encode('ascii')
-    with urllib.request.urlopen(urllib.request.Request(url, data)) as response:
-        return response.read().decode('utf-8').splitlines()
+def get_uniprot_ids(ids, from_db="PDB", to_db="UniProtKB_AC-ID"):
+    """Map identifiers to UniProt accessions using the ID mapping API"""
+    # Submit mapping job
+    response = requests.post("https://rest.uniprot.org/idmapping/run",
+                             data={"from": from_db, "to": to_db, "ids": ids})
+    job_id = response.json()["jobId"]
 
-# Example: Find UniProt IDs for a protein name
-protein_ids = get_uniprot_ids("hemoglobin", query_type="GENE_NAME")
+    # Poll for results
+    while True:
+        status = requests.get(f"https://rest.uniprot.org/idmapping/status/{job_id}").json()
+        if "results" in status or "jobStatus" not in status:
+            break
+        time.sleep(1)
+
+    # Retrieve results
+    results = requests.get(f"https://rest.uniprot.org/idmapping/results/{job_id}").json()
+    return [r["to"] for r in results["results"]]
+
+# Example: Map PDB IDs to UniProt accessions
+uniprot_ids = get_uniprot_ids("1AKE,4HHB", from_db="PDB", to_db="UniProtKB_AC-ID")
 ```
 
 ### 2. Downloading Structure Files
