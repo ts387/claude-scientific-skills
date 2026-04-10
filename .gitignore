@@ -3,9 +3,6 @@
 
 temp/
 
-pyproject.toml
-uv.lock
-
 .venv/
 .python-version
 main.py
@@ -13,5 +10,3 @@ main.py
 __pycache__/
 
 .env
-
-scan_skills.py
