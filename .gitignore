@@ -1,12 +1,13 @@
-.claude
+# OS
 .DS_Store
 
-temp/
-
+# Python
 .venv/
 .python-version
-main.py
-
 __pycache__/
 
+# Secrets
 .env
+
+# Project
+temp/
