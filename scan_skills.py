@@ -8,7 +8,11 @@ from pathlib import Path
 
 from dotenv import load_dotenv
 from skill_scanner import SkillScanner
-from skill_scanner.core.analyzers import BehavioralAnalyzer, LLMAnalyzer
+from skill_scanner.core.analyzers import (
+    BehavioralAnalyzer,
+    LLMAnalyzer,
+    TriggerAnalyzer,
+)
 from skill_scanner.core.loader import SkillLoadError
 from skill_scanner.core.models import Report
 from skill_scanner.core.scan_policy import ScanPolicy
@@ -20,21 +24,21 @@ OUTPUT_FILE = "SECURITY.md"
 
 
 def build_scanner() -> SkillScanner:
-    policy = ScanPolicy.from_preset("strict")
+    policy = ScanPolicy.from_preset("balanced")
     policy.llm_analysis.max_instruction_body_chars = 50_000
     policy.llm_analysis.max_referenced_file_chars = 50_000
     policy.llm_analysis.max_code_file_chars = 50_000
     policy.llm_analysis.max_total_prompt_chars = 500_000
+    llm_model = os.getenv("SKILL_SCANNER_LLM_MODEL", "anthropic/claude-sonnet-4-6")
+    llm_key = os.getenv("SKILL_SCANNER_LLM_API_KEY")
+
     scanner = SkillScanner(
-        analyzers=[BehavioralAnalyzer()],
+        analyzers=[
+            BehavioralAnalyzer(),
+            TriggerAnalyzer(),
+            LLMAnalyzer(model=llm_model, api_key=llm_key, policy=policy),
+        ],
         policy=policy,
-    )
-    scanner.add_analyzer(
-        LLMAnalyzer(
-            model=os.getenv("SKILL_SCANNER_LLM_MODEL", "anthropic/claude-sonnet-4-6"),
-            api_key=os.getenv("SKILL_SCANNER_LLM_API_KEY"),
-            policy=policy,
-        )
     )
     return scanner
 
@@ -179,17 +183,18 @@ def scan_with_progress(scanner: SkillScanner, skills_dir: str) -> Report:
         t0 = time.time()
         try:
             overlap = scanner._check_description_overlap(loaded_skills)
+
             from skill_scanner.core.analyzers.cross_skill_scanner import CrossSkillScanner
+
             cross = CrossSkillScanner().analyze_skill_set(loaded_skills)
-            all_cross = list(overlap or []) + list(cross or [])
+            all_cross = [*list(overlap or []), *list(cross or [])]
+            if scanner.policy.disabled_rules:
+                all_cross = [f for f in all_cross if f.rule_id not in scanner.policy.disabled_rules]
             if all_cross:
-                if scanner.policy.disabled_rules:
-                    all_cross = [f for f in all_cross if f.rule_id not in scanner.policy.disabled_rules]
                 scanner._apply_severity_overrides(all_cross)
                 report.add_cross_skill_findings(all_cross)
             elapsed = time.time() - t0
-            n = len(all_cross)
-            print(f" {n} finding{'s' if n != 1 else ''} ({elapsed:.1f}s)")
+            print(f" {len(all_cross)} finding{'s' if len(all_cross) != 1 else ''} ({elapsed:.1f}s)")
         except Exception as e:
             print(f" error: {e}")
 
@@ -198,7 +203,7 @@ def scan_with_progress(scanner: SkillScanner, skills_dir: str) -> Report:
 
 
 def main():
-    print("Building scanner (LLM + behavioral + strict policy)...")
+    print("Building scanner (LLM + behavioral + trigger + balanced policy)...")
     scanner = build_scanner()
     print(f"Analyzers: {scanner.list_analyzers()}\n")
 
