@@ -1,7 +1,7 @@
 [project]
 name = "scientific-agent-skills"
-version = "0.1.0"
-description = "Add your description here"
+version = "2.34.2"
+description = "A set of ready to use Agent Skills for research, science, engineering, analysis, finance and writing."
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
