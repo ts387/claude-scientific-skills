@@ -21,9 +21,10 @@ OUTPUT_FILE = "SECURITY.md"
 
 def build_scanner() -> SkillScanner:
     policy = ScanPolicy.from_preset("strict")
+    policy.llm_analysis.max_instruction_body_chars = 50_000
     policy.llm_analysis.max_referenced_file_chars = 50_000
     policy.llm_analysis.max_code_file_chars = 50_000
-    policy.llm_analysis.max_total_prompt_chars = 200_000
+    policy.llm_analysis.max_total_prompt_chars = 500_000
     scanner = SkillScanner(
         analyzers=[BehavioralAnalyzer()],
         policy=policy,
