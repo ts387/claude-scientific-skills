@@ -35,44 +35,17 @@ except ImportError:
 
 # Try to load .env file from multiple potential locations
 def _load_env_file():
-    """Load .env file from current directory, parent directories, or package directory.
-    
-    Returns True if a .env file was found and loaded, False otherwise.
-    Note: This does NOT override existing environment variables.
-    """
+    """Load .env file from current directory or script directory only."""
     try:
         from dotenv import load_dotenv
     except ImportError:
-        return False  # python-dotenv not installed
-    
-    # Try current working directory first
-    env_path = Path.cwd() / ".env"
-    if env_path.exists():
-        load_dotenv(dotenv_path=env_path, override=False)
-        return True
-        
-    # Try parent directories (up to 5 levels)
-    cwd = Path.cwd()
-    for _ in range(5):
-        env_path = cwd / ".env"
-        if env_path.exists():
-            load_dotenv(dotenv_path=env_path, override=False)
+        return False
+
+    for candidate in [Path.cwd() / ".env", Path(__file__).resolve().parent / ".env"]:
+        if candidate.exists():
+            load_dotenv(dotenv_path=candidate, override=False)
             return True
-        cwd = cwd.parent
-        if cwd == cwd.parent:  # Reached root
-            break
-    
-    # Try the package's parent directory (scientific-writer project root)
-    script_dir = Path(__file__).resolve().parent
-    for _ in range(5):
-        env_path = script_dir / ".env"
-        if env_path.exists():
-            load_dotenv(dotenv_path=env_path, override=False)
-            return True
-        script_dir = script_dir.parent
-        if script_dir == script_dir.parent:
-            break
-            
+
     return False
 
 
