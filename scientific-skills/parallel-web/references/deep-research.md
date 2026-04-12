@@ -8,6 +8,8 @@ ONLY use this capability when the user explicitly requests deep/exhaustive resea
 
 ## Step 1: Start the research
 
+Frame the research objective to prioritize academic literature. If the user's query is scientific or technical, prepend context to the arguments that steers toward scholarly sources — e.g., instead of `"effects of sleep deprivation"`, use `"peer-reviewed research and clinical studies on the effects of sleep deprivation"`. This nudges the research agent toward primary literature without excluding relevant non-academic sources.
+
 ```bash
 parallel-cli research run "$ARGUMENTS" --processor pro-fast --no-wait --json
 ```
@@ -65,10 +67,11 @@ Higher processor tiers can take longer than 9 minutes. If the poll exits without
 
 **After step 2:**
 1. Share the **executive summary** that the poll command printed to stdout
-2. Tell the user the two generated file paths:
+2. Briefly assess the source quality: how many of the cited sources are peer-reviewed journals, preprints, or institutional reports vs. news articles or blog posts. If academic coverage is thin, flag this to the user and suggest a follow-up search targeting specific databases (e.g., "I can search PubMed/arXiv specifically for more primary sources on this").
+3. Tell the user the two generated file paths:
    - `$FILENAME.md` — formatted markdown report
    - `$FILENAME.json` — metadata and basis
-3. Share the `interaction_id` and tell the user they can ask follow-up questions that build on this research (e.g., "drill deeper into X" or "compare that to Y")
+4. Share the `interaction_id` and tell the user they can ask follow-up questions that build on this research (e.g., "drill deeper into X" or "compare that to Y")
 
 Do NOT re-share the monitoring URL after completion — the results are in the files, not at that link.
 

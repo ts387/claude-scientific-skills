@@ -62,7 +62,6 @@
 | open-notebook | 🟡 MEDIUM | 18 | ✅ | 21.2s |
 | parallel-web | 🟡 MEDIUM | 5 | ✅ | 29.7s |
 | pennylane | 🟡 MEDIUM | 5 | ✅ | 24.4s |
-| perplexity-search | 🟡 MEDIUM | 6 | ✅ | 24.3s |
 | phylogenetics | 🟡 MEDIUM | 9 | ✅ | 23.0s |
 | protocolsio-integration | 🟡 MEDIUM | 6 | ✅ | 24.9s |
 | pufferlib | 🟡 MEDIUM | 4 | ✅ | 25.2s |
@@ -2230,38 +2229,6 @@
   > The references/devices_backends.md file includes a code example showing an IonQ API key passed as a string literal ('your_api_key') directly in device initialization code. This pattern encourages credential hardcoding. Combined with the static analyzer finding of environment variable access with network calls, this represents a data exposure risk.
   > File: `references/devices_backends.md`
   > **Remediation:** Replace hardcoded API key examples with environment variable patterns: api_key=os.environ.get('IONQ_API_KEY'). Add explicit security warnings in documentation. Recommend using secrets management solutions.
-
-### perplexity-search — 🟡 MEDIUM
-
-- **🔵 LOW** `LLM_SUPPLY_CHAIN_ATTACK` — Unpinned Dependency Installation
-  > The skill instructs users to install litellm and python-dotenv without version pins (e.g., 'uv pip install litellm'). Unpinned dependencies are vulnerable to supply chain attacks where a malicious version of a package could be published and automatically installed. LiteLLM is a large dependency with broad network access capabilities.
-  > File: `SKILL.md`
-  > **Remediation:** Pin dependencies to specific versions (e.g., 'uv pip install litellm==1.x.x'). Provide a requirements.txt or pyproject.toml with pinned versions and hash verification.
-
-- **🟡 MEDIUM** `BEHAVIOR_ENV_VAR_HARVESTING` — Environment variable harvesting detected
-  > Script iterates through environment variables in scientific-skills/perplexity-search/scripts/perplexity_search.py
-  > File: `scientific-skills/perplexity-search/scripts/perplexity_search.py`
-  > **Remediation:** Remove environment variable collection unless explicitly required and documented
-
-- **🟡 MEDIUM** `BEHAVIOR_ENV_VAR_HARVESTING` — Environment variable harvesting detected
-  > Script iterates through environment variables in scientific-skills/perplexity-search/scripts/setup_env.py
-  > File: `scientific-skills/perplexity-search/scripts/setup_env.py`
-  > **Remediation:** Remove environment variable collection unless explicitly required and documented
-
-- **🔵 LOW** `LLM_DATA_EXFILTRATION` — Environment Variable Access Combined with External Network Calls
-  > The static analyzer flagged a cross-file exfiltration chain: setup_env.py reads/writes the OPENROUTER_API_KEY environment variable, and perplexity_search.py reads the same variable and passes it to LiteLLM which makes external network calls. While this is the intended and legitimate behavior of the skill (the API key is needed to authenticate with OpenRouter), it is worth noting that the API key is transmitted to an external service (openrouter.ai) on every query. This is expected behavior but represents a data flow that users should be aware of.
-  > File: `scripts/perplexity_search.py:68`
-  > **Remediation:** This is expected behavior. Ensure users understand their queries and API key are transmitted to OpenRouter/Perplexity. Document data privacy implications clearly. Consider adding a notice about query logging by third-party services.
-
-- **🔵 LOW** `LLM_DATA_EXFILTRATION` — API Key Written to .env File Without Gitignore Enforcement
-  > The setup_env.py script writes the OpenRouter API key to a .env file on disk. While the SKILL.md documentation mentions adding .env to .gitignore, the script itself does not check for or create a .gitignore entry, nor does it warn the user if the .env file is in a git-tracked directory. This could lead to accidental credential exposure if the user commits the .env file.
-  > File: `scripts/setup_env.py:38`
-  > **Remediation:** After writing the .env file, check if the directory is a git repository and warn the user if .env is not in .gitignore. Optionally, automatically add .env to .gitignore.
-
-- **🔵 LOW** `LLM_DATA_EXFILTRATION` — API Key Passed via CLI Argument (Potential Exposure in Process List)
-  > The setup_env.py script accepts the OpenRouter API key as a command-line argument (--api-key). On multi-user systems, command-line arguments are visible in the process list (e.g., via 'ps aux'), which could expose the API key to other users on the same machine. Additionally, the script echoes the raw API key in its 'Next steps' output, which could be captured in logs or terminal history.
-  > File: `scripts/setup_env.py:113`
-  > **Remediation:** Avoid accepting secrets as CLI arguments. Use interactive prompts (getpass module) or read from a file. Mask the key in any output. Ensure shell history is not recording the key.
 
 ### phylogenetics — 🟡 MEDIUM
 
