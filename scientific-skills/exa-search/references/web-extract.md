@@ -18,16 +18,14 @@ Content modes:
 
 - `--text` (default if nothing else is passed) returns full-text content
 - `--highlights` returns extracted passages instead of full text
-- `--summary "focus area"` returns an LLM summary focused on the given aspect
 
 ## Academic content handling
 
-When extracting from academic sources (arXiv, PubMed, journal sites, conference proceedings), prefer `--summary` with a focused query, or combine `--text` with `--summary`:
+When extracting from academic sources (arXiv, PubMed, journal sites, conference proceedings), use `--text` to get the full paper text:
 
 ```bash
 uv run --with exa-py python "$SKILL_PATH/scripts/exa_extract.py" "$URL" \
   --text \
-  --summary "abstract, methodology, key findings, and conclusions" \
   -o "$FILENAME.json"
 ```
 
@@ -42,10 +40,9 @@ Return content as:
 For academic papers, include structured metadata when available:
 - **Authors:** list of authors (from the `author` field)
 - **Published:** from `published_date`
-- **Abstract / Summary:** from `summary` if requested
 
 Then the extracted content, with these rules:
-- Keep content verbatim — do not paraphrase or summarize unless `--summary` was used
+- Keep content verbatim — do not paraphrase or summarize
 - Parse lists exhaustively — extract EVERY numbered/bulleted item
 - Strip only obvious noise: nav menus, footers, ads
 - Preserve all facts, names, numbers, dates, quotes

@@ -8,7 +8,6 @@ Choose a short, descriptive filename based on the query (e.g., `ai-chip-news`, `
 
 ```bash
 uv run --with exa-py python "$SKILL_PATH/scripts/exa_search.py" "$ARGUMENTS" \
-  --num-results 10 \
   --text --highlights \
   -o "$FILENAME.json"
 ```
@@ -19,15 +18,14 @@ uv run --with exa-py python "$SKILL_PATH/scripts/exa_search.py" "$ARGUMENTS" \
 
 | Mode | When to use |
 |---|---|
-| `auto` (default) | Exa picks neural vs. keyword per query. Use this unless you have a reason not to. |
-| `neural` | Force semantic/embedding retrieval. Best for conceptual or exploratory queries ("papers that propose *alternatives* to attention"). |
+| `auto` (default) | Exa's general-purpose search. Use this unless you have a reason not to. |
 | `fast` | Lowest latency. Use for simple lookups where speed matters more than nuance. |
+| `deep` | Slowest but highest quality. Use for hard, conceptual, or exhaustive research queries where recall matters more than latency. |
 
 **Content modes** — add any combination:
 
 - `--text` returns full-text content per result
 - `--highlights` returns the most relevant passages (good signal-to-noise, lower token cost than full text)
-- `--summary` returns an LLM summary; pass a focus string to direct it, e.g. `--summary "experimental methods and sample size"`
 
 Default to `--highlights` for broad searches (cheaper, more skimmable). Add `--text` only when you need to quote or extract in detail.
 
@@ -36,7 +34,7 @@ Default to `--highlights` for broad searches (cheaper, more skimmable). Add `--t
 - `--start-published-date YYYY-MM-DD` / `--end-published-date YYYY-MM-DD` for time-sensitive queries
 - `--include-domains domain1.com,domain2.com` to restrict to an allowlist
 - `--exclude-domains spam.com,low-quality.com` to drop a blocklist
-- `--category "research paper"` to bias toward scholarly content (also: `company`, `news`, `pdf`, `github`, `tweet`, `personal site`, `linkedin profile`, `financial report`, `people`)
+- `--category "research paper"` to bias toward scholarly content (also: `company`, `news`, `github`, `personal site`, `financial report`, `people`)
 - `--user-location US` for locale-specific results
 
 ## Academic source strategy
@@ -48,7 +46,6 @@ For scientific or technical queries, Exa has two strong levers:
 ```bash
 uv run --with exa-py python "$SKILL_PATH/scripts/exa_search.py" "$ARGUMENTS" \
   --category "research paper" \
-  --num-results 10 \
   --text --highlights \
   -o "$FILENAME-academic.json"
 ```
@@ -62,8 +59,7 @@ For stricter academic filtering, combine the category with an explicit domain al
 ```bash
 uv run --with exa-py python "$SKILL_PATH/scripts/exa_search.py" "$ARGUMENTS" \
   --category "research paper" \
-  --include-domains "arxiv.org,biorxiv.org,medrxiv.org,pubmed.ncbi.nlm.nih.gov,ncbi.nlm.nih.gov,nature.com,science.org,cell.com,pnas.org,nih.gov,semanticscholar.org,scholar.google.com,ieee.org,acm.org,springer.com,wiley.com" \
-  --num-results 15 \
+  --include-domains "arxiv.org,biorxiv.org,medrxiv.org,pubmed.ncbi.nlm.nih.gov,nature.com,science.org" \
   --text --highlights \
   -o "$FILENAME-academic.json"
 ```
@@ -85,9 +81,9 @@ Parse the JSON output. Each result includes:
 
 - `title`, `url`, `published_date`, `author`
 - `score` — Exa's relevance score for the query
-- `text` (if `--text`), `highlights` + `highlight_scores` (if `--highlights`), `summary` (if `--summary`)
+- `text` (if `--text`), `highlights` + `highlight_scores` (if `--highlights`)
 
-**Snippet fallback** — any combination of content fields may be present. Cascade through them: prefer `highlights` (tight, pre-selected passages), fall back to `summary`, fall back to a truncated slice of `text`. Never assume exactly one is present.
+**Snippet fallback** — any combination of content fields may be present. Cascade through them: prefer `highlights` (tight, pre-selected passages), fall back to a truncated slice of `text`. Never assume exactly one is present.
 
 ## Response format
 

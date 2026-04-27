@@ -9,7 +9,7 @@ Example:
     uv run exa_extract.py \\
         https://arxiv.org/abs/2401.04088 \\
         https://www.nature.com/articles/s41586-024-07566-y \\
-        --text --summary "methods and key findings" \\
+        --text \\
         -o extracted.json
 """
 from __future__ import annotations
@@ -31,7 +31,7 @@ except ImportError:
     sys.exit(2)
 
 
-EXA_INTEGRATION_HEADER = "scientific-agent-skills"
+EXA_INTEGRATION_HEADER = "k-dense-ai--scientific-agent-skills"
 
 
 @dataclass
@@ -45,17 +45,14 @@ class ExtractedDocument:
     published_date: str | None
     text: str | None = None
     highlights: list[str] = field(default_factory=list)
-    summary: str | None = None
 
 
-def _build_contents(text: bool, highlights: bool, summary: str | None) -> dict[str, Any]:
+def _build_contents(text: bool, highlights: bool) -> dict[str, Any]:
     contents: dict[str, Any] = {}
     if text:
         contents["text"] = True
     if highlights:
         contents["highlights"] = True
-    if summary is not None:
-        contents["summary"] = {"query": summary} if summary else True
     if not contents:
         # Default to full text when the caller doesn't pick anything.
         contents["text"] = True
@@ -71,7 +68,6 @@ def _to_typed(item: Any) -> ExtractedDocument:
         published_date=getattr(item, "published_date", None),
         text=getattr(item, "text", None),
         highlights=list(getattr(item, "highlights", None) or []),
-        summary=getattr(item, "summary", None),
     )
 
 
@@ -84,7 +80,7 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
     client = Exa(api_key=api_key)
     client.headers["x-exa-integration"] = EXA_INTEGRATION_HEADER
 
-    contents = _build_contents(args.text, args.highlights, args.summary)
+    contents = _build_contents(args.text, args.highlights)
     response = client.get_contents(urls=args.urls, **contents)
 
     typed = [_to_typed(item) for item in getattr(response, "results", []) or []]
@@ -100,13 +96,6 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("urls", nargs="+", help="One or more URLs to extract.")
     parser.add_argument("--text", action="store_true", help="Return full-text content.")
     parser.add_argument("--highlights", action="store_true", help="Return extracted highlight snippets.")
-    parser.add_argument(
-        "--summary",
-        nargs="?",
-        const="",
-        default=None,
-        help="Return LLM summary. Optional value is a query to focus the summary.",
-    )
     parser.add_argument("-o", "--output", default=None, help="Write JSON to this file (default: stdout).")
     return parser
 

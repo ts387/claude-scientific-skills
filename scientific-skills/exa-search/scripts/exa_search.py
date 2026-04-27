@@ -9,10 +9,7 @@ Uses the Exa Python SDK. Auth via the EXA_API_KEY environment variable.
 
 Example:
     uv run exa_search.py "transformer architectures" \\
-        --num-results 10 \\
         --category "research paper" \\
-        --include-domains arxiv.org,nature.com \\
-        --start-published-date 2024-01-01 \\
         --text --highlights \\
         -o results.json
 """
@@ -35,7 +32,7 @@ except ImportError:
     sys.exit(2)
 
 
-EXA_INTEGRATION_HEADER = "scientific-agent-skills"
+EXA_INTEGRATION_HEADER = "k-dense-ai--scientific-agent-skills"
 
 
 @dataclass
@@ -51,7 +48,6 @@ class SearchResult:
     text: str | None = None
     highlights: list[str] = field(default_factory=list)
     highlight_scores: list[float] = field(default_factory=list)
-    summary: str | None = None
 
 
 def _split_csv(value: str | None) -> list[str] | None:
@@ -61,15 +57,12 @@ def _split_csv(value: str | None) -> list[str] | None:
     return items or None
 
 
-def _build_contents(text: bool, highlights: bool, summary: str | None) -> dict[str, Any] | None:
+def _build_contents(text: bool, highlights: bool) -> dict[str, Any] | None:
     contents: dict[str, Any] = {}
     if text:
         contents["text"] = True
     if highlights:
         contents["highlights"] = True
-    if summary is not None:
-        # Empty string means "use default summary"; any other string is a custom query
-        contents["summary"] = {"query": summary} if summary else True
     return contents or None
 
 
@@ -86,7 +79,6 @@ def _result_to_typed(item: Any) -> SearchResult:
         text=getattr(item, "text", None),
         highlights=highlights,
         highlight_scores=scores,
-        summary=getattr(item, "summary", None),
     )
 
 
@@ -100,7 +92,7 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
     # Attribute API usage to this skill for integration tracking.
     client.headers["x-exa-integration"] = EXA_INTEGRATION_HEADER
 
-    contents = _build_contents(args.text, args.highlights, args.summary)
+    contents = _build_contents(args.text, args.highlights)
 
     kwargs: dict[str, Any] = {
         "query": args.query,
@@ -141,8 +133,8 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument(
         "--type",
         default="auto",
-        choices=["auto", "neural", "fast"],
-        help="Search type. 'auto' lets Exa pick; 'neural' forces semantic; 'fast' is lowest latency.",
+        choices=["auto", "fast", "deep"],
+        help="Search type. 'auto' is Exa's general-purpose search; 'fast' is lowest latency; 'deep' is highest quality at higher latency.",
     )
     parser.add_argument("--num-results", type=int, default=10, help="Number of results (1-100).")
     parser.add_argument(
@@ -152,11 +144,8 @@ def build_parser() -> argparse.ArgumentParser:
             "company",
             "research paper",
             "news",
-            "pdf",
             "github",
-            "tweet",
             "personal site",
-            "linkedin profile",
             "financial report",
             "people",
         ],
@@ -169,13 +158,6 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--user-location", default=None, help="Two-letter ISO country code.")
     parser.add_argument("--text", action="store_true", help="Return full-text content per result.")
     parser.add_argument("--highlights", action="store_true", help="Return extracted highlight snippets.")
-    parser.add_argument(
-        "--summary",
-        nargs="?",
-        const="",
-        default=None,
-        help="Return LLM summary. Optional value is a query to focus the summary.",
-    )
     parser.add_argument("-o", "--output", default=None, help="Write JSON to this file (default: stdout).")
     return parser
 

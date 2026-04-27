@@ -6,7 +6,7 @@ skill root:
     python -m unittest discover -s tests -v
 
 Tests cover: CLI argument plumbing, the content-options builder (text /
-highlights / summary), CSV splitting for domain lists, the content fallback
+highlights), CSV splitting for domain lists, the content fallback
 cascade, and the x-exa-integration header wiring.
 """
 from __future__ import annotations
@@ -46,7 +46,6 @@ def _fake_result(**overrides):
         "text": "Full paper text here",
         "highlights": ["The Transformer relies entirely on self-attention"],
         "highlight_scores": [0.87],
-        "summary": None,
     }
     defaults.update(overrides)
     return SimpleNamespace(**defaults)
@@ -60,37 +59,25 @@ class BuildContentsTests(unittest.TestCase):
         self.extract_mod = _load_script("exa_extract")
 
     def test_search_no_flags_returns_none(self):
-        self.assertIsNone(self.search_mod._build_contents(False, False, None))
+        self.assertIsNone(self.search_mod._build_contents(False, False))
 
     def test_search_text_only(self):
-        self.assertEqual(self.search_mod._build_contents(True, False, None), {"text": True})
+        self.assertEqual(self.search_mod._build_contents(True, False), {"text": True})
 
     def test_search_highlights_only(self):
         self.assertEqual(
-            self.search_mod._build_contents(False, True, None),
+            self.search_mod._build_contents(False, True),
             {"highlights": True},
         )
 
-    def test_search_summary_default_is_boolean_true(self):
+    def test_search_text_and_highlights_combine(self):
         self.assertEqual(
-            self.search_mod._build_contents(False, False, ""),
-            {"summary": True},
-        )
-
-    def test_search_summary_with_query(self):
-        self.assertEqual(
-            self.search_mod._build_contents(False, False, "key findings"),
-            {"summary": {"query": "key findings"}},
-        )
-
-    def test_search_all_three_combine(self):
-        self.assertEqual(
-            self.search_mod._build_contents(True, True, "methods"),
-            {"text": True, "highlights": True, "summary": {"query": "methods"}},
+            self.search_mod._build_contents(True, True),
+            {"text": True, "highlights": True},
         )
 
     def test_extract_defaults_to_text_when_nothing_specified(self):
-        self.assertEqual(self.extract_mod._build_contents(False, False, None), {"text": True})
+        self.assertEqual(self.extract_mod._build_contents(False, False), {"text": True})
 
 
 class SplitCsvTests(unittest.TestCase):
@@ -136,19 +123,17 @@ class ResultTypingTests(unittest.TestCase):
         self.assertEqual(typed.highlight_scores, [])
 
     def test_highlights_only_response(self):
-        """Content fallback: when only highlights are present, text/summary must stay None."""
-        item = _fake_result(text=None, summary=None, highlights=["snippet A", "snippet B"])
+        """Content fallback: when only highlights are present, text must stay None."""
+        item = _fake_result(text=None, highlights=["snippet A", "snippet B"])
         typed = self.mod._result_to_typed(item)
         self.assertIsNone(typed.text)
-        self.assertIsNone(typed.summary)
         self.assertEqual(typed.highlights, ["snippet A", "snippet B"])
 
-    def test_summary_only_response(self):
-        item = _fake_result(text=None, highlights=[], highlight_scores=[], summary="A summary.")
+    def test_text_only_response(self):
+        item = _fake_result(highlights=[], highlight_scores=[])
         typed = self.mod._result_to_typed(item)
-        self.assertIsNone(typed.text)
+        self.assertEqual(typed.text, "Full paper text here")
         self.assertEqual(typed.highlights, [])
-        self.assertEqual(typed.summary, "A summary.")
 
 
 class IntegrationHeaderAndFlowTests(unittest.TestCase):
@@ -179,7 +164,10 @@ class IntegrationHeaderAndFlowTests(unittest.TestCase):
 
     def test_integration_header_is_set(self):
         _, client, _ = self._run_with_mock(["what is attention", "--highlights"])
-        self.assertEqual(client.headers.get("x-exa-integration"), "scientific-agent-skills")
+        self.assertEqual(
+            client.headers.get("x-exa-integration"),
+            "k-dense-ai--scientific-agent-skills",
+        )
 
     def test_calls_search_and_contents_when_contents_requested(self):
         _, client, _ = self._run_with_mock(["query", "--text"])
