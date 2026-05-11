@@ -2,7 +2,7 @@
 
 ## Base URL
 ```
-https://api.monarchinitiative.org/v3/api
+https://api-v3.monarchinitiative.org/v3/api
 ```
 
 ## Auth
@@ -30,13 +30,13 @@ No API key required.
 ## Example Calls
 ```
 # Search for Marfan syndrome
-https://api.monarchinitiative.org/v3/api/search?q=Marfan+syndrome&limit=5
+https://api-v3.monarchinitiative.org/v3/api/search?q=Marfan+syndrome&limit=5
 
 # Entity details for a disease
-https://api.monarchinitiative.org/v3/api/entity/MONDO:0007947
+https://api-v3.monarchinitiative.org/v3/api/entity/MONDO:0007947
 
 # Gene-to-phenotype for FBN1
-https://api.monarchinitiative.org/v3/api/entity/HGNC:3603/associations?category=biolink:GeneToPhenotypicFeatureAssociation&limit=10
+https://api-v3.monarchinitiative.org/v3/api/entity/HGNC:3603/associations?category=biolink:GeneToPhenotypicFeatureAssociation&limit=10
 ```
 
 ## Response Format

@@ -1,13 +1,13 @@
 ---
 name: database-lookup
-description: Search 78 public scientific, biomedical, materials science, and economic databases via REST APIs. Covers physics/astronomy (NASA, NIST, SDSS, SIMBAD), earth/environment (USGS, NOAA, EPA), chemistry/drugs (PubChem, ChEMBL, DrugBank, FDA, KEGG, ZINC, BindingDB), materials (Materials Project, COD), biology/genomics (Reactome, UniProt, STRING, Ensembl, NCBI Gene, GEO, GTEx, PDB, AlphaFold, InterPro, BioGRID, Gene Ontology, dbSNP, gnomAD, ENCODE, Human Protein Atlas, Human Cell Atlas), disease/clinical (COSMIC, Open Targets, ClinicalTrials.gov, OMIM, ClinVar, GDC/TCGA, cBioPortal, DisGeNET, GWAS Catalog), regulatory (FDA, USPTO, SEC EDGAR), economics/finance (FRED, World Bank, US Treasury), demographics (US Census, Eurostat, WHO). Use when looking up compounds, genes, proteins, pathways, variants, clinical trials, patents, economic indicators, or any public database API query.
+description: Search 80 public scientific, biomedical, materials science, and economic databases via REST APIs. Covers physics/astronomy (NASA, NIST, SDSS, SIMBAD), earth/environment (USGS, NOAA, EPA), chemistry/drugs (PubChem, ChEMBL, DrugBank, FDA, KEGG, ZINC, BindingDB, HMDB), materials (Materials Project, COD), biology/genomics (Reactome, UniProt, STRING, Ensembl, NCBI Gene, GEO, GTEx, PDB, AlphaFold, InterPro, BioGRID, Gene Ontology, dbSNP, gnomAD, ENCODE, Human Protein Atlas, Human Cell Atlas, HMDB), disease/clinical (COSMIC, Open Targets, ClinicalTrials.gov, OMIM, ClinVar, GDC/TCGA, cBioPortal, DisGeNET, GWAS Catalog), regulatory (FDA, USPTO, SEC EDGAR), economics/finance (FRED, World Bank, US Treasury), demographics (US Census, Eurostat, WHO), scholarly literature (OpenAlex). Use when looking up compounds, genes, proteins, pathways, variants, clinical trials, patents, economic indicators, scholarly works, or any public database API query.
 metadata:
   skill-author: K-Dense Inc.
 ---
 
 # Database Lookup
 
-You have access to 78 public databases through their REST APIs. Your job is to figure out which database(s) are relevant to the user's question, query them, and return the raw JSON results along with which databases you used.
+You have access to 80 public databases through their REST APIs. Your job is to figure out which database(s) are relevant to the user's question, query them, and return the raw JSON results along with which databases you used.
 
 ## Core Workflow
 
@@ -85,8 +85,10 @@ Match the user's intent to the right database(s). Many queries benefit from hitt
 | Biological pathways | Reactome, KEGG | — |
 | What pathways a gene/protein is in | Reactome (mapping), KEGG | — |
 | Enzyme kinetics, catalytic activity | BRENDA | KEGG |
-| Metabolomics studies, metabolite profiles | Metabolomics Workbench | PubChem |
-| m/z or exact mass lookup | Metabolomics Workbench (moverz/exactmass) | PubChem |
+| Metabolomics studies, metabolite profiles | Metabolomics Workbench | PubChem, HMDB |
+| m/z or exact mass lookup | Metabolomics Workbench (moverz/exactmass) | PubChem, HMDB |
+| Human metabolite info, NMR/MS spectra, biomarkers | HMDB | Metabolomics Workbench, PubChem |
+| Metabolite concentrations in biofluids (normal/disease) | HMDB | — |
 | Protein sequence, function, annotation | UniProt | Ensembl |
 | Protein-protein interactions | STRING | BioGRID |
 | Gene information, genomic location | NCBI Gene | Ensembl |
@@ -167,6 +169,15 @@ Match the user's intent to the right database(s). Many queries benefit from hitt
 | US population, housing, income data | US Census | Data Commons |
 | EU statistics (economy, trade, health) | Eurostat | World Bank |
 | Global health indicators (mortality, disease) | WHO GHO | World Bank |
+
+### Scholarly Literature & Bibliometrics
+| User is asking about... | Primary database(s) | Also consider |
+|---|---|---|
+| Scholarly papers, authors, citations | OpenAlex | — |
+| Bibliometric analysis, research output by author/institution | OpenAlex | — |
+| Open-access works on a topic | OpenAlex | — |
+| Auto-tagging text with research topics/keywords | OpenAlex (`/text` POST) | — |
+| Bulk DOI lookup (metadata) | OpenAlex | — |
 
 ### Cross-domain queries
 | User is asking about... | Primary database(s) | Also consider |
@@ -433,6 +444,7 @@ Read the relevant reference file before making any API call.
 | RummaGEO | `references/rummageo.md` | GEO gene set enrichment (POST) |
 | PRIDE | `references/pride.md` | Proteomics data repository |
 | Metabolomics Workbench | `references/metabolomics-workbench.md` | Metabolomics studies, metabolites |
+| HMDB | `references/hmdb.md` | Human metabolites: structure, NMR/MS spectra, biofluid concentrations |
 | MouseMine | `references/mousemine.md` | Mouse genome informatics |
 | ENA | `references/ena.md` | Nucleotide sequences, reads, assemblies, taxonomy (EMBL-EBI) |
 | Addgene | `references/addgene.md` | Plasmid repository |
@@ -478,3 +490,8 @@ Read the relevant reference file before making any API call.
 | US Census | `references/census.md` | Population, housing, economic surveys |
 | Eurostat | `references/eurostat.md` | EU statistics |
 | WHO GHO | `references/who.md` | Global health indicators |
+
+### Scholarly Literature
+| Database | Reference File | What it covers |
+|---|---|---|
+| OpenAlex | `references/openalex.md` | 240M+ scholarly works, authors, institutions, citations |
