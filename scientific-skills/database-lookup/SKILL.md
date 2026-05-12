@@ -1,13 +1,13 @@
 ---
 name: database-lookup
-description: Search 80 public scientific, biomedical, materials science, and economic databases via REST APIs. Covers physics/astronomy (NASA, NIST, SDSS, SIMBAD), earth/environment (USGS, NOAA, EPA), chemistry/drugs (PubChem, ChEMBL, DrugBank, FDA, KEGG, ZINC, BindingDB, HMDB), materials (Materials Project, COD), biology/genomics (Reactome, UniProt, STRING, Ensembl, NCBI Gene, GEO, GTEx, PDB, AlphaFold, InterPro, BioGRID, Gene Ontology, dbSNP, gnomAD, ENCODE, Human Protein Atlas, Human Cell Atlas, HMDB), disease/clinical (COSMIC, Open Targets, ClinicalTrials.gov, OMIM, ClinVar, GDC/TCGA, cBioPortal, DisGeNET, GWAS Catalog), regulatory (FDA, USPTO, SEC EDGAR), economics/finance (FRED, World Bank, US Treasury), demographics (US Census, Eurostat, WHO), scholarly literature (OpenAlex). Use when looking up compounds, genes, proteins, pathways, variants, clinical trials, patents, economic indicators, scholarly works, or any public database API query.
+description: Search 81 public scientific, biomedical, materials science, and economic databases via REST APIs. Covers physics/astronomy (NASA, NIST, SDSS, SIMBAD), earth/environment (USGS, NOAA, EPA), chemistry/drugs (PubChem, ChEMBL, DrugBank, FDA, KEGG, ZINC, BindingDB, HMDB), materials (Materials Project, COD), biology/genomics (Reactome, UniProt, STRING, Ensembl, NCBI Gene, GEO, GTEx, PDB, AlphaFold, InterPro, BioGRID, Gene Ontology, dbSNP, gnomAD, ENCODE, Human Protein Atlas, Human Cell Atlas, HMDB, EMDB, EMPIAR), disease/clinical (COSMIC, Open Targets, ClinicalTrials.gov, OMIM, ClinVar, GDC/TCGA, cBioPortal, DisGeNET, GWAS Catalog), regulatory (FDA, USPTO, SEC EDGAR), economics/finance (FRED, World Bank, US Treasury), demographics (US Census, Eurostat, WHO), scholarly literature (OpenAlex). Use when looking up compounds, genes, proteins, pathways, variants, clinical trials, patents, economic indicators, scholarly works, or any public database API query.
 metadata:
   skill-author: K-Dense Inc.
 ---
 
 # Database Lookup
 
-You have access to 80 public databases through their REST APIs. Your job is to figure out which database(s) are relevant to the user's question, query them, and return the raw JSON results along with which databases you used.
+You have access to 81 public databases through their REST APIs. Your job is to figure out which database(s) are relevant to the user's question, query them, and return the raw JSON results along with which databases you used.
 
 ## Core Workflow
 
@@ -109,6 +109,8 @@ Match the user's intent to the right database(s). Many queries benefit from hitt
 | 3D protein structures (experimental) | PDB (RCSB) | EMDB |
 | 3D protein structures (predicted) | AlphaFold DB | PDB |
 | EM maps, cryo-EM structures | EMDB | PDB |
+| Raw cryo-EM/vEM image data, micrographs, particle stacks | EMPIAR | EMDB |
+| Bulk download of raw EM datasets (TB-scale) | EMPIAR (Globus / Aspera) | — |
 | Protein families, domains | InterPro | UniProt |
 | Chemical entities (biological) | ChEBI | PubChem |
 | Protein/genetic interactions | BioGRID | STRING |
@@ -210,6 +212,8 @@ Different databases use different identifier systems. If a query fails, the iden
 | ENA Sample | `ERS` + digits | `ERS1234567` | ENA |
 | ChEMBL ID | `CHEMBL####` | `CHEMBL25` (aspirin) | ChEMBL |
 | Reactome stable ID | `R-HSA-######` | `R-HSA-109581` | Reactome |
+| EMDB accession | `EMD-####` | `EMD-1234` | EMDB |
+| EMPIAR accession | `EMPIAR-#####` | `EMPIAR-10009` | EMPIAR |
 | HP term | `HP:#######` | `HP:0001250` (seizure) | HPO (URL-encode colon as %3A) |
 | MONDO disease | `MONDO:#######` | `MONDO:0007947` | Monarch |
 | GO term | `GO:#######` | `GO:0008150` | QuickGO, Gene Ontology |
@@ -428,6 +432,7 @@ Read the relevant reference file before making any API call.
 | PDB | `references/pdb.md` | Protein 3D structures |
 | AlphaFold DB | `references/alphafold.md` | Predicted protein structures |
 | EMDB | `references/emdb.md` | Electron microscopy maps |
+| EMPIAR | `references/empiar.md` | Raw cryo-EM/vEM image data (companion to EMDB) |
 | InterPro | `references/interpro.md` | Protein families, domains |
 | BioGRID | `references/biogrid.md` | Protein/genetic interactions |
 | Gene Ontology | `references/gene-ontology.md` | GO terms, gene annotations |
