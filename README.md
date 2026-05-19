@@ -5,10 +5,10 @@
 > **New: [K-Dense BYOK](https://github.com/K-Dense-AI/k-dense-byok)** — A free, open-source AI co-scientist that runs on your desktop, powered by Scientific Agent Skills. Bring your own API keys, pick from 40+ models, and get a full research workspace with web search, file handling, 100+ scientific databases, and access to all 138 skills in this repo. Your data stays on your computer, and you can optionally scale to cloud compute via [Modal](https://modal.com/) for heavy workloads. [Get started here.](https://github.com/K-Dense-AI/k-dense-byok)
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE.md)
-[![Skills](https://img.shields.io/badge/Skills-138-brightgreen.svg)](#whats-included)
-[![Databases](https://img.shields.io/badge/Databases-100%2B-orange.svg)](#whats-included)
+[![Skills](https://img.shields.io/badge/Skills-138-brightgreen.svg)](#-whats-included)
+[![Databases](https://img.shields.io/badge/Databases-100%2B-orange.svg)](#-whats-included)
 [![Agent Skills](https://img.shields.io/badge/Standard-Agent_Skills-blueviolet.svg)](https://agentskills.io/)
-[![Works with](https://img.shields.io/badge/Works_with-Cursor_|_Claude_Code_|_Codex-blue.svg)](#getting-started)
+[![Works with](https://img.shields.io/badge/Works_with-Cursor_|_Claude_Code_|_Codex-blue.svg)](#-getting-started)
 [![X](https://img.shields.io/badge/Follow_on_X-%40k__dense__ai-000000?logo=x)](https://x.com/k_dense_ai)
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-K--Dense_Inc.-0A66C2?logo=linkedin)](https://www.linkedin.com/company/k-dense-inc)
 [![YouTube](https://img.shields.io/badge/YouTube-K--Dense_Inc.-FF0000?logo=youtube)](https://www.youtube.com/@K-Dense-Inc)
@@ -65,21 +65,21 @@ Each skill includes:
 
 ## 📋 Table of Contents
 
-- [What's Included](#whats-included)
-- [Why Use This?](#why-use-this)
-- [Getting Started](#getting-started)
-- [Security Disclaimer](#-security-disclaimer)
-- [Support Open Source](#-support-the-open-source-community)
-- [Prerequisites](#prerequisites)
-- [Quick Examples](#quick-examples)
-- [Use Cases](#use-cases)
-- [Available Skills](#available-skills)
-- [Contributing](#contributing)
-- [Troubleshooting](#troubleshooting)
-- [FAQ](#faq)
-- [Support](#support)
-- [Citation](#citation)
-- [License](#license)
+- [What's Included](#-whats-included)
+- [Why Use This?](#-why-use-this)
+- [Getting Started](#-getting-started)
+- [Security Disclaimer](#%EF%B8%8F-security-disclaimer)
+- [Support Open Source](#%EF%B8%8F-support-the-open-source-community)
+- [Prerequisites](#%EF%B8%8F-prerequisites)
+- [Quick Examples](#-quick-examples)
+- [Use Cases](#-use-cases)
+- [Available Skills](#-available-skills)
+- [Contributing](#-contributing)
+- [Troubleshooting](#-troubleshooting)
+- [FAQ](#-faq)
+- [Support](#-support)
+- [Citation](#-citation)
+- [License](#-license)
 
 ---
 
@@ -635,7 +635,7 @@ This project builds on 50+ amazing open source projects. If you find value in th
 ### Common Issues
 
 **Problem: Skills not loading**
-- Verify skill folders are in the correct directory (see [Getting Started](#getting-started))
+- Verify skill folders are in the correct directory (see [Getting Started](#-getting-started))
 - Each skill folder must contain a `SKILL.md` file
 - Restart your agent/IDE after copying skills
 - In Cursor, check Settings → Rules to confirm skills are discovered
@@ -686,7 +686,7 @@ A: The skills follow the open [Agent Skills](https://agentskills.io/) standard a
 A: No! Only install the packages you need. Each skill specifies its requirements in its `SKILL.md` file.
 
 **Q: What if a skill doesn't work?**  
-A: First check the [Troubleshooting](#troubleshooting) section. If the issue persists, file an issue on GitHub with detailed reproduction steps.
+A: First check the [Troubleshooting](#-troubleshooting) section. If the issue persists, file an issue on GitHub with detailed reproduction steps.
 
 **Q: Do the skills work offline?**  
 A: Database skills require internet access to query APIs. Package skills work offline once Python dependencies are installed.
@@ -694,7 +694,7 @@ A: Database skills require internet access to query APIs. Package skills work of
 ### Contributing
 
 **Q: Can I contribute my own skills?**  
-A: Absolutely! We welcome contributions. See the [Contributing](#contributing) section for guidelines and best practices.
+A: Absolutely! We welcome contributions. See the [Contributing](#-contributing) section for guidelines and best practices.
 
 **Q: How do I report bugs or suggest features?**  
 A: Open an issue on GitHub with a clear description. For bugs, include reproduction steps and expected vs actual behavior.
