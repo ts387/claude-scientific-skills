@@ -1,6 +1,6 @@
 ---
 name: research-grants
-description: Write competitive research proposals for NSF, NIH, DOE, DARPA, and Taiwan NSTC. Agency-specific formatting, review criteria, budget preparation, broader impacts, significance statements, innovation narratives, and compliance with submission requirements.
+description: Write competitive research proposals for NSF, NIH, DOE, DARPA, Taiwan NSTC, and UKRI (including Future Leaders Fellowships). Agency-specific formatting, review criteria, budget preparation, broader impacts, significance statements, innovation narratives, fellowship career-development and host-support cases, and compliance with submission requirements.
 allowed-tools: Read Write Edit Bash
 license: MIT license
 metadata:
@@ -11,14 +11,15 @@ metadata:
 
 ## Overview
 
-Research grant writing is the process of developing competitive funding proposals for federal agencies and foundations. Master agency-specific requirements, review criteria, narrative structure, budget preparation, and compliance for NSF (National Science Foundation), NIH (National Institutes of Health), DOE (Department of Energy), DARPA (Defense Advanced Research Projects Agency), and Taiwan's NSTC (National Science and Technology Council) submissions.
+Research grant writing is the process of developing competitive funding proposals for federal agencies and foundations. Master agency-specific requirements, review criteria, narrative structure, budget preparation, and compliance for NSF (National Science Foundation), NIH (National Institutes of Health), DOE (Department of Energy), DARPA (Defense Advanced Research Projects Agency), Taiwan's NSTC (National Science and Technology Council), and UKRI (UK Research and Innovation, including the Future Leaders Fellowships) submissions.
 
 **Critical Principle: Grants are persuasive documents that must simultaneously demonstrate scientific rigor, innovation, feasibility, and broader impact.** Each agency has distinct priorities, review criteria, formatting requirements, and strategic goals that must be addressed.
 
 ## When to Use This Skill
 
 This skill should be used when:
-- Writing research proposals for NSF, NIH, DOE, DARPA, or NSTC programs
+- Writing research proposals for NSF, NIH, DOE, DARPA, NSTC, or UKRI programs
+- Writing fellowship applications (e.g. UKRI Future Leaders Fellowships) with career-development and host-support narratives
 - Preparing project descriptions, specific aims, or technical narratives
 - Developing broader impacts or significance statements
 - Creating research timelines and milestone plans
@@ -124,6 +125,18 @@ For detailed guidance on creating schematics, refer to the scientific-schematics
 - **Preliminary Data**: Highly critical for credibility.
 - **Research Architecture Diagram**: A mandatory visual element for clarity.
 
+### UKRI (UK Research and Innovation)
+**Mission**: Fund world-class research and innovation across the UK's seven research councils, Innovate UK, and Research England.
+
+**Key Features**:
+- **Person-and-project**: Fellowship schemes (notably the **Future Leaders Fellowships, FLF**) assess the applicant's leadership and career development as heavily as the science.
+- **UKRI Funding Service (TFS)**: Section-by-section form with strict per-question word counts, not a single monolithic narrative.
+- **Résumé for Research and Innovation (R4RI)**: Narrative CV format (four contribution modules), **not** a publication list.
+- **Full Economic Cost (fEC)**: Most costs funded at 80% fEC; host co-funds salary tapering and 20% of equipment.
+- **Hard formatting gates**: e.g. FLF Vision and Approach is ≤5 pages, 11pt Arial, with a mandatory 1-page Gantt chart — non-compliance causes rejection.
+- **Internal competition**: Hosts are capped and pre-select candidates before submission.
+- See `references/ukri_flf_guidelines.md` for the full FLF section-by-section breakdown, assessment criteria, and checklist.
+
 ## Core Components of Research Proposals
 
 ### 1. Executive Summary / Project Summary / Abstract
@@ -206,6 +219,7 @@ For detailed agency-specific guidance, refer to:
 - `references/doe_guidelines.md`
 - `references/darpa_guidelines.md`
 - `references/nstc_guidelines.md`
+- `references/ukri_flf_guidelines.md`
 
 ### 3. Specific Aims (NIH) or Objectives (NSF/DOE/DARPA)
 

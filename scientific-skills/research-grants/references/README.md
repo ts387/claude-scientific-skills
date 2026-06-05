@@ -111,6 +111,8 @@ For in-depth help on specific components:
 - `references/nih_guidelines.md` - NIH mechanisms and review criteria
 - `references/doe_guidelines.md` - DOE offices and programs
 - `references/darpa_guidelines.md` - DARPA structure and strategy
+- `references/nstc_guidelines.md` - Taiwan NSTC (CM03) guidance
+- `references/ukri_flf_guidelines.md` - UKRI Future Leaders Fellowships (section-by-section, R4RI, assessment criteria)
 
 ### Specialized Guides
 - `references/broader_impacts.md` - NSF broader impacts strategies
