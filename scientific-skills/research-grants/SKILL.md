@@ -1,6 +1,6 @@
 ---
 name: research-grants
-description: Write competitive research proposals for NSF, NIH, DOE, DARPA, Taiwan NSTC, and UKRI (including Future Leaders Fellowships). Agency-specific formatting, review criteria, budget preparation, broader impacts, significance statements, innovation narratives, fellowship career-development and host-support cases, and compliance with submission requirements.
+description: Write competitive research proposals for NSF, NIH, DOE, DARPA, Taiwan NSTC, and UKRI (including Future Leaders Fellowships). Agency-specific formatting, review criteria, budget preparation, broader impacts, significance statements, innovation narratives, fellowship career-development and host-support narratives, and compliance with submission requirements.
 allowed-tools: Read Write Edit Bash
 license: MIT license
 metadata:
