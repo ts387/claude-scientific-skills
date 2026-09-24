@@ -229,7 +229,7 @@ Add a protocol to your bookmarks for quick access.
 
 Generate a formatted PDF version of a protocol.
 
-**Endpoint:** `GET /view/{protocol_uri}.pdf`
+**Endpoint:** `GET https://www.protocols.io/view/{protocol_uri}.pdf` (site root, not under the /api/v3 base URL)
 
 **Query Parameters:**
 - `compact`: Set to `1` for compact view without large spacing
@@ -240,7 +240,7 @@ Generate a formatted PDF version of a protocol.
 
 **Example:**
 ```
-https://protocols.io/api/v3/view/crispr-protocol-abc123.pdf?compact=1
+https://www.protocols.io/view/crispr-protocol-abc123.pdf?compact=1
 ```
 
 ## Common Use Cases

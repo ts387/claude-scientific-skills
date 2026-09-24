@@ -56,7 +56,7 @@ def prepare_system_from_pdb(pdb_file, forcefield_name="amber14-all.xml",
         water_model: Water model XML file
 
     Returns:
-        pdb, forcefield, system, topology
+        modeller, system
     """
     # Load PDB
     pdb = PDBFile(pdb_file)
@@ -115,7 +115,7 @@ def minimize_energy(modeller, system, output_pdb="minimized.pdb",
         simulation object with minimized positions
     """
     # Set up integrator (doesn't matter for minimization)
-    integrator = LangevinMiddleIntegrator(300*kelvin, 1/picosecond, 0.004*picoseconds)
+    integrator = LangevinMiddleIntegrator(300*kelvin, 1/picosecond, 0.002*picoseconds)
 
     # Create simulation
     # Use GPU if available (CUDA or OpenCL), fall back to CPU
@@ -259,6 +259,8 @@ def run_npt_production(simulation, n_steps=500000, temperature=300, pressure=1.0
 ```
 
 ## Trajectory Analysis with MDAnalysis
+
+- **MDAnalysis reference** (selection language, RMSD/RMSF, DSSP, hydrogen bonds, PCA, free-energy surface, supported trajectory formats, interoperability, performance tips): see `references/mdanalysis_analysis.md`
 
 ### 1. Load Trajectory
 
@@ -416,7 +418,7 @@ def fix_pdb(input_pdb, output_pdb, ph=7.0):
     return output_pdb
 ```
 
-### GAFF2 for Small Molecules (via OpenFF Toolkit)
+### OpenFF Sage for Small Molecules (via OpenFF Toolkit)
 
 ```python
 # For ligand parameterization, use OpenFF toolkit or ACPYPE
@@ -424,8 +426,8 @@ def fix_pdb(input_pdb, output_pdb, ph=7.0):
 from openff.toolkit import Molecule, ForceField as OFFForceField
 from openff.interchange import Interchange
 
-def parameterize_ligand(smiles, ff_name="openff-2.0.0.offxml"):
-    """Generate GAFF2/OpenFF parameters for a small molecule."""
+def parameterize_ligand(smiles, ff_name="openff-2.2.1.offxml"):
+    """Generate OpenFF (SMIRNOFF/Sage) parameters for a small molecule."""
     mol = Molecule.from_smiles(smiles)
     mol.generate_conformers(n_conformers=1)
 
@@ -433,6 +435,8 @@ def parameterize_ligand(smiles, ff_name="openff-2.0.0.offxml"):
     interchange = off_ff.create_interchange(mol.to_topology())
     return interchange
 ```
+
+For GAFF2 parameters with OpenMM's AMBER14 protein force field, use `openmmforcefields.generators.GAFFTemplateGenerator` (or ACPYPE/antechamber); `openff-2.x.x.offxml` files are OpenFF Sage, not GAFF2.
 
 ## Best Practices
 
@@ -453,5 +457,5 @@ def parameterize_ligand(smiles, ff_name="openff-2.0.0.offxml"):
 - **NAMD** (alternative): https://www.ks.uiuc.edu/Research/namd/
 - **CHARMM-GUI** (web-based system builder): https://charmm-gui.org/
 - **AmberTools** (free Amber tools): https://ambermd.org/AmberTools.php
-- **OpenMM paper**: Eastman P et al. (2017) PLOS Computational Biology. PMID: 28278240
+- **OpenMM paper**: Eastman P et al. (2017) PLOS Computational Biology. PMID: 28746339. DOI: 10.1371/journal.pcbi.1005659
 - **MDAnalysis paper**: Michaud-Agrawal N et al. (2011) J Computational Chemistry. PMID: 21500218

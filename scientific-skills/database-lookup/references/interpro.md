@@ -117,4 +117,4 @@ Use `?page_size=N` to control page size (default 20).
 
 ## Notes
 - The API follows a composable URL pattern: combine entity types (entry, protein, structure, taxonomy) to create cross-reference queries.
-- Member databases: pfam, smart, prosite, prints, panther, cdd, hamap, tigrfam, pirsf, sfld, ncbifam.
+- Member databases (API keys): pfam, smart, prosite (patterns), profile (PROSITE profiles), prints, panther, cdd, hamap, pirsf, sfld, ncbifam (includes former TIGRFAMs), cathgene3d, ssf, antifam.

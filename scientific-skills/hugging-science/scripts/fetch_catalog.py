@@ -25,7 +25,7 @@ Usage examples:
     fetch_catalog.py topic chemistry --tag "drug discovery"
     fetch_catalog.py all                             # dump llms-full.txt
     fetch_catalog.py search "protein language"      # substring search across llms-full.txt
-    fetch_catalog.py json topic biology              # structured JSON output
+    fetch_catalog.py topic biology --format json     # structured JSON output
 
 Stdlib only — no external deps required.
 """

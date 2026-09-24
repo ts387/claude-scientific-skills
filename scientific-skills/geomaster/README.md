@@ -4,7 +4,7 @@
 
 GeoMaster is a comprehensive geospatial science skill covering:
 - **70+ sections** on geospatial science topics
-- **500+ code examples** across 7 programming languages
+- **100+ code examples** across 8 programming languages
 - **300+ geospatial libraries** and tools
 - Remote sensing, GIS, spatial statistics, ML/AI for Earth observation
 
@@ -19,13 +19,15 @@ GeoMaster is a comprehensive geospatial science skill covering:
 3. **gis-software.md** - QGIS/PyQGIS, ArcGIS/ArcPy, GRASS GIS, SAGA GIS integration
 4. **scientific-domains.md** - Marine, atmospheric, hydrology, agriculture, forestry applications
 5. **advanced-gis.md** - 3D GIS, spatiotemporal analysis, topology, network analysis
-6. **programming-languages.md** - R, Julia, JavaScript, C++, Java, Go geospatial tools
+6. **programming-languages.md** - R, Julia, JavaScript, C++, Java, Go, Rust geospatial tools
 7. **machine-learning.md** - Deep learning for RS, spatial ML, GNNs, XAI for geospatial
 8. **big-data.md** - Distributed processing, cloud platforms, GPU acceleration
 9. **industry-applications.md** - Urban planning, disaster management, utilities, transportation
 10. **specialized-topics.md** - Geostatistics, optimization, ethics, best practices
 11. **data-sources.md** - Satellite data catalogs, open data repositories, API access
-12. **code-examples.md** - 500+ code examples across 7 programming languages
+12. **code-examples.md** - 100 code examples across 4 programming languages (Python, R, Julia, JavaScript)
+13. **coordinate-systems.md** - CRS fundamentals, EPSG codes, UTM zones, transformations, common pitfalls
+14. **troubleshooting.md** - Installation issues, runtime errors, performance tips, error message reference
 
 ## Key Topics Covered
 
@@ -54,6 +56,7 @@ GeoMaster is a comprehensive geospatial science skill covering:
 - **C++** - GDAL C++ API
 - **Java** - GeoTools
 - **Go** - Simple Features Go
+- **Rust** - geo, geo-types, proj (GeoRust)
 
 ## Installation
 

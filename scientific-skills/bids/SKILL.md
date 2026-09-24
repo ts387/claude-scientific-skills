@@ -99,6 +99,7 @@ my_dataset/
     perf/
       sub-01_asl.nii.gz
       sub-01_asl.json
+  # -- Alternative multi-session layout (if sessions are used, ALL subjects must have them) --
   sub-01/
     ses-pre/
       anat/
@@ -122,7 +123,7 @@ import json
 
 dataset_description = {
     "Name": "My Neuroimaging Study",
-    "BIDSVersion": "1.10.0",
+    "BIDSVersion": "1.11.1",
     "DatasetType": "raw",
     "License": "CC0",
     "Authors": ["First Author", "Second Author"],
@@ -149,7 +150,7 @@ For **derivatives**, set `"DatasetType": "derivative"` and add `"GeneratedBy"` l
 ```python
 deriv_description = {
     "Name": "fMRIPrep - fMRI PREProcessing",
-    "BIDSVersion": "1.10.0",
+    "BIDSVersion": "1.11.1",
     "DatasetType": "derivative",
     "GeneratedBy": [
         {
@@ -597,7 +598,7 @@ docker run nipreps/mriqc /data /out participant \
     --participant-label 01
 
 # QSIPrep - diffusion MRI preprocessing
-docker run pennbbl/qsiprep /data /out participant \
+docker run pennlinc/qsiprep /data /out participant \
     --participant-label 01
 ```
 
@@ -616,7 +617,7 @@ This skill includes detailed reference documentation:
 - **bids_schema.json**: Machine-readable BIDS schema (from https://bids-specification.readthedocs.io/en/stable/schema.json). This is the authoritative source for entity definitions, ordering rules, filename templates, allowed suffixes per datatype, and metadata field requirements. BEP-specific schemas are at https://github.com/bids-standard/bids-schema/tree/main/BEPs.
 - **beps.yml**: Current list of all BIDS Extension Proposals with titles, leads, status, and links (from [bids-website](https://github.com/bids-standard/bids-website/blob/main/data/beps/beps.yml))
 - **bids_specification.md**: Human-readable summary of the entity table, datatype reference, directory structure rules, template spaces, and specification changelog
-- **metadata_fields.md**: Required and recommended JSON sidecar fields for every BIDS modality (anat, func, dwi, fmap, eeg, meg, pet, etc.)
+- **metadata_fields.md**: Required and recommended JSON sidecar fields for the main BIDS modalities (anat, func, dwi, fmap, perf, eeg, meg, pet, micr, nirs, motion)
 - **conversion_tools.md**: Detailed workflows for HeuDiConv, dcm2bids, and BIDScoin including heuristic/config examples and troubleshooting
 
 Update schema and BEPs with: `python scripts/update_schema.py`
@@ -625,7 +626,7 @@ Update schema and BEPs with: `python scripts/update_schema.py`
 
 ### 1. Validator reports "Not a BIDS dataset"
 **Cause**: Missing `dataset_description.json` at the root.
-**Fix**: Create the file with at minimum `{"Name": "...", "BIDSVersion": "1.10.0"}`.
+**Fix**: Create the file with at minimum `{"Name": "...", "BIDSVersion": "1.11.1"}`.
 
 ### 2. Inconsistent subjects warning
 **Cause**: Not all subjects have the same set of files (some missing sessions, runs, etc.).

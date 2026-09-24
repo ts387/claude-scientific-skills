@@ -61,6 +61,8 @@ Complete list of BIDS entities, their keys, and where they apply. **Rows are lis
 | `beh` | Behavioral data (no imaging) | `events`, `beh`, `physio`, `stim` |
 | `motion` | Motion capture | `motion`, `channels`, `events` |
 | `nirs` | Near-infrared spectroscopy | `nirs`, `channels`, `optodes`, `coordsystem`, `events` |
+| `emg` | Electromyography | `emg`, `channels`, `electrodes`, `coordsystem`, `events` |
+| `mrs` | MR spectroscopy | `svs`, `mrsi`, `unloc`, `mrsref`, `events` |
 
 ## File Extensions
 
@@ -148,13 +150,15 @@ Full list managed by TemplateFlow: https://www.templateflow.org/
 | Version | Key Changes |
 |---------|-------------|
 | 1.10.0 | Motion capture modality; refined derivative entity rules |
-| 1.9.0 | NIRS modality; Python-based validator reference implementation |
+| 1.9.0 | NIRS modality |
 | 1.8.0 | Microscopy modality; `chunk-` entity for large files |
 | 1.7.0 | PET modality fully specified |
 | 1.6.0 | EEG/MEG/iEEG matured; `_coordsystem.json` |
 | 1.5.0 | Genetic descriptors; ASL perfusion |
 | 1.4.0 | `dataset_description.json` expanded; derivatives framework |
 | 1.0.0 | Initial release: MRI only (anat, func, dwi, fmap) |
+
+Validator: the schema-based Deno bids-validator (PyPI `bids-validator-deno`) is the reference implementation for v1.9+; the legacy Node.js validator is deprecated.
 
 ## Entity Label Rules
 

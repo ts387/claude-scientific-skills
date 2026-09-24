@@ -13,7 +13,7 @@ metadata:
 polars-bio is a high-performance Python library for genomic interval operations and bioinformatics file I/O, built on Polars, Apache Arrow, and Apache DataFusion. It provides a familiar DataFrame-centric API for interval arithmetic (overlap, nearest, merge, coverage, complement, subtract) and reading/writing common bioinformatics formats (BED, VCF, BAM, CRAM, GFF/GTF, FASTA, FASTQ).
 
 Key value propositions:
-- **6-38x faster** than bioframe on real-world genomic benchmarks
+- **6.5-38x faster** than bioframe on real-world genomic benchmarks
 - **Streaming/out-of-core** support for large genomes via DataFusion
 - **Cloud-native** file I/O (S3, GCS, Azure) with predicate pushdown
 - **Two API styles**: functional (`pb.overlap(df1, df2)`) and method-chaining (`df1.lazy().pb.overlap(df2)`)
@@ -131,7 +131,7 @@ result_df = result.collect()
 Read and write common bioinformatics formats with `read_*`, `scan_*`, `write_*`, and `sink_*` functions. Supports cloud storage (S3, GCS, Azure) and compression (GZIP, BGZF).
 
 **Supported formats:**
-- **BED** - Genomic intervals (`read_bed`, `scan_bed`, `write_*` via generic)
+- **BED** - Genomic intervals (`read_bed`, `scan_bed`; no dedicated write/sink function)
 - **VCF** - Genetic variants (`read_vcf`, `scan_vcf`, `write_vcf`, `sink_vcf`)
 - **BAM** - Aligned reads (`read_bam`, `scan_bam`, `write_bam`, `sink_bam`)
 - **CRAM** - Compressed alignments (`read_cram`, `scan_cram`, `write_cram`, `sink_cram`)

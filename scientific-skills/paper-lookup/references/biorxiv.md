@@ -115,4 +115,4 @@ No documented rate limits. No authentication required. Be reasonable with reques
 
 ## Categories
 
-`animal-behavior-and-cognition`, `biochemistry`, `bioengineering`, `bioinformatics`, `biophysics`, `cancer-biology`, `cell-biology`, `clinical-trials`, `developmental-biology`, `ecology`, `epidemiology`, `evolutionary-biology`, `genetics`, `genomics`, `immunology`, `microbiology`, `molecular-biology`, `neuroscience`, `paleontology`, `pathology`, `pharmacology-and-toxicology`, `physiology`, `plant-biology`, `scientific-communication-and-education`, `synthetic-biology`, `systems-biology`, `zoology`
+`animal_behavior_and_cognition`, `biochemistry`, `bioengineering`, `bioinformatics`, `biophysics`, `cancer_biology`, `cell_biology`, `clinical_trials`, `developmental_biology`, `ecology`, `epidemiology`, `evolutionary_biology`, `genetics`, `genomics`, `immunology`, `microbiology`, `molecular_biology`, `neuroscience`, `paleontology`, `pathology`, `pharmacology_and_toxicology`, `physiology`, `plant_biology`, `scientific_communication_and_education`, `synthetic_biology`, `systems_biology`, `zoology`

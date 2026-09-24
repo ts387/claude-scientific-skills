@@ -22,7 +22,8 @@ Key parameters:
 - `query.spons` — sponsor
 - `query.id` — NCT ID
 - `filter.overallStatus` — pipe-delimited: `RECRUITING|COMPLETED|ACTIVE_NOT_RECRUITING|...`
-- `filter.phase` — `PHASE1|PHASE2|PHASE3|PHASE4|NA`
+- `aggFilters` — facet filters as `facet:keys` pairs (comma- or pipe-separated; multiple keys for one facet are space-separated), e.g. `phase:3`, `phase:2 3`, `status:rec`, `results:with`; phase keys are `0` (early phase 1), `1`, `2`, `3`, `4`, `na`
+- `filter.advanced` — Essie expression, e.g. `AREA[Phase]PHASE3` or `AREA[StartDate]RANGE[2023-01-01,MAX]`
 - `filter.geo` — `distance(lat,lon,dist)` e.g. `distance(38.89,-77.03,50mi)`
 - `fields` — comma-separated field list to reduce payload
 - `sort` — e.g. `LastUpdatePostDate:desc`
@@ -32,7 +33,7 @@ Key parameters:
 
 Example — recruiting Phase 3 breast cancer trials:
 ```
-/studies?query.cond=breast+cancer&filter.overallStatus=RECRUITING&filter.phase=PHASE3&pageSize=5&countTotal=true
+/studies?query.cond=breast+cancer&filter.overallStatus=RECRUITING&aggFilters=phase:3&pageSize=5&countTotal=true
 ```
 
 Response structure:

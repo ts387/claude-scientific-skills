@@ -8,25 +8,25 @@ Comprehensive catalog of satellite imagery, vector data, and APIs for geospatial
 
 | Platform | Resolution | Coverage | Access |
 |----------|------------|----------|--------|
-| **Sentinel-2** | 10-60m | Global | https://scihub.copernicus.eu/ |
-| **Sentinel-1** | 5-40m (SAR) | Global | https://scihub.copernicus.eu/ |
-| **Sentinel-3** | 300m-1km | Global | https://scihub.copernicus.eu/ |
-| **Sentinel-5P** | Various | Global | https://scihub.copernicus.eu/ |
+| **Sentinel-2** | 10-60m | Global | https://dataspace.copernicus.eu/ |
+| **Sentinel-1** | 5-40m (SAR) | Global | https://dataspace.copernicus.eu/ |
+| **Sentinel-3** | 300m-1km | Global | https://dataspace.copernicus.eu/ |
+| **Sentinel-5P** | Various | Global | https://dataspace.copernicus.eu/ |
 
 ```python
-# Access via Sentinelsat
-from sentinelsat import SentinelAPI, read_geojson, geojson_to_wkt
+# Access via Copernicus Data Space Ecosystem STAC API (SciHub/sentinelsat were retired Oct 2023)
+from pystac_client import Client
 
-api = SentinelAPI('user', 'password', 'https://scihub.copernicus.eu/dhus')
+catalog = Client.open('https://stac.dataspace.copernicus.eu/v1')
 
 # Search
-products = api.query(geojson_to_wkt(aoi_geojson),
-                     date=('20230101', '20231231'),
-                     platformname='Sentinel-2',
-                     cloudcoverpercentage=(0, 20))
+search = catalog.search(collections=['sentinel-2-l2a'],
+                        intersects=aoi_geojson,
+                        datetime='2023-01-01/2023-12-31',
+                        query={'eo:cloud_cover': {'lt': 20}})
+items = list(search.items())
 
-# Download
-api.download_all(products)
+# Download: asset downloads require a CDSE OAuth access token
 ```
 
 ### Landsat (USGS/NASA)
@@ -36,7 +36,7 @@ api.download_all(products)
 | **Landsat 9** | 30m | Global | https://earthexplorer.usgs.gov/ |
 | **Landsat 8** | 30m | Global | https://earthexplorer.usgs.gov/ |
 | **Landsat 7** | 15-60m | Global | https://earthexplorer.usgs.gov/ |
-| **Landsat 5-7** | 30-60m | Global | https://earthexplorer.usgs.gov/ |
+| **Landsat 4-5 (TM)** | 30-120m | Global | https://earthexplorer.usgs.gov/ |
 
 ### Commercial Satellite Data
 
@@ -125,12 +125,12 @@ gdf = ox.geocode_to_gdf('San Francisco, CA')
 G = ox.graph_from_place('San Francisco, CA', network_type='drive')
 
 # Download building footprints
-buildings = ox.geometries_from_place('San Francisco, CA', tags={'building': True})
+buildings = ox.features_from_place('San Francisco, CA', tags={'building': True})
 
 # Via Overpass API
 import requests
 
-overpass_url = "http://overpass-api.de/api/interpreter"
+overpass_url = "https://overpass-api.de/api/interpreter"
 query = """
     [out:json];
     way["highway"](37.7,-122.5,37.9,-122.3);
@@ -254,6 +254,7 @@ signed_items = [planetary_computer.sign(item) for item in items]
 ### Automated Download Script
 
 ```python
+# NOTE: sentinelsat targets the retired SciHub/DHuS API (closed Oct 2023) and does not work with the Copernicus Data Space Ecosystem; use CDSE OData/STAC APIs (https://dataspace.copernicus.eu/) instead.
 from sentinelsat import SentinelAPI
 import rasterio
 from rasterio.warp import calculate_default_transform, reproject, Resampling

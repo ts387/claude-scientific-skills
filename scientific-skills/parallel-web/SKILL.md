@@ -96,8 +96,10 @@ Report the current status to the user (running, completed, failed, etc.).
 
 ## Get completed result
 
+Choose a descriptive filename based on the topic (lowercase, hyphens, no spaces, e.g. `ai-chip-market-2026`).
+
 ```bash
-parallel-cli research poll "$RUN_ID" --json
+parallel-cli research poll "$RUN_ID" -o "$FILENAME" --timeout 540
 ```
 
-Present results in a clear, organized format.
+Do NOT pass `--json` (the full output floods context). The poll prints an executive summary to stdout and writes `$FILENAME.json` (metadata/basis) and `$FILENAME.md` (report). Share the summary and the two file paths, as described in `references/deep-research.md`. If the poll times out, re-run the same command.

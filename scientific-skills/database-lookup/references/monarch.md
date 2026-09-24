@@ -2,7 +2,7 @@
 
 ## Base URL
 ```
-https://api.monarchinitiative.org/v3/api
+https://api-v3.monarchinitiative.org/v3/api
 ```
 
 ## Auth
@@ -15,8 +15,8 @@ No API key required.
 | `/search?q={query}` | Text search across all entities |
 | `/autocomplete?q={prefix}` | Autocomplete entity names |
 | `/entity/{id}` | Entity details (gene, disease, phenotype) |
-| `/entity/{id}/associations` | Associations for an entity |
-| `/entity/{id}/associations?category={cat}` | Filtered associations |
+| `/association?subject={id}&category={cat}` | Associations for an entity (use `entity={id}` to match subject or object; optional `category`, `predicate`, `limit`, `offset`) |
+| `/entity/{id}/{category}` | Association table for an entity and one association category (e.g. `/entity/HGNC:3603/biolink:GeneToPhenotypicFeatureAssociation`) |
 
 ## Entity ID Prefixes
 - `MONDO:` — diseases (e.g. `MONDO:0007947`)
@@ -30,13 +30,16 @@ No API key required.
 ## Example Calls
 ```
 # Search for Marfan syndrome
-https://api.monarchinitiative.org/v3/api/search?q=Marfan+syndrome&limit=5
+https://api-v3.monarchinitiative.org/v3/api/search?q=Marfan+syndrome&limit=5
 
 # Entity details for a disease
-https://api.monarchinitiative.org/v3/api/entity/MONDO:0007947
+https://api-v3.monarchinitiative.org/v3/api/entity/MONDO:0007947
 
 # Gene-to-phenotype for FBN1
-https://api.monarchinitiative.org/v3/api/entity/HGNC:3603/associations?category=biolink:GeneToPhenotypicFeatureAssociation&limit=10
+https://api-v3.monarchinitiative.org/v3/api/association?subject=HGNC:3603&category=biolink:GeneToPhenotypicFeatureAssociation&limit=10
+
+# Same data via the association-table route
+https://api-v3.monarchinitiative.org/v3/api/entity/HGNC:3603/biolink:GeneToPhenotypicFeatureAssociation?limit=10
 ```
 
 ## Response Format

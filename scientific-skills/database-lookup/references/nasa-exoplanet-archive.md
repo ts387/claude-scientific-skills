@@ -43,7 +43,7 @@ https://exoplanetarchive.ipac.caltech.edu/TAP/sync?query=SELECT pl_name,pl_rade,
 https://exoplanetarchive.ipac.caltech.edu/TAP/sync?query=SELECT discoverymethod, COUNT(*) as cnt FROM ps WHERE default_flag=1 GROUP BY discoverymethod ORDER BY cnt DESC&format=json
 ```
 
-### 2. Legacy API (older, still functional)
+### 2. Legacy API (older; serves only the KOI, K2 candidate, and time-series tables)
 
 ```
 GET /cgi-bin/nstedAPI/nph-nstedAPI?table={table}&format={format}&where={conditions}&select={columns}
@@ -51,10 +51,11 @@ GET /cgi-bin/nstedAPI/nph-nstedAPI?table={table}&format={format}&where={conditio
 
 **Example:**
 ```
-https://exoplanetarchive.ipac.caltech.edu/cgi-bin/nstedAPI/nph-nstedAPI?table=ps&select=pl_name,pl_orbper,pl_rade&where=disc_year=2023&format=json
+https://exoplanetarchive.ipac.caltech.edu/cgi-bin/nstedAPI/nph-nstedAPI?table=cumulative&select=kepoi_name,koi_period,koi_prad&where=koi_disposition like 'CONFIRMED'&format=json
 ```
+(URL-encode the spaces and quotes in `where` when calling programmatically.)
 
-Note: The legacy API is deprecated in favor of TAP. Use TAP for new applications.
+Note: The legacy API is deprecated in favor of TAP. The `ps`, `pscomppars`, `stellarhosts`, `toi`, `keplernames`, `k2names`, and `td` tables are available only via TAP; the legacy `exoplanets`, `compositepars`, and `exomultpars` tables have been retired. Use TAP for new applications.
 
 ## Key TAP Tables
 

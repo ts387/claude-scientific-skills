@@ -117,7 +117,7 @@ https://ec.europa.eu/eurostat/api/dissemination/sdmx/2.1/dataflow/ESTAT/all?deta
 
 ### Base URL
 ```
-https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data
+https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0
 ```
 
 ### Get Data
@@ -154,7 +154,7 @@ https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/nama_10_gdp?
       }
     }
   },
-  "value": {3336010.0, 3601750.0, 3876810.0, 2310420.0, 2500870.0, 2639090.0},
+  "value": [3336010.0, 3601750.0, 3876810.0, 2310420.0, 2500870.0, 2639090.0],
   "status": {}
 }
 ```

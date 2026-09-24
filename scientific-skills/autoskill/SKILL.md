@@ -1,6 +1,6 @@
 ---
 name: autoskill
-description: Observe the user's screen via screenpipe, detect repeated research workflows, match them against existing scientific-agent-skills, and draft new skills (or composition recipes that chain existing ones) for the patterns not yet covered. Use when the user asks to analyze their recent work and propose skills based on what they actually do. Requires the screenpipe daemon (https://github.com/screenpipe/screenpipe) running locally on port 3030 — the skill has no other data source and will refuse to run if screenpipe is unreachable. All detection runs locally; only redacted cluster summaries reach the LLM.
+description: Observe the user's screen via screenpipe, detect repeated research workflows, match them against existing scientific-agent-skills, and draft new skills (or composition recipes that chain existing ones) for the patterns not yet covered. Use when the user asks to analyze their recent work and propose skills based on what they actually do. Requires the screenpipe daemon (https://github.com/mediar-ai/screenpipe) running locally on port 3030 — the skill has no other data source and will refuse to run if screenpipe is unreachable. All detection runs locally; only redacted cluster summaries reach the LLM.
 allowed-tools: Read Write Edit Bash
 license: MIT license
 metadata:
@@ -10,13 +10,13 @@ metadata:
 
 # autoskill
 
-> **Requires a running [screenpipe](https://github.com/screenpipe/screenpipe) daemon.** This skill has no alternate data source — it reads exclusively from the local screenpipe HTTP API (default `http://localhost:3030`). If the daemon isn't running, `run()` raises `ScreenpipeUnreachable` with install instructions.
+> **Requires a running [screenpipe](https://github.com/mediar-ai/screenpipe) daemon.** This skill has no alternate data source — it reads exclusively from the local screenpipe HTTP API (default `http://localhost:3030`). If the daemon isn't running, `run()` raises `ScreenpipeUnreachable` with install instructions.
 
 > **Network access & environment variables.** This skill makes authenticated HTTP requests to (a) the user's local screenpipe daemon on loopback, and (b) the user-configured LLM backend — one of `http://localhost:1234/v1` (LM Studio, default), `https://api.anthropic.com` (opt-in Claude), or a user-supplied BYOK Foundry gateway. The skill reads three environment variables — `SCREENPIPE_TOKEN`, `ANTHROPIC_API_KEY`, `FOUNDRY_API_KEY` — and uses each only to authenticate to the single endpoint its name implies. No other network destinations, no telemetry, no data egress to any third party.
 
 ## Overview
 
-Turn the user's own workflow history — captured passively by the local [screenpipe](https://github.com/screenpipe/screenpipe) daemon — into new skills. This skill is on-demand: the user invokes it with a time window, it queries screenpipe's local HTTP API, clusters repeated workflow patterns, compares each pattern against the existing skills in this repo, and produces a staged folder of proposals the user can review, edit, and promote.
+Turn the user's own workflow history — captured passively by the local [screenpipe](https://github.com/mediar-ai/screenpipe) daemon — into new skills. This skill is on-demand: the user invokes it with a time window, it queries screenpipe's local HTTP API, clusters repeated workflow patterns, compares each pattern against the existing skills in this repo, and produces a staged folder of proposals the user can review, edit, and promote.
 
 ## When to Use This Skill
 
@@ -32,8 +32,8 @@ Do **not** invoke it for one-off questions about screenpipe itself, for real-tim
 
 - **Screenpipe handles app/window filtering at capture time.** Install a starter deny-list by copying `references/screenpipe-config.yaml` into the user's screenpipe config. Sensitive apps (password managers, messaging, banking) are never OCR'd in the first place.
 - **Raw OCR never leaves the machine.** `scripts/fetch_window.py` pulls data over localhost HTTP. `scripts/cluster.py` reduces the timeline to app/duration/title summaries. `scripts/redact.py` strips emails, API keys, bearer tokens, and phone numbers as defense-in-depth before any cluster summary reaches the LLM.
-- **LLM backend defaults to `local`.** The recommended setup is [LM Studio](https://lmstudio.ai/) running `Gemma-4-31B-it` — strong reasoning at a size that fits on most workstation GPUs, and no data ever leaves your machine. Cloud backends (`claude`, `foundry`) are opt-in and documented in `config.yaml` for users who explicitly want them. Detection and embeddings always run locally regardless of backend choice.
-- **Dry-run mode** (`--plan`) prints the exact timeline that will be analyzed before any LLM call.
+- **LLM backend defaults to `local`.** The recommended setup is [LM Studio](https://lmstudio.ai/) running `gemma-4-31b-it` — strong reasoning at a size that fits on most workstation GPUs, and no data ever leaves your machine. Cloud backends (`claude`, `foundry`) are opt-in and documented in `config.yaml` for users who explicitly want them. Detection and embeddings always run locally regardless of backend choice.
+- **Dry-run mode** (`--dry-run`) stops after clustering and writes the cluster summaries (apps, session counts, durations, example window titles) that would be analyzed to `plan.md`, without calling the LLM.
 - **TLS for localhost** (optional, for corporate policy): see `references/https-proxy.md` for the Caddy pattern.
 
 ## Prerequisites
@@ -69,10 +69,10 @@ export SCREENPIPE_TOKEN=$(screenpipe auth token)
 
 ### 3. Python environment
 
-Via `pipenv` from the repo root:
+From the repo root (the repo uses uv):
 
 ```bash
-pipenv install httpx pyyaml sentence-transformers
+uv pip install httpx pyyaml sentence-transformers
 ```
 
 The embedding model (`sentence-transformers/all-MiniLM-L6-v2`, ~80 MB) downloads on first run.
@@ -80,7 +80,7 @@ The embedding model (`sentence-transformers/all-MiniLM-L6-v2`, ~80 MB) downloads
 ### 4. Local LLM (default path) — LM Studio
 
 - Install [LM Studio](https://lmstudio.ai/).
-- Download `Gemma-4-31B-it` (or another strong reasoning model; adjust `local.model` in `config.yaml`).
+- Download `gemma-4-31b-it` (or another strong reasoning model; adjust `local.model` in `config.yaml`).
 - Load it via the CLI for headless use (no GUI required):
 
 ```bash
@@ -100,10 +100,11 @@ Only if you explicitly opt out of local:
 screenpipe daemon (user-installed)
         │  HTTP on localhost:3030
         ▼
+scripts/run.py             → pipeline orchestrator behind autoskill.py run (raises ScreenpipeUnreachable)
 scripts/fetch_window.py    → normalized timeline events
 scripts/redact.py          → regex scrub (defense-in-depth)
 scripts/cluster.py         → sessions + clusters (local only)
-scripts/match_skills.py    → top-k vs existing 135 skills (local embeddings)
+scripts/match_skills.py    → top-k vs every sibling SKILL.md (local embeddings)
 scripts/synthesize.py      → LLM judge: reuse / compose / novel
         │
         ▼
@@ -113,6 +114,7 @@ scripts/synthesize.py      → LLM judge: reuse / compose / novel
   └── new-skills/<name>/SKILL.md
 
 scripts/promote.py         → user-approved proposal → scientific-skills/<name>/
+scripts/doctor.py          → preflight checks behind autoskill.py doctor
 ```
 
 ## Workflow
@@ -181,7 +183,7 @@ See `config.yaml` for the full shape. Default values (local-first):
 backend: local
 local:
   endpoint: http://localhost:1234/v1   # LM Studio's Developer server
-  model: Gemma-4-31B-it
+  model: gemma-4-31b-it
 
 screenpipe:
   url: http://localhost:3030           # or https://screenpipe.local via Caddy
@@ -216,4 +218,4 @@ python -m pytest tests/ -v
 
 ## Composition with other skills in this repo
 
-The autoskill's embedding index covers all 135 sibling skills. Workflows that look like scientific writing will match `scientific-writing` / `literature-review` / `citation-management`; figure work will match `scientific-schematics` / `generate-image` / `infographics`; slide prep matches `scientific-slides` / `pptx`; etc. When a cluster scores high against two or three sibling skills the emitted composition recipe names them explicitly, so the user's future agent invocations use the optimized paths already documented in this repo.
+The autoskill's embedding index covers every sibling skill in scientific-skills/. Workflows that look like scientific writing will match `scientific-writing` / `literature-review` / `citation-management`; figure work will match `scientific-schematics` / `generate-image` / `infographics`; slide prep matches `scientific-slides` / `pptx`; etc. When a cluster scores high against two or three sibling skills the emitted composition recipe names them explicitly, so the user's future agent invocations use the optimized paths already documented in this repo.

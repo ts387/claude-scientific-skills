@@ -52,7 +52,7 @@ def _fake_result(**overrides):
 
 
 class BuildContentsTests(unittest.TestCase):
-    """The content-options builder is shared logic across all three scripts."""
+    """The content-options builder is shared logic across both scripts."""
 
     def setUp(self):
         self.search_mod = _load_script("exa_search")

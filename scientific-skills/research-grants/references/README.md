@@ -2,11 +2,13 @@
 
 ## Overview
 
-Comprehensive skill for writing competitive research grant proposals focused on four major U.S. funding agencies:
+Comprehensive skill for writing competitive research grant proposals for six major funding agencies:
 - **NSF** (National Science Foundation)
 - **NIH** (National Institutes of Health)
 - **DOE** (Department of Energy)
 - **DARPA** (Defense Advanced Research Projects Agency)
+- **NSTC** (Taiwan National Science and Technology Council)
+- **UKRI** (UK Research and Innovation, incl. Future Leaders Fellowships)
 
 ## What This Skill Provides
 
@@ -117,9 +119,6 @@ For in-depth help on specific components:
 ### Specialized Guides
 - `references/broader_impacts.md` - NSF broader impacts strategies
 - `references/specific_aims_guide.md` - NIH Specific Aims page mastery
-- `references/budget_preparation.md` - Budget development (coming soon)
-- `references/review_criteria.md` - Comparative review criteria (coming soon)
-- `references/timeline_planning.md` - Project management (coming soon)
 
 ### Templates
 - `assets/nsf_project_summary_template.md`
@@ -276,9 +275,10 @@ This skill is designed to be comprehensive but may not cover every specific situ
 ## Version History
 
 - **v1.0** (January 2025): Initial release with NSF, NIH, DOE, DARPA guidance
-- Comprehensive reference materials for all four agencies
+- Comprehensive reference materials for all four U.S. agencies
 - Templates for key proposal components
 - Specific Aims and Broader Impacts detailed guides
+- **Update**: Added Taiwan NSTC (CM03) and UKRI Future Leaders Fellowships guidance (`references/nstc_guidelines.md`, `references/ukri_flf_guidelines.md`)
 
 ---
 

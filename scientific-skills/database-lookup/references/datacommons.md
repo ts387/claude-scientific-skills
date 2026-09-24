@@ -8,7 +8,7 @@ https://api.datacommons.org
 
 ## Authentication
 
-**API key required.** Obtain from the Google Cloud Console (enable the Data Commons API).
+**API key required.** Request a free key at https://apikeys.datacommons.org/ (select the api.datacommons.org domain).
 
 Pass as query parameter: `&key=YOUR_KEY`
 

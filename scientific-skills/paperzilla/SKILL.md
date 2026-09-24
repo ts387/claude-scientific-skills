@@ -24,9 +24,7 @@ This is the core Paperzilla skill. It gives your agent direct access to Paperzil
 
 ## Access method
 
-Most current profiles in this repo use the `pz` CLI.
-
-If the current profile ships extra agent-specific instructions, follow those as well.
+This skill uses the `pz` CLI.
 
 ## Install
 
@@ -78,7 +76,7 @@ pz login
 
 ## CLI reference
 
-If the current profile uses `pz`, these are the core commands.
+These are the core `pz` commands.
 
 ### List projects
 ```bash

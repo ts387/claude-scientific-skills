@@ -21,28 +21,31 @@ No API key required. All endpoints are public.
 
 ## Key Endpoints
 
-### 1. Resolve protein identifiers
+### 1. Map protein identifiers (get_string_ids)
 
 Map protein names/identifiers to STRING internal IDs. Always do this first to get canonical STRING IDs.
 
 ```
-GET /api/json/resolve?identifier={query}&species={taxid}
+GET /api/json/get_string_ids?identifiers={query}&species={taxid}
 ```
 
 | Parameter    | Type   | Description |
 |-------------|--------|-------------|
-| `identifier` | string | **Required.** Protein name, gene symbol, or external ID. |
+| `identifiers` | string | **Required.** Protein name, gene symbol, or external ID; multiple separated by `%0d` (newline). |
 | `species`    | int    | NCBI taxonomy ID (9606 = human, 10090 = mouse). Recommended to avoid ambiguity. |
+| `limit`      | int    | Max number of STRING matches per input identifier. |
+| `echo_query` | int    | `1` to include `queryIndex`/`queryItem` in the response. |
 
 **Example:**
 ```
-https://string-db.org/api/json/resolve?identifier=TP53&species=9606
+https://string-db.org/api/json/get_string_ids?identifiers=TP53&species=9606
 ```
 
 **Response:**
 ```json
 [
   {
+    "queryIndex": 0,
     "stringId": "9606.ENSP00000269305",
     "preferredName": "TP53",
     "ncbiTaxonId": 9606,
@@ -177,37 +180,7 @@ Categories include: `Process` (GO Biological Process), `Function` (GO Molecular 
 
 ---
 
-### 6. Get protein annotations/info
-
-```
-GET /api/json/get_string_ids?identifiers={proteins}&species={taxid}
-```
-
-Maps arbitrary names to STRING IDs with annotation text.
-
-**Example:**
-```
-https://string-db.org/api/json/get_string_ids?identifiers=CDK2%0dp53&species=9606
-```
-
-**Response:**
-```json
-[
-  {
-    "queryIndex": 0,
-    "queryItem": "CDK2",
-    "stringId": "9606.ENSP00000266970",
-    "ncbiTaxonId": 9606,
-    "taxonName": "Homo sapiens",
-    "preferredName": "CDK2",
-    "annotation": "Cyclin-dependent kinase 2; ..."
-  }
-]
-```
-
----
-
-### 7. Get homology / best-hit in another species
+### 6. Get homology / best-hit in another species
 
 ```
 GET /api/json/homology?identifiers={proteins}&species={taxid}&species_b={taxid_b}
@@ -226,7 +199,7 @@ https://string-db.org/api/json/homology?identifiers=TP53&species=9606&species_b=
 
 ---
 
-### 8. PPI enrichment (is my set more connected than expected?)
+### 7. PPI enrichment (is my set more connected than expected?)
 
 ```
 GET /api/json/ppi_enrichment?identifiers={proteins}&species={taxid}

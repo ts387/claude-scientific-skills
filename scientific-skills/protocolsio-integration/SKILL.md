@@ -29,7 +29,7 @@ Use this skill when working with protocols.io in any of the following scenarios:
 
 ## Core Capabilities
 
-This skill provides comprehensive guidance across five major capability areas:
+This skill provides comprehensive guidance across six major capability areas:
 
 ### 1. Authentication & Access
 

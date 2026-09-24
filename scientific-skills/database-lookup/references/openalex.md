@@ -8,7 +8,7 @@ https://api.openalex.org
 OpenAlex is a free, open catalog of 240M+ scholarly works, plus authors, sources (journals), institutions, topics, publishers, and funders.
 
 ## Auth
-No API key. Append `?mailto=you@example.edu` (or `&mailto=`) to enter the "polite pool" — 10 req/s instead of 1 req/s, same 100k/day cap.
+Free API key recommended: get one at https://openalex.org/settings/api and pass `?api_key=YOUR_KEY` (or read `$OPENALEX_API_KEY`). The legacy polite pool (`mailto=you@example.edu`) still works for better rate limits.
 
 ## Entity Endpoints
 
@@ -37,15 +37,16 @@ Get a specific entity by ID: `/works/W2741809807`, `/authors/A5023888391`, etc.
 | `sample=` | Random sample (use `seed=`) | `sample=50&seed=42` |
 | `select=` | Limit returned fields | `select=id,title,doi` |
 | `group_by=` | Aggregate by field | `group_by=publication_year` |
-| `mailto=` | Polite pool email | `mailto=you@example.edu` |
+| `api_key=` | API key (recommended) | `api_key=YOUR_KEY` |
+| `mailto=` | Legacy polite-pool email | `mailto=you@example.edu` |
 
 ## Filter Syntax
 
 ```
 Single:        filter=publication_year:2020
 AND:           filter=publication_year:2020,is_oa:true
-OR (pipe):     filter=type:journal-article|book
-Negation:      filter=type:!journal-article
+OR (pipe):     filter=type:article|book
+Negation:      filter=type:!article
 Comparison:    filter=cited_by_count:>100
 Range:         filter=publication_year:2020-2023
 ```
@@ -58,13 +59,13 @@ Up to 50 values per pipe-OR — useful for batch ID/DOI lookup.
 - **Two-step lookup for entity filtering**: search `/authors?search=NAME` → grab ID → `/works?filter=authorships.author.id:ID`. Don't filter by free-text names.
 - **Use `per-page=200`** — 8× faster than the default 25.
 - **Batch with pipe OR** (`filter=doi:X|Y|Z`) instead of N sequential requests.
-- **Add `mailto=`** for the 10× rate-limit boost.
+- **Pass `api_key=`** (or legacy `mailto=`) — keyed requests get the full 100 req/s allowance.
 
 ## Example Calls
 
 ```
 # Search
-https://api.openalex.org/works?search=CRISPR+gene+editing&per-page=10&mailto=you@example.edu
+https://api.openalex.org/works?search=CRISPR+gene+editing&per-page=10&api_key=YOUR_KEY
 
 # Recent open-access works on a topic, most-cited first
 https://api.openalex.org/works?search=climate&filter=publication_year:>2020,is_oa:true&sort=cited_by_count:desc&per-page=200
@@ -75,7 +76,7 @@ https://api.openalex.org/works?filter=authorships.author.id:A5023888391
 
 # Works by an institution (two-step)
 https://api.openalex.org/institutions?search=MIT
-https://api.openalex.org/works?filter=authorships.institutions.id:I136199984
+https://api.openalex.org/works?filter=authorships.institutions.id:I63966007
 
 # Bulk DOI lookup (up to 50 values per filter)
 https://api.openalex.org/works?filter=doi:10.1371/journal.pone.0266781|10.1371/journal.pone.0267149
@@ -122,5 +123,8 @@ Standard `page=` works up to 10k results. For larger result sets use cursor pagi
 Full database snapshot is available for download (~hundreds of GB) via the OpenAlex snapshot at `https://docs.openalex.org/download-all-data/openalex-snapshot`. Use for very-large-scale analysis instead of hammering the API.
 
 ## Rate Limits
-- Default: 1 req/s, 100k req/day
-- Polite pool (`mailto=`): 10 req/s, 100k req/day
+- **100 requests/second** max
+- Usage-based pricing with $1/day free allowance
+- Single entity lookups by ID/DOI are free (unlimited)
+- List + filter queries: ~$0.0001 each (~10,000/day free)
+- Search queries: ~$0.001 each (~1,000/day free)

@@ -51,6 +51,7 @@ The helper writes:
 
 - samplesheet CSV (default `<outdir>/samplesheet.csv`)
 - launch script (default `<outdir>/run_pacsomatic.<executor>.sh`)
+- generated params YAML (default `<outdir>/pacsomatic.params.generated.yaml`, filename set by `--config-name`; passed to Nextflow via `-params-file` only when `--use-generated-params-file` is set and `--params-file` is not provided)
 
 It also prints:
 

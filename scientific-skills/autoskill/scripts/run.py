@@ -14,7 +14,7 @@ class ScreenpipeUnreachable(RuntimeError):
     """Raised when the screenpipe daemon cannot be reached.
 
     The autoskill skill cannot run without screenpipe. Install it from
-    https://github.com/screenpipe/screenpipe and start the daemon before
+    https://github.com/mediar-ai/screenpipe and start the daemon before
     invoking this skill.
     """
 
@@ -77,7 +77,7 @@ def run(config, *, start_time, end_time, out_dir,
         raise ScreenpipeUnreachable(
             f"cannot reach screenpipe at {base}: {e}. "
             "Install and start the daemon — see "
-            "https://github.com/screenpipe/screenpipe — "
+            "https://github.com/mediar-ai/screenpipe — "
             "or point config.yaml's screenpipe.url at your instance."
         ) from e
 

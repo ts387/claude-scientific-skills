@@ -251,7 +251,7 @@ UniProt search queries support field:value syntax with boolean operators:
 - `(protein_name:kinase)` -- protein name contains keyword
 - `(ec:2.7.11.1)` -- enzyme classification
 - `(go:0006915)` -- Gene Ontology term ID
-- `(xref:pdb-P04637)` -- cross-reference
+- `(xref:pdb-1TUP)` -- cross-reference
 - `(length:[100 TO 300])` -- sequence length range
 - `(cc_disease:cancer)` -- disease involvement
 - `(ft_domain:SH2)` -- domain annotation

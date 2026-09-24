@@ -227,6 +227,7 @@ pdftoppm -jpeg -r 150 -f N -l N output.pdf slide-fixed
 
 - `pip install "markitdown[pptx]"` - text extraction
 - `pip install Pillow` - thumbnail grids
+- `pip install defusedxml lxml` - XML parsing and schema validation used by unpack/clean/pack/thumbnail scripts
 - `npm install -g pptxgenjs` - creating from scratch
 - LibreOffice (`soffice`) - PDF conversion (auto-configured for sandboxed environments via `scripts/office/soffice.py`)
 - Poppler (`pdftoppm`) - PDF to images

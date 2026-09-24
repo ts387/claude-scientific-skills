@@ -4,7 +4,7 @@ Phylogenetic Analysis Pipeline
 Complete workflow: MAFFT alignment → IQ-TREE tree → ETE3 visualization.
 
 Requirements:
-    conda install -c bioconda mafft iqtree
+    conda install -c bioconda mafft iqtree fasttree
     pip install ete3
 
 Usage:

@@ -372,8 +372,9 @@ When using CuPy alongside cuDF/RAPIDS, align on a single allocator:
 
 ```python
 import rmm
+from rmm.allocators.cupy import rmm_cupy_allocator
 rmm.reinitialize(pool_allocator=True)
-cp.cuda.set_allocator(rmm.rmm_cupy_allocator)
+cp.cuda.set_allocator(rmm_cupy_allocator)
 ```
 
 ---

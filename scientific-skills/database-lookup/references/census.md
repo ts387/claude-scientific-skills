@@ -9,13 +9,13 @@ https://api.census.gov/data
 ```
 
 ## Authentication
-- **API Key: REQUIRED (free).** Register at https://api.census.gov/data/key_signup.html
+- **API Key: optional but recommended (free).** Required to exceed 500 requests/day per IP. Register at https://api.census.gov/data/key_signup.html
 - Pass as query parameter: `&key=YOUR_KEY`
 - Requests without a key are throttled to ~500/day. With a key, limits are much higher.
 
 ## Rate Limits
 - Without key: approximately 500 requests per day.
-- With key: up to 500 requests per day per IP is the documented soft limit, but in practice the key grants significantly more.
+- With key: no published daily cap; keep automated requests to a few per second.
 - No formal per-minute rate limit documented; keep automated requests to a few per second.
 
 ---
@@ -58,7 +58,7 @@ GET /data/{year}/acs/acs5?get={variables}&for={geography}&key=YOUR_KEY
 | `get`     | Yes      | Comma-separated variable names (e.g., `NAME,B01001_001E`) |
 | `for`     | Yes      | Target geography (e.g., `state:*`, `county:*`, `tract:*`) |
 | `in`      | Sometimes | Parent geography for sub-state levels |
-| `key`     | Yes      | Your API key |
+| `key`     | Recommended | Your API key (omit to use the unkeyed ~500/day allowance) |
 
 **Example (total population for all states, 2022 ACS 5-year):**
 ```

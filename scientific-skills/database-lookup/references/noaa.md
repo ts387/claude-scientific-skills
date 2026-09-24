@@ -2,11 +2,11 @@
 
 ## Base URL
 ```
-https://www.ncdc.noaa.gov/cdo-web/api/v2
+https://www.ncei.noaa.gov/cdo-web/api/v2
 ```
 
 ## Authentication
-- **API Token: REQUIRED.** Request a free token at https://www.ncdc.noaa.gov/cdo-web/token
+- **API Token: REQUIRED.** Request a free token at https://www.ncei.noaa.gov/cdo-web/token
 - Pass as HTTP header: `Token: YOUR_TOKEN`
 
 ## Rate Limits
@@ -24,7 +24,7 @@ https://www.ncdc.noaa.gov/cdo-web/api/v2
 | `stationid`   | string | No       | -       | Station ID (e.g. `GHCND:USW00013874`). |
 | `startdate`   | string | Varies   | -       | ISO date `YYYY-MM-DD`. |
 | `enddate`     | string | Varies   | -       | ISO date `YYYY-MM-DD`. |
-| `units`       | string | No       | `standard` | `standard` or `metric`. |
+| `units`       | string | No       | -       | `standard` (Fahrenheit/inches) or `metric` (Celsius/mm). If omitted, raw values are returned with no conversion. |
 | `limit`       | int    | No       | 25      | Results per page (max 1000). |
 | `offset`      | int    | No       | 1       | Pagination offset (1-based). |
 | `sortfield`   | string | No       | -       | Field to sort by (e.g. `date`, `name`). |
@@ -45,7 +45,7 @@ Returns actual observation data. This is the primary data retrieval endpoint.
 **Example -- daily max temperature for a station:**
 ```bash
 curl -H "Token: YOUR_TOKEN" \
-  "https://www.ncdc.noaa.gov/cdo-web/api/v2/data?datasetid=GHCND&datatypeid=TMAX&stationid=GHCND:USW00013874&startdate=2024-01-01&enddate=2024-01-31&units=metric&limit=31"
+  "https://www.ncei.noaa.gov/cdo-web/api/v2/data?datasetid=GHCND&datatypeid=TMAX&stationid=GHCND:USW00013874&startdate=2024-01-01&enddate=2024-01-31&units=metric&limit=31"
 ```
 
 **Response:**
@@ -76,7 +76,7 @@ curl -H "Token: YOUR_TOKEN" \
   ]
 }
 ```
-Note: When `units=standard`, GHCND temperature values are in tenths of degrees C. With `units=metric`, they are converted to degrees C.
+Note: Without `units`, GHCND temperature values are raw tenths of degrees C. `units=metric` converts to degrees C; `units=standard` converts to degrees F.
 
 ### 2. Datasets
 ```
@@ -88,7 +88,7 @@ Lists available datasets or gets details for one.
 **Example:**
 ```bash
 curl -H "Token: YOUR_TOKEN" \
-  "https://www.ncdc.noaa.gov/cdo-web/api/v2/datasets?limit=10"
+  "https://www.ncei.noaa.gov/cdo-web/api/v2/datasets?limit=10"
 ```
 
 **Key Dataset IDs:**
@@ -112,7 +112,7 @@ Lists available data types, optionally filtered by dataset.
 **Example:**
 ```bash
 curl -H "Token: YOUR_TOKEN" \
-  "https://www.ncdc.noaa.gov/cdo-web/api/v2/datatypes?datasetid=GHCND&limit=50"
+  "https://www.ncei.noaa.gov/cdo-web/api/v2/datatypes?datasetid=GHCND&limit=50"
 ```
 
 **Common GHCND Data Types:**
@@ -142,7 +142,7 @@ Find weather stations, optionally filtered by location, dataset, or extent.
 **Example -- stations near Asheville, NC with daily data:**
 ```bash
 curl -H "Token: YOUR_TOKEN" \
-  "https://www.ncdc.noaa.gov/cdo-web/api/v2/stations?datasetid=GHCND&locationid=ZIP:28801&limit=10"
+  "https://www.ncei.noaa.gov/cdo-web/api/v2/stations?datasetid=GHCND&locationid=ZIP:28801&limit=10"
 ```
 
 **Response:**
@@ -177,7 +177,7 @@ Browse location hierarchies (countries, states, cities, zip codes, climate regio
 **Example:**
 ```bash
 curl -H "Token: YOUR_TOKEN" \
-  "https://www.ncdc.noaa.gov/cdo-web/api/v2/locations?locationcategoryid=ST&limit=52"
+  "https://www.ncei.noaa.gov/cdo-web/api/v2/locations?locationcategoryid=ST&limit=52"
 ```
 
 Location category IDs: `CITY`, `CLIM_DIV`, `CLIM_REG`, `CNTRY`, `CNTY`, `HYD_ACC`, `HYD_CAT`, `HYD_REG`, `HYD_SUB`, `ST`, `ZIP`.

@@ -151,7 +151,7 @@ search = catalog.search(
     datetime="2020-01-01/2023-12-31",
 )
 
-items = list(search.get_items())
+items = list(search.items())
 
 # Load as xarray dataset
 data = odc.stac.load(
@@ -329,13 +329,9 @@ with rasterio.open('output.tif', 'r+') as src:
 
 ```python
 import xarray as xr
-import zarr
-
-# Create Zarr store
-store = zarr.DirectoryStore('data.zarr')
 
 # Save datacube to Zarr
-ds.to_zarr(store, consolidated=True)
+ds.to_zarr('data.zarr', consolidated=True)
 
 # Read efficiently
 ds = xr.open_zarr('data.zarr', consolidated=True)

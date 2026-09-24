@@ -106,12 +106,12 @@ After analyzing all branches, provide:
 **Probability Distribution:**
 
 ```
-Ω Best Case ····· [██████░░░░] 15%
-α Likely Case ··· [████████░░] 45%
-Δ Worst Case ···· [██████░░░░] 20%
-Ψ Wild Card ····· [███░░░░░░░]  8%
-Φ Contrarian ···· [████░░░░░░]  7%
-∞ Second Order ·· [███░░░░░░░]  5%
+Ω Best Case ····· [███░░░░░░░░░░░░░░░░░] 15%
+α Likely Case ··· [█████████░░░░░░░░░░░] 45%
+Δ Worst Case ···· [████░░░░░░░░░░░░░░░░] 20%
+Ψ Wild Card ····· [██░░░░░░░░░░░░░░░░░░]  8%
+Φ Contrarian ···· [█░░░░░░░░░░░░░░░░░░░]  7%
+∞ Second Order ·· [█░░░░░░░░░░░░░░░░░░░]  5%
 ```
 
 **Robust Actions:** What actions are beneficial across MULTIPLE branches? These are the no-regret moves — do them regardless of which future materializes.
@@ -130,6 +130,10 @@ When evidence exists, weight primary scenarios using the golden ratio:
 - **Alternative future:** 38.2% of attention/resources
 
 This prevents both overcommitment to a single path and dilution across too many contingencies. Nature uses this ratio for branching (trees, rivers, blood vessels). Strategic planning can too.
+
+## Domain Templates
+
+For domain-specific configurations (startup/business, technology architecture, investment/financial, career/personal, geopolitical/macro, crisis response), the recursive multi-round template, and the probability calibration guide, read `references/scenario-templates.md` before running Phase 2.
 
 ## Modes
 

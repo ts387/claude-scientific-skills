@@ -625,10 +625,7 @@ import cudf
 
 points_cu = cuspatial.from_geopandas(points)
 polygons_cu = cuspatial.from_geopandas(polygons)
-joined = cuspatial.point_in_polygon(
-    points_cu.geometry.x, points_cu.geometry.y,
-    polygons_cu.geometry
-)
+joined = cuspatial.point_in_polygon(points_cu.geometry, polygons_cu.geometry)
 ```
 
 ### Faiss/Annoy to cuVS

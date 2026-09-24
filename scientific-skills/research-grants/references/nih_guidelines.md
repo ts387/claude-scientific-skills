@@ -759,7 +759,7 @@ We have addressed these concerns as follows:
 7. **Refocus innovation**: Clarify what's novel and why it matters
 
 **Timing**:
-- Can resubmit at any of the next 3 deadlines (36 months after initial submission)
+- Must be submitted within 37 months of the original (A0) application's due date
 - Use time wisely to generate new data
 - Don't rush resubmission with minor changes
 

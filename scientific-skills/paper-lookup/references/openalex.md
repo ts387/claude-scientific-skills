@@ -83,7 +83,7 @@ Key filter fields:
 | `authorships.author.id` | `A5048491430` | By author ID |
 | `primary_location.source.id` | `S137773608` | By journal/source |
 | `institutions.country_code` | `us` | By country |
-| `concepts.id` | `C41008148` | By concept/topic |
+| `topics.id` (or `primary_topic.id`) | T-prefixed ID from `/topics?search=...` | By topic (legacy `concepts.id` / C-prefixed Concept IDs are deprecated in favor of Topics) |
 | `doi` | `10.1038/nature12373` | By DOI |
 
 **Operators:** `>`, `<`, `!` (negation), `|` (OR within filter)

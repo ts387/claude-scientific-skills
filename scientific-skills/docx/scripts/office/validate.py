@@ -9,7 +9,7 @@ The first argument can be either:
 - A packed Office file (.docx/.pptx/.xlsx) which will be unpacked to a temp directory
 
 Auto-repair fixes:
-- paraId/durableId values that exceed OOXML limits
+- durableId values that exceed OOXML limits (paraId violations are reported but not repaired)
 - Missing xml:space="preserve" on w:t elements with whitespace
 """
 

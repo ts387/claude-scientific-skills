@@ -512,8 +512,7 @@ https://rest.ensembl.org/ld/homo_sapiens/pairwise/rs699/rs4762?population_name=1
 
 ## Rate Limits
 
-- **15 requests per second** for general users (no API key).
-- If you register for an API key (optional), higher limits may be available.
+- **15 requests per second** for all users (there is no API key or registered tier).
 - Requests exceeding the limit receive HTTP 429 with a `Retry-After` header.
 - Batch endpoints (POST) count as a single request -- use them to reduce call count.
 - Max 1000 IDs per batch POST for `/lookup/id`.

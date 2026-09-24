@@ -43,13 +43,11 @@ To determine if a dependency is cancer-selective:
 import pandas as pd
 import numpy as np
 
-def compute_selectivity(gene_effect_df, target_gene, cancer_lineage):
+def compute_selectivity(gene_effect_df, cell_info, target_gene, cancer_lineage):
     """Compute selectivity score for a cancer lineage."""
     scores = gene_effect_df[target_gene].dropna()
 
-    # Get cell line metadata
-    from depmap_utils import load_cell_line_info
-    cell_info = load_cell_line_info()
+    # cell_info: DataFrame from load_cell_line_info() defined in SKILL.md
     scores_df = scores.reset_index()
     scores_df.columns = ["DepMap_ID", "score"]
     scores_df = scores_df.merge(cell_info[["DepMap_ID", "lineage"]])

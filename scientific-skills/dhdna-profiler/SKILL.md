@@ -131,6 +131,10 @@ KEY QUOTES:
 ═══════════════════════════════════════════
 ```
 
+## Advanced Profiling
+
+For domain-specific presets (academic, creative, executive, technical, journaling), the Cognitive Entropy Score, the 4D-DHDNA longitudinal extension, and the compact notation system, see `references/advanced-profiling.md`.
+
 ## Comparison Mode
 
 When the user provides two or more texts from different authors, produce individual profiles and then a **comparison synthesis**:

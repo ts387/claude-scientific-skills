@@ -6,12 +6,14 @@ Users only need to provide run inputs; they do not need to know pipeline interna
 
 - tumor BAM path
 - normal BAM path
+- patient ID
+- tumor sample ID
+- normal sample ID
 - reference input (`--fasta` path or `--genome` key)
 - output directory
 
 Optional:
 
-- sample metadata IDs
 - executor/resource preferences
 - optional `pbi` paths
 
@@ -43,7 +45,7 @@ Use this sequence when helping a user run nf-core/pacsomatic:
 Recommended helper command:
 
 ```bash
-python .github/skills/pacsomatic/scripts/run_pacsomatic.py \
+python scripts/run_pacsomatic.py \
   --tumor-bam /path/to/tumor.bam \
   --normal-bam /path/to/normal.bam \
   --patient-id P001 \
@@ -59,7 +61,7 @@ python .github/skills/pacsomatic/scripts/run_pacsomatic.py \
 Launch command variant:
 
 ```bash
-python .github/skills/pacsomatic/scripts/run_pacsomatic.py \
+python scripts/run_pacsomatic.py \
   --tumor-bam /path/to/tumor.bam \
   --normal-bam /path/to/normal.bam \
   --patient-id P001 \

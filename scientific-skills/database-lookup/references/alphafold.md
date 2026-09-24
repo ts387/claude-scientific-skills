@@ -21,7 +21,7 @@ https://alphafold.ebi.ac.uk/files/AF-{UNIPROT}-F1-model_v6.cif
 https://alphafold.ebi.ac.uk/files/AF-{UNIPROT}-F1-predicted_aligned_error_v6.json
 ```
 
-Best practice: extract download URLs from the `/prediction/{uniprot}` JSON response (`pdbUrl`, `cifUrl`, `bcifUrl`, `paeImageUrl`, `paeDocUrl`) rather than hardcoding the `_v6` suffix — the version increments with each release.
+Best practice: do not hardcode the `_v6` suffix — the version increments with each release. Extract download URLs from the `/prediction/{uniprot}` JSON response, preferring the structured file-listing fields (or build the URL from the response's `latestVersion` field). The flat `pdbUrl`/`cifUrl`/`bcifUrl`/`paeImageUrl`/`paeDocUrl` fields are legacy and were scheduled for removal on 25 June 2026 (see Deprecation Notice below); do not rely on them.
 
 ## Example Calls
 ```

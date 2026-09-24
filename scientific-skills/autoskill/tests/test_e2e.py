@@ -194,7 +194,7 @@ def test_full_pipeline_produces_report_and_drafts(tmp_path):
     assert "literature-review" in report
 
     # Pagination actually happened (more than one fetch).
-    # 120 events / 20 per page = 6 pages → ≥6 backend-independent calls.
+    # 130 events / 20 per page = 7 pages → ≥7 backend-independent calls.
     # (Can't assert directly without reaching into the transport; but the test
     # would fail above if pagination were broken since clusters would be empty.)
 

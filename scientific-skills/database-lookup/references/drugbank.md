@@ -6,7 +6,7 @@
 - **ChEMBL** — extensive bioactivity data, free API
 - **PubChem** — free compound data
 - **OpenFDA** — drug labels, adverse events
-- **DGIdb** (https://dgidb.org/api) — drug-gene interactions, free
+- **DGIdb** (https://dgidb.org/api/graphql, GraphQL — requires POST, WebFetch won't work; v2 REST API retired in DGIdb 5.0) — drug-gene interactions, free
 
 ## Base URL (Paid API)
 ```

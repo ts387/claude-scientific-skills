@@ -1,6 +1,6 @@
 # Code Examples
 
-500+ code examples organized by category and programming language.
+100 numbered code examples organized by category and programming language.
 
 ## Python Examples
 
@@ -378,7 +378,7 @@ def terrain_analysis(dem_path):
     return slope, aspect
 ```
 
-## Additional Examples (70-100)
+## Additional Examples (69-100)
 
 ```python
 # 69. Point in polygon test

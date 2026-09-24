@@ -16,10 +16,11 @@ No API key required.
 | `v2/spls/{setid}.json` | Get label metadata by SetID |
 | `v2/spls/{setid}/ndcs.json` | NDC codes for a label |
 | `v2/spls/{setid}/media.json` | Images/media for a label |
+| `v2/spls/{setid}/packaging.json` | Product packaging descriptions for a label |
 | `v2/drugnames.json?drug_name={prefix}` | Drug name autocomplete |
 | `v2/drugclasses.json?drug_class_name={name}` | Search by pharmacologic class |
 | `v2/rxcuis.json?drug_name={name}` | RxNorm CUIs for a drug |
-| `v2/ndc/{ndc_code}/spls.json` | Find labels by NDC code |
+| `v2/spls.json?ndc={ndc_code}` | Find labels by NDC code |
 
 ## Additional filters for `/v2/spls.json`
 - `drug_class` — pharmacologic class
@@ -39,7 +40,10 @@ https://dailymed.nlm.nih.gov/dailymed/services/v2/drugnames.json?drug_name=ator
 https://dailymed.nlm.nih.gov/dailymed/services/v2/spls.json?drug_class=HMG-CoA+Reductase+Inhibitor
 
 # Full label XML (SPL content with sections)
-https://dailymed.nlm.nih.gov/dailymed/services/v2/spls/{setid}/packaging.xml
+https://dailymed.nlm.nih.gov/dailymed/services/v2/spls/{setid}.xml
+
+# Product packaging for a label
+https://dailymed.nlm.nih.gov/dailymed/services/v2/spls/{setid}/packaging.json
 ```
 
 ## Response Format

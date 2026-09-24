@@ -59,9 +59,12 @@ Study IDs: `ST######` (e.g., `ST000001`). Analysis IDs: `AN######`.
 
 ### Mass Search (MoverZ / ExactMass)
 ```
-/rest/moverz/mz/{MZ_VALUE}/tol/{TOLERANCE}/mode/{pos|neg}
-/rest/exactmass/mass/{MASS_VALUE}/tol/{TOLERANCE}
+/rest/moverz/{MB|LIPIDS|REFMET}/{MZ_VALUE}/{ION_TYPE}/{TOLERANCE}
+/rest/exactmass/{LIPID_ABBREV}/{ION_TYPE}
 ```
+
+- `moverz` (numeric m/z search): `MB` = Metabolomics Workbench compounds, `LIPIDS` = LIPID MAPS, `REFMET` = RefMet; `ION_TYPE` is an adduct such as `M+H`, `M-H`, `M+Na`, `M+K`, `M+NH4`, `M+H-H2O`, `M-H-H2O`, `Neutral`; tolerance is in Da; an optional trailing `/json` or `/txt` selects output format. Polarity is expressed via the ion type (e.g. `M+H`, `M+Na`, `M+NH4` for positive; `M-H`, `M+Cl`, `M+HCOO` for negative).
+- `exactmass`: compute exact m/z and formula for a named lipid species (e.g. `PC(34:1)`) and ion type (e.g. `M+H`); not a numeric mass search. Numeric mass searches belong to the `moverz` context.
 
 ## Example Calls
 
@@ -84,11 +87,11 @@ https://www.metabolomicsworkbench.org/rest/compound/pubchem_cid/5793/summary
 # RefMet standardized name match
 https://www.metabolomicsworkbench.org/rest/refmet/match/alpha-D-Glucose/name
 
-# m/z search in positive mode
-https://www.metabolomicsworkbench.org/rest/moverz/mz/175.0354/tol/0.005/mode/pos
+# m/z search, M+H adduct, 0.005 Da tolerance
+https://www.metabolomicsworkbench.org/rest/moverz/MB/175.0354/M+H/0.005
 
-# Exact mass search
-https://www.metabolomicsworkbench.org/rest/exactmass/mass/174.0282/tol/0.005
+# Exact m/z for a lipid species and ion type
+https://www.metabolomicsworkbench.org/rest/exactmass/PC(34:1)/M+H
 ```
 
 ## Response Format

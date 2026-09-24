@@ -1,6 +1,6 @@
 # Using scientific models from the catalog
 
-Hugging Science model entries link to standard Hugging Face Hub repos. There are three sensible execution paths. Pick based on model size and whether the user is doing one-off inference or a long batch job.
+Hugging Science model entries link to standard Hugging Face Hub repos. There are four sensible execution paths. Pick based on model size and whether the user is doing one-off inference or a long batch job.
 
 ## Decision: where to run the model
 
@@ -23,7 +23,7 @@ uv pip install transformers torch accelerate python-dotenv    # in an active ven
 uv add transformers torch accelerate python-dotenv
 ```
 
-For gated models, put the token in `.env` rather than running `huggingface-cli login`:
+For gated models, put the token in `.env` rather than running `hf auth login`:
 
 ```
 # .env (gitignored)
@@ -93,7 +93,7 @@ The serverless API supports tasks like `feature_extraction`, `text_generation`, 
 
 ## HF Inference Providers
 
-For very large models or when you want production throughput. Inference Providers route requests to vetted backends (Together, Fireworks, Replicate, Sambanova, etc.) that host frontier models.
+For very large models or when you want production throughput. Inference Providers route requests to vetted backends (Together, Fireworks, Replicate, Groq, Cerebras, etc.) that host frontier models.
 
 ```python
 from huggingface_hub import InferenceClient

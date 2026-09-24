@@ -5,7 +5,7 @@
 # at capture time — sensitive apps on this list will never be OCR'd, so
 # their content never reaches autoskill's pipeline.
 #
-# Reference: https://github.com/screenpipe/screenpipe
+# Reference: https://github.com/mediar-ai/screenpipe
 #
 # Review and edit for your setup. This is a conservative baseline, not
 # an exhaustive list. Add any app where you handle secrets.

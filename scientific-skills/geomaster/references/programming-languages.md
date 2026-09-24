@@ -390,15 +390,13 @@ func main() {
 }
 ```
 
-For more code examples across all languages, see [code-examples.md](code-examples.md).
-
 ## Rust Geospatial
 
 ### GeoRust (Geographic Rust)
 
 The Rust geospatial ecosystem includes crates for geometry operations, projections, and file I/O.
 
-\`\`\`rust
+```rust
 // Cargo.toml dependencies:
 // geo = "0.28"
 // geo-types = "0.7"
@@ -427,7 +425,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
             Coord { x: -122.3, y:  37.7 },
             Coord { x: -122.3, y: 37.8 },
             Coord { x: -122.4, y: 37.8 },
-            Coord { x: -2.4, y: 37.7 }, // Close the ring
+            Coord { x: -122.4, y: 37.7 }, // Close the ring
         ]),
         vec![], // No interior rings
     );
@@ -453,4 +451,6 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     Ok(())
 }
-\`\`\`
+```
+
+For more code examples across all languages, see [code-examples.md](code-examples.md).

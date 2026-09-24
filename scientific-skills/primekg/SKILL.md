@@ -16,9 +16,9 @@ PrimeKG is a precision medicine knowledge graph that integrates over 20 primary 
 - Search for nodes (genes, proteins, drugs, diseases, phenotypes)
 - Retrieve direct neighbors (associated entities and clinical evidence)
 - Analyze local disease context (related genes, drugs, phenotypes)
-- Identify drug-disease paths (potential repurposing opportunities)
+- Check for direct edges between two nodes, e.g. a drug and a disease (`find_paths`; only depth-1 edges are implemented, so `max_depth` > 1 returns the same result and multi-hop path search is not available)
 
-**Data access:** Programmatic access via `query_primekg.py`. Data is stored at `C:\Users\eamon\Documents\Data\PrimeKG\kg.csv`.
+**Data access:** Programmatic access via `scripts/query_primekg.py`. Set `PRIMEKG_DATA_PATH` to your local copy of `kg.csv` (download from Harvard Dataverse, https://doi.org/10.7910/DVN/IXA7BM); defaults to `data/kg.csv` inside the skill directory.
 
 ## When to Use This Skill
 
@@ -53,7 +53,7 @@ from scripts.query_primekg import get_neighbors
 
 # Get all neighbors of a specific disease ID
 neighbors = get_neighbors("EFO_0000249")
-# Returns: List of neighbors like {"neighbor_name": "APOE", "relation": "disease_gene", ...}
+# Returns: List of neighbors like {"neighbor_name": "APOE", "relation": "disease_protein", ...}
 ```
 
 ### 3. Analyze Disease Context
@@ -68,22 +68,38 @@ context = get_disease_context("Alzheimer's disease")
 # Access: context['associated_genes'], context['associated_drugs'], context['phenotypes']
 ```
 
+### 4. Find Direct Paths Between Two Nodes
+
+Check whether two nodes (for example, a drug and a disease) share a direct edge.
+
+```python
+from scripts.query_primekg import search_nodes, find_paths
+
+drug_id = search_nodes("Donepezil", node_type="drug")[0]["id"]
+disease_id = search_nodes("Alzheimer", node_type="disease")[0]["id"]
+
+paths = find_paths(drug_id, disease_id)
+# Returns: list of paths; each path is a one-element list holding the raw edge row
+# (relation, display_relation, x_id, x_name, y_id, y_name, ...).
+# Only direct (depth-1) edges are returned; multi-hop search is not yet implemented.
+```
+
 ## Relationship Types in PrimeKG
 
 The graph contains several key relationship types including:
 - `protein_protein`: Physical PPIs
-- `drug_protein`: Drug target/mechanism associations
-- `disease_gene`: Genetic associations
-- `drug_disease`: Indications and contraindications
-- `disease_phenotype`: Clinical signs and symptoms
-- `gwas`: Genome-wide association studies evidence
+- `drug_protein`: Drug target/enzyme/transporter/carrier associations
+- `disease_protein`: Disease-gene associations
+- `indication`, `contraindication`, `off-label use`: Drug-disease relationships
+- `disease_phenotype_positive` / `disease_phenotype_negative`: Clinical signs and symptoms
+- `drug_effect`: Drug side effects
 
 ## Best Practices
 
 1. **Use specific IDs:** When using `get_neighbors`, ensure you have the correct ID from `search_nodes`.
 2. **Context first:** Use `get_disease_context` for a broad overview before diving into specific genes or drugs.
 3. **Filter relationships:** Use the `relation_type` filter in `get_neighbors` to focus on specific evidence (e.g., only `drug_protein`).
-4. **Multiscale integration:** Combine with `OpenTargets` for deeper genetic evidence or `Semantic Scholar` for the latest literature context.
+4. **Multiscale integration:** Combine with the `database-lookup` skill (Open Targets) for deeper genetic evidence or the `paper-lookup` skill (Semantic Scholar) for the latest literature context.
 
 ## Resources
 
@@ -91,7 +107,7 @@ The graph contains several key relationship types including:
 - `scripts/query_primekg.py`: Core functions for searching and querying the knowledge graph.
 
 ### Data Path
-- Data: `/mnt/c/Users/eamon/Documents/Data/PrimeKG/kg.csv`
+- Data: set `PRIMEKG_DATA_PATH` to the location of `kg.csv` downloaded from Harvard Dataverse (https://doi.org/10.7910/DVN/IXA7BM); defaults to `data/kg.csv` inside the skill directory.
 - Total nodes: ~129,000
 - Total edges: ~4,000,000
 - Database: CSV-based, optimized for pandas querying.

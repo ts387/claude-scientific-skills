@@ -87,7 +87,7 @@ The user must have a PatentsView API key for this endpoint. If they don't have o
 
 **Note:** The legacy API at `api.patentsview.org` has been decommissioned (returns 410 Gone). Only the new API above works.
 
-## 3. PEDS — Patent Examination Data System
+## 2. PEDS — Patent Examination Data System
 
 **URL**: `https://ped.uspto.gov/api/queries`
 
@@ -109,7 +109,7 @@ For patent prosecution data (application status, filing dates, examiner info).
 
 No API key required but heavily rate limited. Availability can be unreliable.
 
-## 4. TSDR — Trademark Status & Document Retrieval
+## 3. TSDR — Trademark Status & Document Retrieval
 
 For trademark lookup by serial or registration number (not full-text search).
 
@@ -122,9 +122,9 @@ Returns XML with mark details, status, owner, goods/services, prosecution histor
 
 No API key. Rate limited. No JSON endpoint — responses are XML.
 
-## 5. Limitations
+## 4. Limitations
 
-- **No public REST API for trademark full-text search** (TESS is web-only)
+- **No public REST API for trademark full-text search** (the USPTO Trademark Search tool at `https://tmsearch.uspto.gov`, which replaced TESS in November 2023, is web-only)
 - PatentsView new API requires registration for an API key
 - PEDS availability is inconsistent
 - TSDR requires knowing the serial/registration number already

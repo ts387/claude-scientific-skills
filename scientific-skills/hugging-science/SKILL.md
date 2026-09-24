@@ -97,7 +97,7 @@ from dotenv import load_dotenv
 load_dotenv()    # picks up HF_TOKEN from .env in cwd or any parent dir
 ```
 
-If `.env` doesn't exist or doesn't define `HF_TOKEN`, fall back gracefully — many resources are public and work without it. Don't hard-code tokens, don't echo them, and don't suggest `huggingface-cli login` as the primary path; the user prefers `.env`.
+If `.env` doesn't exist or doesn't define `HF_TOKEN`, fall back gracefully — many resources are public and work without it. Don't hard-code tokens, don't echo them, and don't suggest `hf auth login` as the primary path; the user prefers `.env`.
 
 The `.env` file should contain a line like:
 

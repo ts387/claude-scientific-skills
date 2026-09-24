@@ -15,7 +15,7 @@ local:
   endpoint: http://localhost:1234/v1
   # Gemma-4-31B-it is the recommended default: strong reasoning at a size
   # most modern workstation GPUs can run. Swap for any LM Studio model ID.
-  model: Gemma-4-31B-it
+  model: gemma-4-31b-it
 
 claude:
   model: claude-opus-4-7

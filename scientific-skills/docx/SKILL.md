@@ -588,3 +588,4 @@ After running `comment.py` (see Step 2), add markers to document.xml. For replie
 - **docx**: `npm install -g docx` (new documents)
 - **LibreOffice**: PDF conversion (auto-configured for sandboxed environments via `scripts/office/soffice.py`)
 - **Poppler**: `pdftoppm` for images
+- **Python packages**: `pip install defusedxml lxml` (required by `scripts/comment.py`, `scripts/office/unpack.py`, `scripts/office/pack.py`, `scripts/office/validate.py`)

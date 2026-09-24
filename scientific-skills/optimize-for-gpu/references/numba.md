@@ -2,7 +2,7 @@
 
 Numba compiles Python directly into CUDA kernels, giving you full control over GPU threads, blocks, shared memory, and synchronization. Use Numba when your algorithm needs custom GPU logic that can't be expressed as standard array operations.
 
-> **Full documentation:** https://numba.readthedocs.io/en/stable/cuda/index.html
+> **Full documentation:** https://nvidia.github.io/numba-cuda/
 
 ## Table of Contents
 

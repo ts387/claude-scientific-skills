@@ -311,7 +311,7 @@ Travel support for undergraduates to present research at [conference].
 We anticipate publishing [N] peer-reviewed articles over the 5-year project period in open-access journals to ensure broad dissemination. Average open-access fees are approximately $[amount] per article. Funds will cover article processing charges for publications resulting from this work.
 
 **Example**:
-*Publication Costs*: $12,000/year
+*Publication Costs*: $6,000/year
 
 *Justification*: We anticipate 2 publications per year (10 total over 5 years) in high-impact open-access journals. Average article processing charges are $3,000-$4,000 (e.g., Nature Communications, Cell Reports, Diabetes). We budget $6,000/year to ensure broad, immediate dissemination of findings as required by NIH public access policy. Additional publications in traditional subscription journals will not require fees.
 

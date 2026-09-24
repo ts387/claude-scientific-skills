@@ -41,7 +41,7 @@ This is not optional. Grant proposals without visual elements are incomplete and
 **How to generate figures:**
 - Use the **scientific-schematics** skill to generate AI-powered publication-quality diagrams
 - Simply describe your desired diagram in natural language
-- Nano Banana Pro will automatically generate, review, and refine the schematic
+- Nano Banana 2 will automatically generate, review, and refine the schematic
 
 **How to generate schematics:**
 ```bash
@@ -89,7 +89,7 @@ For detailed guidance on creating schematics, refer to the scientific-schematics
 - Significance, Innovation, Approach as core review criteria
 - Preliminary data typically required for R01s
 - Emphasis on rigor, reproducibility, and clinical relevance
-- Modular budgets ($250K increments) for most R01s
+- Modular budgets ($25K modules, up to $250K direct costs/year) for most R01s
 - Multiple resubmission opportunities
 
 ### DOE (Department of Energy)
@@ -508,7 +508,7 @@ Develop realistic budgets that align with the proposed work and agency guideline
 - Modular budgets for ≤$250K direct costs per year (R01)
 - Detailed budgets for >$250K or complex awards
 - Salary cap applies (~$221,900 for 2024)
-- Limited to 1 month (8.33% FTE) for most PIs
+- No fixed PI effort cap; typical PI effort is 2-3 calendar months (16-25%)
 
 **DOE**:
 - Often requires cost sharing (especially ARPA-E)
@@ -605,6 +605,11 @@ Varies by program office, but generally includes:
 - Potential contribution to DARPA mission
 - Realism of proposed costs and availability of funds
 
+**Key Questions DARPA Asks**:
+- **What if you succeed?** (Impact if the research works)
+- **What if you're right?** (Implications of your hypothesis)
+- **Who cares?** (Why it matters for national security)
+
 ### NSTC Review Criteria
 
 **Core Evaluation Dimensions**:
@@ -614,9 +619,6 @@ Varies by program office, but generally includes:
 4. **Value (價值)**: Academic contribution and societal/industrial impact.
 
 For detailed review criteria, refer to `references/nstc_guidelines.md`.
-- **What if you succeed?** (Impact if the research works)
-- **What if you're right?** (Implications of your hypothesis)
-- **Who cares?** (Why it matters for national security)
 
 
 ## Writing Principles for Competitive Proposals
@@ -717,8 +719,7 @@ For detailed review criteria, refer to `references/nstc_guidelines.md`.
 - **CAREER Awards**: Early career faculty, integrated research/education, $400-500K over 5 years
 - **Collaborative Research**: Multiple institutions, separately submitted, shared research plan
 - **RAPID**: Urgent research opportunities, up to $200K, no preliminary data required
-- **EAGER**: High-risk, high-reward exploratory research, up to $300K
-- **EArly-concept Grants for Exploratory Research (EAGER)**: Early-stage exploratory work
+- **EAGER (EArly-concept Grants for Exploratory Research)**: High-risk, high-reward exploratory research, up to $300K
 
 ### NIH Award Mechanisms
 
@@ -921,7 +922,7 @@ This skill works effectively with:
 - **Literature Review**: For comprehensive background sections
 - **Peer Review**: For self-assessment before submission
 - **Research Lookup**: For finding relevant citations and prior work
-- **Data Visualization**: For creating effective figures
+- **Scientific Visualization**: For creating effective figures
 
 ## Resources
 
@@ -934,6 +935,7 @@ This skill includes comprehensive reference files covering specific aspects of g
 - `references/broader_impacts.md`: Strategies for compelling broader impacts statements
 - `references/specific_aims_guide.md`: Writing effective specific aims pages
 - `references/nstc_guidelines.md`: NSTC-specific guidelines and review criteria
+- `references/ukri_flf_guidelines.md`: UKRI Future Leaders Fellowships section-by-section guide, R4RI, assessment criteria, and checklist
 
 Load these references as needed when working on specific aspects of grant writing.
 
@@ -946,6 +948,7 @@ Load these references as needed when working on specific aspects of grant writin
 ## Scripts and Tools
 
 - `scripts/generate_schematic.py`: Generate scientific diagrams and schematics
+- `scripts/generate_schematic_ai.py`: Backend that generate_schematic.py calls. It generates images with Nano Banana 2 and reviews them with Gemini 3.1 Pro Preview through OpenRouter (requires `OPENROUTER_API_KEY`)
 
 ---
 

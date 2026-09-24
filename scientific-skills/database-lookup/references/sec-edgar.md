@@ -70,21 +70,9 @@ https://efts.sec.gov/LATEST/search-index?q=%22artificial+intelligence%22&forms=1
 }
 ```
 
-### 2. EDGAR Full-Text Search (Preferred newer endpoint)
-
-#### `GET https://efts.sec.gov/LATEST/search-index` (also accessible as below)
-
-#### `GET https://efts.sec.gov/LATEST/search-index?q=...`
-
-Note: The EDGAR full-text search has also been exposed under a simpler URL:
-
-#### `GET https://efts.sec.gov/LATEST/search-index`
-
-The above is the canonical endpoint. Some documentation also references the EDGAR search UI which hits the same backend.
-
 ---
 
-### 3. Company Tickers & CIK Lookup
+### 2. Company Tickers & CIK Lookup
 
 #### `GET https://www.sec.gov/cgi-bin/browse-edgar`
 Legacy EDGAR company search.
@@ -123,7 +111,7 @@ Includes exchange information for each ticker.
 
 ---
 
-### 4. Company Filings & Submissions
+### 3. Company Filings & Submissions
 
 #### `GET https://data.sec.gov/submissions/CIK{cik_padded}.json`
 Returns company metadata and recent filings for a given CIK (zero-padded to 10 digits).
@@ -163,7 +151,7 @@ The `filings.recent` object contains the most recent ~1000 filings. Older filing
 
 ---
 
-### 5. Company Concept (XBRL Data)
+### 4. Company Concept (XBRL Data)
 
 #### `GET https://data.sec.gov/api/xbrl/companyconcept/CIK{cik}/{taxonomy}/{tag}.json`
 Returns all values reported by a company for a specific XBRL tag across all filings.
@@ -173,11 +161,11 @@ Returns all values reported by a company for a specific XBRL tag across all fili
 |------------|-------------|
 | `cik`      | Zero-padded CIK (10 digits). |
 | `taxonomy` | XBRL taxonomy: `us-gaap`, `ifrs-full`, `dei`, `srt`. |
-| `tag`      | XBRL concept tag, e.g., `Revenue`, `Assets`, `AccountsPayableCurrent`. |
+| `tag`      | XBRL concept tag, e.g., `Revenues`, `Assets`, `AccountsPayableCurrent`. |
 
 **Example:**
 ```
-https://data.sec.gov/api/xbrl/companyconcept/CIK0000320193/us-gaap/Revenue.json
+https://data.sec.gov/api/xbrl/companyconcept/CIK0000320193/us-gaap/RevenueFromContractWithCustomerExcludingAssessedTax.json
 ```
 
 **Response:**
@@ -185,8 +173,8 @@ https://data.sec.gov/api/xbrl/companyconcept/CIK0000320193/us-gaap/Revenue.json
 {
   "cik": 320193,
   "taxonomy": "us-gaap",
-  "tag": "Revenue",
-  "label": "Revenue",
+  "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+  "label": "Revenue from Contract with Customer, Excluding Assessed Tax",
   "description": "Amount of revenue recognized...",
   "entityName": "Apple Inc.",
   "units": {
@@ -208,7 +196,7 @@ https://data.sec.gov/api/xbrl/companyconcept/CIK0000320193/us-gaap/Revenue.json
 
 ---
 
-### 6. Company Facts (All XBRL for one company)
+### 5. Company Facts (All XBRL for one company)
 
 #### `GET https://data.sec.gov/api/xbrl/companyfacts/CIK{cik}.json`
 Returns ALL XBRL concepts reported by a company across all filings.
@@ -229,7 +217,7 @@ https://data.sec.gov/api/xbrl/companyfacts/CIK0000320193.json
       "EntityCommonStockSharesOutstanding": { "units": { "shares": [...] } }
     },
     "us-gaap": {
-      "Revenue": { "units": { "USD": [...] } },
+      "RevenueFromContractWithCustomerExcludingAssessedTax": { "units": { "USD": [...] } },
       "Assets": { "units": { "USD": [...] } }
     }
   }
@@ -238,7 +226,7 @@ https://data.sec.gov/api/xbrl/companyfacts/CIK0000320193.json
 
 ---
 
-### 7. Frames (Cross-Company XBRL for a period)
+### 6. Frames (Cross-Company XBRL for a period)
 
 #### `GET https://data.sec.gov/api/xbrl/frames/{taxonomy}/{tag}/{unit}/{period}.json`
 Returns a specific XBRL concept value for ALL companies for a given reporting period.
@@ -279,7 +267,7 @@ https://data.sec.gov/api/xbrl/frames/us-gaap/Assets/USD/CY2023Q4I.json
 
 ---
 
-### 8. Filing Archives (Direct Document Access)
+### 7. Filing Archives (Direct Document Access)
 
 #### `GET https://www.sec.gov/Archives/edgar/data/{cik}/{accession_number_no_dashes}/{filename}`
 Direct access to any filing document.
@@ -296,7 +284,7 @@ The accession number format in the URL is stripped of dashes: `0000320193-24-000
 ## Common XBRL Tags Reference
 | Tag | Description |
 |-----|-------------|
-| `Revenue` / `Revenues` | Total revenue |
+| `Revenues` / `RevenueFromContractWithCustomerExcludingAssessedTax` | Total revenue |
 | `NetIncomeLoss` | Net income |
 | `Assets` | Total assets |
 | `Liabilities` | Total liabilities |

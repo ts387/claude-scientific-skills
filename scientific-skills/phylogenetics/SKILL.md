@@ -20,7 +20,7 @@ Phylogenetic analysis reconstructs the evolutionary history of biological sequen
 **Installation:**
 ```bash
 # Conda (recommended for CLI tools)
-conda install -c bioconda mafft iqtree fasttree
+conda install -c bioconda mafft iqtree fasttree trimal
 pip install ete3
 ```
 
@@ -117,6 +117,8 @@ def trim_alignment_trimal(aligned_fasta: str, output_fasta: str,
 
 ### 3. IQ-TREE 2 — Maximum Likelihood Tree
 
+**Reference:** `references/iqtree_inference.md` — full IQ-TREE 2 flag table, UFBoot vs standard bootstrap vs SH-aLRT, branch-support interpretation, output files, molecular clock dating, concordance factors, ancestral state reconstruction, partition models, log parsing and a MAFFT method guide.
+
 ```python
 def run_iqtree(aligned_fasta: str, output_prefix: str,
                 model: str = "TEST", bootstrap: int = 1000,
@@ -183,7 +185,7 @@ def run_iqtree(aligned_fasta: str, output_prefix: str,
 
 ### 4. FastTree — Fast Approximate ML
 
-For large datasets (>1000 sequences) where IQ-TREE is too slow:
+For very large datasets (>5000 sequences) where IQ-TREE is too slow:
 
 ```python
 def run_fasttree(aligned_fasta: str, output_tree: str,
@@ -284,6 +286,16 @@ def prune_tree(t: Tree, keep_leaves: list) -> Tree:
 ```
 
 ### 6. Complete Analysis Script
+
+A ready-to-run command-line version of this pipeline is bundled as `scripts/phylogenetic_analysis.py`:
+
+```bash
+python scripts/phylogenetic_analysis.py sequences.fasta --type nt --threads 4
+python scripts/phylogenetic_analysis.py proteins.fasta --type aa --fasttree   # FastTree for large datasets
+python scripts/phylogenetic_analysis.py sequences.fasta --outgroup Taxon_A --bootstrap 1000 --output-dir phylo_results
+```
+
+(Flags: `--type {nt,aa}`, `--threads N`, `--bootstrap N`, `--fasttree`, `--outgroup NAME`, `--mafft-method {auto,linsi,einsi,fftnsi,fftns}`, `--output-dir DIR`.)
 
 ```python
 import subprocess, os
@@ -395,7 +407,8 @@ def full_phylogenetic_analysis(
 ## Additional Resources
 
 - **MAFFT**: https://mafft.cbrc.jp/alignment/software/
-- **IQ-TREE 2**: http://www.iqtree.org/ | Tutorial: https://www.iqtree.org/workshop/molevol2022
+- **IQ-TREE 2**: https://www.iqtree.org/ | Tutorial: https://www.iqtree.org/workshop/molevol2022
+- **IQ-TREE 2 reference (bundled)**: `references/iqtree_inference.md`
 - **FastTree**: http://www.microbesonline.org/fasttree/
 - **ETE3**: http://etetoolkit.org/
 - **FigTree** (GUI visualization): https://tree.bio.ed.ac.uk/software/figtree/

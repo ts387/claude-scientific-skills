@@ -1,9 +1,10 @@
-# PharmGKB (Clinical Pharmacogenomics)
+# ClinPGx (Clinical Pharmacogenomics, formerly PharmGKB)
 
 ## Base URL
 ```
-https://api.pharmgkb.org/v1/data/
+https://api.clinpgx.org/v1/data/
 ```
+Note: PharmGKB was consolidated into ClinPGx in July 2025; the legacy host https://api.pharmgkb.org/ redirects here. Use the current base URL above.
 
 ## Auth
 No API key required for read-only access.
@@ -12,7 +13,7 @@ No API key required for read-only access.
 
 ### General search
 ```
-GET https://api.pharmgkb.org/v1/search?q={term}&page=0&size=10
+GET https://api.clinpgx.org/v1/search?q={term}&page=0&size=10
 ```
 
 ### Gene data
@@ -61,4 +62,4 @@ GET /drugLabel?drug={name}&source=FDA
 ```
 
 ## Rate Limits
-No hard published limit. Be reasonable. Bulk data via PharmGKB download page.
+Max 2 requests/second; excess requests return HTTP 429. Bulk data via the ClinPGx downloads page.

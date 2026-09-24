@@ -3,7 +3,6 @@
 cuxfilter is a GPU-accelerated cross-filtering dashboard library from the NVIDIA RAPIDS ecosystem. It enables interactive, multi-chart exploratory data analysis dashboards from Jupyter notebooks in just a few lines of Python. All filtering, groupby, and aggregation operations happen on the GPU via cuDF, with only the visualization results sent to the browser.
 
 > **Full documentation:** https://docs.rapids.ai/api/cuxfilter/stable/
-> **Version (stable):** 26.02.00
 > **Repository:** https://github.com/rapidsai/cuxfilter
 
 ## Table of Contents

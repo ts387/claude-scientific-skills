@@ -310,6 +310,11 @@ After running the workflow, the following fields are added:
 | Memory error with dynamical | Set `n_jobs=1`; reduce `n_top_genes` |
 | Negative velocity everywhere | Check that spliced/unspliced layers are not swapped |
 
+## Bundled Files
+
+- `references/velocity_models.md` — kinetic model equations, steady-state vs stochastic vs dynamical model comparison, kinetic states, latent-time interpretation, quality metrics, parameter tuning table, and CellRank/Scanpy integration examples.
+- `scripts/rna_velocity_workflow.py` — ready-to-run version of the workflow above. `run_velocity_analysis(adata, groupby='leiden', mode='dynamical', output_dir='velocity_results')` fits the model, computes latent time, confidence and driver genes, and writes plots plus `adata_velocity.h5ad`; `load_from_loom(loom_path, processed_h5ad=None)` loads velocyto loom output. Run `python scripts/rna_velocity_workflow.py` for a demo on the pancreas dataset.
+
 ## Additional Resources
 
 - **scVelo documentation**: https://scvelo.readthedocs.io/

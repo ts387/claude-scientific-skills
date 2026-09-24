@@ -1,14 +1,14 @@
-# ECB Statistical Data Warehouse (SDW) REST API Reference
+# ECB Data Portal (formerly Statistical Data Warehouse, SDW) REST API Reference
 
 ## Overview
-The ECB SDW API provides access to European Central Bank statistical data: exchange rates, monetary aggregates, interest rates, balance of payments, banking statistics, and more. It follows the SDMX (Statistical Data and Metadata eXchange) RESTful web services standard.
+The ECB Data Portal API (successor to the Statistical Data Warehouse, SDW) provides access to European Central Bank statistical data: exchange rates, monetary aggregates, interest rates, balance of payments, banking statistics, and more. It follows the SDMX (Statistical Data and Metadata eXchange) RESTful web services standard.
 
 ## Base URL
 ```
 https://data-api.ecb.europa.eu/service
 ```
 
-Note: The legacy URL `https://sdw-wsrest.ecb.europa.eu/service` still works but the above is the current endpoint.
+Note: The former Statistical Data Warehouse (SDW) web service at `https://sdw-wsrest.ecb.europa.eu/service` was decommissioned when the ECB Data Portal replaced the SDW; it may at most redirect and should not be relied on. Use the ECB Data Portal endpoint above.
 
 ## Authentication
 **No API key required.** The API is fully open and public.

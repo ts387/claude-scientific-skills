@@ -3,7 +3,6 @@
 cuGraph is NVIDIA's GPU-accelerated graph analytics library within the RAPIDS ecosystem. It provides NetworkX-compatible APIs for graph algorithms, delivering 10-500x+ speedup over CPU-based NetworkX on medium to large graphs. It supports both a direct Python API and a **zero-code-change NetworkX backend** (nx-cugraph) that accelerates existing NetworkX code with no modifications.
 
 > **Full documentation:** https://docs.rapids.ai/api/cugraph/stable/
-> **Version (stable):** 26.02.00
 > **Repository:** https://github.com/rapidsai/cugraph
 
 ## Table of Contents
@@ -146,13 +145,13 @@ result = nx.pagerank(G_gpu)       # Automatically dispatched to GPU
 
 **Shortest Paths (23+ functions):**
 - `shortest_path`, `shortest_path_length`
-- `has_path`, `all_pairs_shortest_path`, `all_pairs_shortest_path_length`
-- `dijkstra_path`, `dijkstra_path_length`, `all_pairs_dijkstra`, `all_pairs_dijkstra_path_length`
-- `bellman_ford_path`, `bellman_ford_path_length`, `all_pairs_bellman_ford_path_length`
+- `has_path`, `all_pairs_shortest_path`, `all_pairs_shortest_path_length`, `bidirectional_shortest_path`
+- `dijkstra_path`, `dijkstra_path_length`, `all_pairs_dijkstra`, `all_pairs_dijkstra_path`, `all_pairs_dijkstra_path_length`
+- `bellman_ford_path`, `bellman_ford_path_length`, `all_pairs_bellman_ford_path`, `all_pairs_bellman_ford_path_length`
 - `single_source_shortest_path`, `single_source_shortest_path_length`
 - `single_source_dijkstra`, `single_source_dijkstra_path`, `single_source_dijkstra_path_length`
 - `single_source_bellman_ford`, `single_source_bellman_ford_path`, `single_source_bellman_ford_path_length`
-- `single_target_shortest_path_length`
+- `single_target_shortest_path`, `single_target_shortest_path_length`
 
 **Traversal:**
 - `bfs_edges`, `bfs_layers`, `bfs_predecessors`, `bfs_successors`, `bfs_tree`
@@ -641,8 +640,8 @@ G_cu = cugraph.from_networkx(G_nx)  # Not yet available in all versions
 ### With PyTorch Geometric
 ```python
 # Via cugraph-pyg (see GNN Support section)
-from cugraph_pyg.data import CuGraphStore
-from cugraph_pyg.loader import CuGraphNeighborLoader
+from cugraph_pyg.data import GraphStore          # plus a cugraph_pyg feature store (e.g. TensorDictFeatureStore / WholeFeatureStore, name varies by release)
+from cugraph_pyg.loader import NeighborLoader
 ```
 
 ### With Pandas
@@ -667,7 +666,7 @@ G.from_pandas_edgelist(df, source="src", destination="dst")
 8. **Spectral Clustering:** Single-GPU only.
 9. **Minimum/Maximum Spanning Tree:** Single-GPU only.
 10. **Force Atlas 2 layout:** Single-GPU only.
-11. **Compatibility doc:** The official cuGraph compatibility document with NetworkX is listed as "coming soon" in the 26.02 release.
+11. **Compatibility doc:** As of the 26.02 release, the official cuGraph compatibility document for NetworkX was listed as "coming soon"; check the /stable/ docs for its current status.
 
 ---
 

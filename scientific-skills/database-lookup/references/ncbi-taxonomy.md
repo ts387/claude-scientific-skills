@@ -68,8 +68,8 @@ Response (abbreviated XML):
     <MitoGeneticCode><MGCId>2</MGCId><MGCName>Vertebrate Mitochondrial</MGCName></MitoGeneticCode>
     <Lineage>cellular organisms; Eukaryota; Opisthokonta; Metazoa; ... ; Hominidae; Homo</Lineage>
     <LineageEx>
-      <Taxon><TaxId>131567</TaxId><ScientificName>cellular organisms</ScientificName><Rank>no rank</Rank></Taxon>
-      <Taxon><TaxId>2759</TaxId><ScientificName>Eukaryota</ScientificName><Rank>superkingdom</Rank></Taxon>
+      <Taxon><TaxId>131567</TaxId><ScientificName>cellular organisms</ScientificName><Rank>cellular root</Rank></Taxon>
+      <Taxon><TaxId>2759</TaxId><ScientificName>Eukaryota</ScientificName><Rank>domain</Rank></Taxon>
       <!-- ... each ancestor node ... -->
     </LineageEx>
   </Taxon>
@@ -98,13 +98,13 @@ Find all protein records for a given taxid, optionally filtered by keyword.
 term=Drosophila[Next Level] AND species[Rank]
 
 # Search by taxid directly
-term=txid9606[Organism:exp]
+term=9606[Taxonomy ID]
 
 # By rank
 term=Mammalia[Scientific Name] AND class[Rank]
 
 # Subtree search (all descendants)
-term=txid9606[Organism:exp]
+term=txid9606[Subtree]
 ```
 
 ## Useful Cross-references

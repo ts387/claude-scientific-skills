@@ -262,7 +262,7 @@ def co_essentiality(gene_effect_df, target_gene, top_n=20):
 
 ### Workflow 3: Compound Sensitivity Analysis
 
-1. Download PRISM compound sensitivity data (`primary-screen-replicate-treatment-info.csv`)
+1. Download PRISM compound sensitivity data (`primary-screen-replicate-collapsed-logfold-change.csv`) and the matching compound annotations (`primary-screen-replicate-collapsed-treatment-info.csv`)
 2. Correlate compound AUC/log2(fold-change) with genomic features
 3. Identify predictive biomarkers for compound sensitivity
 
@@ -277,7 +277,7 @@ def co_essentiality(gene_effect_df, target_gene, top_n=20):
 | `OmicsExpressionProteinCodingGenesTPMLogp1.csv` | mRNA expression |
 | `OmicsSomaticMutationsMatrixDamaging.csv` | Damaging somatic mutations (binary) |
 | `OmicsCNGene.csv` | Copy number per gene |
-| `PRISM_Repurposing_Primary_Screens_Data.csv` | Drug sensitivity (repurposing library) |
+| `primary-screen-replicate-collapsed-logfold-change.csv` | PRISM Repurposing primary screen drug sensitivity (log2 fold change) |
 
 Download all files from: https://depmap.org/portal/download/all/
 
@@ -292,9 +292,10 @@ Download all files from: https://depmap.org/portal/download/all/
 
 ## Additional Resources
 
+- **Dependency analysis guide**: `references/dependency_analysis.md` — Chronos score interpretation, selectivity scoring, lineage codes, genome-wide synthetic-lethality screen, and PRISM data loading
 - **DepMap Portal**: https://depmap.org/portal/
 - **Data downloads**: https://depmap.org/portal/download/all/
 - **DepMap paper**: Behan FM et al. (2019) Nature. PMID: 30971826
-- **Chronos paper**: Dempster JM et al. (2021) Nature Methods. PMID: 34349281
+- **Chronos paper**: Dempster JM et al. (2021) Genome Biology 22:343. PMID: 34930405 — https://doi.org/10.1186/s13059-021-02540-7
 - **GitHub**: https://github.com/broadinstitute/depmap-portal
 - **Figshare**: https://figshare.com/articles/dataset/DepMap_24Q4_Public/27993966

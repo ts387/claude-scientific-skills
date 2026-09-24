@@ -44,7 +44,7 @@ This reference lists the required and recommended JSON sidecar fields for each B
 | Field | Status | Type | Description |
 |-------|--------|------|-------------|
 | `RepetitionTimeExcitation` | R | number | Excitation TR in seconds |
-| `RepetitionTimePrepration` | R | number | Preparation TR in seconds |
+| `RepetitionTimePreparation` | R | number | Preparation TR in seconds |
 | `FlipAngle` | R | number/array | Flip angle(s) in degrees |
 | `MTState` | R | boolean | Magnetization transfer on/off |
 | `SpoilingState` | REC | boolean | Whether RF spoiling applied |
@@ -217,7 +217,7 @@ Example for interleaved (odd-first, 6 slices, TR=2s):
 | `LabelingOrientation` | REC | string | Orientation of labeling plane |
 | `LabelingDistance` | REC | number | Distance from isocenter (mm) |
 | `BolusCutOffFlag` | R (PASL) | boolean | Whether QUIPSS applied |
-| `BolusCutOffTimingSequence` | R (PASL) | string | QUIPSS sequence type |
+| `BolusCutOffTechnique` | R (PASL) | string | Name of the bolus cut-off technique (e.g. Q2TIPS, QUIPSSII) |
 | `BolusCutOffDelayTime` | R (PASL) | number | QUIPSS delay time |
 
 ### aslcontext.tsv
@@ -315,7 +315,8 @@ m0scan
 | `FrameDuration` | R | array | Frame durations in seconds |
 | `Units` | R | string | Unit of voxel values (e.g., `Bq/mL`) |
 | `TracerRadLex` | REC | string | RadLex ID for tracer |
-| `BodyWeight` | REC | number | In kg |
+| `InjectedMassPerWeight` | REC | number | Injected mass per participant body weight |
+| `InjectedMassPerWeightUnits` | REC | string | e.g., `ug/kg` |
 | `BodyPart` | REC | string | Imaged body part |
 | `AttenuationCorrection` | REC | string | Method description |
 | `ReconMethodName` | REC | string | Reconstruction method |

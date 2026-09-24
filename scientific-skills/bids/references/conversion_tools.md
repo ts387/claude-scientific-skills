@@ -179,7 +179,7 @@ def infotodict(seqinfo):
 
         # Fieldmaps
         elif 'field' in protocol or 'fmap' in protocol:
-            if 'ph' in s.image_type_text.lower():
+            if 'P' in s.image_type:  # Siemens phase images carry 'P' in ImageType
                 info[fmap_phasediff].append(s.series_id)
             elif s.series_description and 'e1' in s.series_description.lower():
                 info[fmap_mag1].append(s.series_id)

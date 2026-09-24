@@ -1,6 +1,6 @@
 ---
 name: geomaster
-description: Comprehensive geospatial science skill covering remote sensing, GIS, spatial analysis, machine learning for earth observation, and 30+ scientific domains. Supports satellite imagery processing (Sentinel, Landsat, MODIS, SAR, hyperspectral), vector and raster data operations, spatial statistics, point cloud processing, network analysis, cloud-native workflows (STAC, COG, Planetary Computer), and 8 programming languages (Python, R, Julia, JavaScript, C++, Java, Go, Rust) with 500+ code examples. Use for remote sensing workflows, GIS analysis, spatial ML, Earth observation data processing, terrain analysis, hydrological modeling, marine spatial analysis, atmospheric science, and any geospatial computation task.
+description: Comprehensive geospatial science skill covering remote sensing, GIS, spatial analysis, machine learning for earth observation, and 30+ scientific domains. Supports satellite imagery processing (Sentinel, Landsat, MODIS, SAR, hyperspectral), vector and raster data operations, spatial statistics, point cloud processing, network analysis, cloud-native workflows (STAC, COG, Planetary Computer), and 8 programming languages (Python, R, Julia, JavaScript, C++, Java, Go, Rust) with 100+ code examples. Use for remote sensing workflows, GIS analysis, spatial ML, Earth observation data processing, terrain analysis, hydrological modeling, marine spatial analysis, atmospheric science, and any geospatial computation task.
 license: MIT License
 metadata:
     skill-author: K-Dense Inc.
@@ -8,7 +8,7 @@ metadata:
 
 # GeoMaster
 
-Comprehensive geospatial science skill covering GIS, remote sensing, spatial analysis, and ML for Earth observation across 70+ topics with 500+ code examples in 8 programming languages.
+Comprehensive geospatial science skill covering GIS, remote sensing, spatial analysis, and ML for Earth observation across 70+ topics with 100+ code examples in 8 programming languages.
 
 ## Installation
 
@@ -29,7 +29,7 @@ uv pip install xarray rioxarray dask-geopandas
 uv pip install pystac-client planetary-computer
 
 # Point clouds
-uv pip install laspy pylas open3d pdal
+uv pip install laspy open3d pdal
 
 # Databases
 conda install -c conda-forge postgis spatialite
@@ -273,7 +273,7 @@ search = catalog.search(
 
 # Load as xarray (cloud-native!)
 data = odc.stac.load(
-    list(search.get_items())[:5],
+    list(search.items())[:5],
     bands=["B02", "B03", "B04", "B08"],
     crs="EPSG:32610",
     resolution=10,
@@ -358,7 +358,8 @@ rf = RandomForestClassifier(n_jobs=-1)  # All cores
 - **[Programming Languages](references/programming-languages.md)** - Python, R, Julia, JS, C++, Java, Go, Rust
 - **[Data Sources](references/data-sources.md)** - Satellite catalogs, APIs
 - **[Troubleshooting](references/troubleshooting.md)** - Common issues, debugging, error reference
-- **[Code Examples](references/code-examples.md)** - 500+ examples
+- **[Specialized Topics](references/specialized-topics.md)** - Geostatistics, kriging, spatial optimization, ethics/privacy, reproducibility
+- **[Code Examples](references/code-examples.md)** - 100 numbered examples
 
 ---
 

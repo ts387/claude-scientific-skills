@@ -51,6 +51,7 @@ When using an existing presentation as a template:
 | `add_slide.py` | Duplicate slide or create from layout |
 | `clean.py` | Remove orphaned files |
 | `pack.py` | Repack with validation |
+| `validate.py` | Standalone XSD/schema validation (pack.py runs this automatically) |
 | `thumbnail.py` | Create visual grid of slides |
 
 ### unpack.py
@@ -85,6 +86,15 @@ python scripts/office/pack.py unpacked/ output.pptx --original input.pptx
 ```
 
 Validates, repairs, condenses XML, re-encodes smart quotes.
+
+### validate.py
+
+```bash
+python scripts/office/validate.py unpacked/ --original input.pptx   # Check edits before packing
+python scripts/office/validate.py output.pptx                      # Check a packed file
+```
+
+Validates XML against the OOXML schemas. With `--original`, reports only errors that were not already in the original file. With an unpacked directory, `--original` is required so the file type can be detected. Add `--auto-repair` to fix missing `xml:space="preserve"` in place (unpacked directories only).
 
 ### thumbnail.py
 

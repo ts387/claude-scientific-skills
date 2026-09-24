@@ -360,7 +360,7 @@ lf = pb.scan_table("custom.tsv", schema={"chrom": str, "start": int, "end": int}
 
 ## Cloud Storage
 
-All `read_*` and `scan_*` functions support cloud storage via individual parameters:
+All `read_*` and `scan_*` functions except `read_sam`/`scan_sam` support cloud storage via individual parameters:
 
 ### Amazon S3
 

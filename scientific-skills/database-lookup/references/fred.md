@@ -30,7 +30,7 @@ https://api.stlouisfed.org/fred
 
 ### 1. Series Observations (Time Series Data)
 
-#### `GET /fred/series/observations`
+#### `GET /series/observations`
 Returns the data values for an economic time series.
 
 **Parameters:**
@@ -89,7 +89,7 @@ Note: `value` is always a string. Missing values appear as `"."`.
 
 ### 2. Series Info (Metadata)
 
-#### `GET /fred/series`
+#### `GET /series`
 Returns metadata for a series.
 
 **Parameters:**
@@ -131,7 +131,7 @@ https://api.stlouisfed.org/fred/series?series_id=UNRATE&api_key=YOUR_KEY&file_ty
 
 ### 3. Series Search
 
-#### `GET /fred/series/search`
+#### `GET /series/search`
 Search for series by keywords.
 
 **Parameters:**
@@ -181,7 +181,7 @@ https://api.stlouisfed.org/fred/series/search?search_text=consumer+price+index&a
 
 ### 4. Category Lookup
 
-#### `GET /fred/category`
+#### `GET /category`
 Get info for a specific category.
 
 **Parameters:**
@@ -194,7 +194,7 @@ Get info for a specific category.
 https://api.stlouisfed.org/fred/category?category_id=0&api_key=YOUR_KEY&file_type=json
 ```
 
-#### `GET /fred/category/children`
+#### `GET /category/children`
 Get child categories.
 
 **Example:**
@@ -202,7 +202,7 @@ Get child categories.
 https://api.stlouisfed.org/fred/category/children?category_id=0&api_key=YOUR_KEY&file_type=json
 ```
 
-#### `GET /fred/category/series`
+#### `GET /category/series`
 Get all series in a category.
 
 **Parameters:**
@@ -221,7 +221,7 @@ https://api.stlouisfed.org/fred/category/series?category_id=125&api_key=YOUR_KEY
 
 ### 5. Releases
 
-#### `GET /fred/releases`
+#### `GET /releases`
 Get all economic data releases.
 
 **Example:**
@@ -229,7 +229,7 @@ Get all economic data releases.
 https://api.stlouisfed.org/fred/releases?api_key=YOUR_KEY&file_type=json
 ```
 
-#### `GET /fred/release/series`
+#### `GET /release/series`
 Get all series in a specific release.
 
 **Parameters:**
@@ -246,10 +246,10 @@ https://api.stlouisfed.org/fred/release/series?release_id=53&api_key=YOUR_KEY&fi
 
 ### 6. Tags
 
-#### `GET /fred/tags`
+#### `GET /tags`
 Get all tags and their frequency of use.
 
-#### `GET /fred/series/search/tags`
+#### `GET /series/search/tags`
 Get tags matching a series search.
 
 **Example:**

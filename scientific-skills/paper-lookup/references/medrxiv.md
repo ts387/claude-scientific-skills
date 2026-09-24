@@ -32,7 +32,7 @@ GET /details/medrxiv/{interval}/{cursor}/{format}
 | `cursor` | Integer (default `0`) | Pagination offset (100 per page) |
 | `format` | `json` (default), `xml` | Response format |
 
-Optional: `?category=cardiovascular%20medicine` (use URL-encoding for spaces)
+Optional: `?category=cardiovascular_medicine` (use underscores for spaces; the API returns the name with spaces, e.g. "cardiovascular medicine")
 
 **Examples:**
 ```
@@ -101,4 +101,4 @@ No documented rate limits. No authentication required.
 
 ## Categories
 
-`addiction-medicine`, `allergy-and-immunology`, `anesthesia`, `cardiovascular-medicine`, `dentistry-and-oral-medicine`, `dermatology`, `emergency-medicine`, `endocrinology`, `epidemiology`, `forensic-medicine`, `gastroenterology`, `genetic-and-genomic-medicine`, `geriatric-medicine`, `health-economics`, `health-informatics`, `health-policy`, `health-systems-and-quality-improvement`, `hematology`, `hiv-aids`, `infectious-diseases`, `intensive-care-and-critical-care-medicine`, `medical-education`, `medical-ethics`, `nephrology`, `neurology`, `nursing`, `nutrition`, `obstetrics-and-gynecology`, `occupational-and-environmental-health`, `oncology`, `ophthalmology`, `orthopedics`, `otolaryngology`, `pain-medicine`, `palliative-medicine`, `pathology`, `pediatrics`, `pharmacology-and-therapeutics`, `primary-care-research`, `psychiatry-and-clinical-psychology`, `public-and-global-health`, `radiology-and-imaging`, `rehabilitation-medicine-and-physical-therapy`, `respiratory-medicine`, `rheumatology`, `sexual-and-reproductive-health`, `sports-medicine`, `surgery`, `toxicology`, `transplantation`, `urology`
+`addiction_medicine`, `allergy_and_immunology`, `anesthesia`, `cardiovascular_medicine`, `dentistry_and_oral_medicine`, `dermatology`, `emergency_medicine`, `endocrinology`, `epidemiology`, `forensic_medicine`, `gastroenterology`, `genetic_and_genomic_medicine`, `geriatric_medicine`, `health_economics`, `health_informatics`, `health_policy`, `health_systems_and_quality_improvement`, `hematology`, `hiv_aids`, `infectious_diseases`, `intensive_care_and_critical_care_medicine`, `medical_education`, `medical_ethics`, `nephrology`, `neurology`, `nursing`, `nutrition`, `obstetrics_and_gynecology`, `occupational_and_environmental_health`, `oncology`, `ophthalmology`, `orthopedics`, `otolaryngology`, `pain_medicine`, `palliative_medicine`, `pathology`, `pediatrics`, `pharmacology_and_therapeutics`, `primary_care_research`, `psychiatry_and_clinical_psychology`, `public_and_global_health`, `radiology_and_imaging`, `rehabilitation_medicine_and_physical_therapy`, `respiratory_medicine`, `rheumatology`, `sexual_and_reproductive_health`, `sports_medicine`, `surgery`, `toxicology`, `transplantation`, `urology`

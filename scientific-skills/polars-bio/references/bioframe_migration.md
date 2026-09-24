@@ -134,14 +134,14 @@ merged = (
 
 ## Performance Comparison
 
-Benchmarks on real-world genomic datasets (from the polars-bio paper, Bioinformatics 2025):
+Benchmarks on real-world genomic datasets (from the polars-bio paper, Bioinformatics 41(12), 2025, https://doi.org/10.1093/bioinformatics/btaf640):
 
 | Operation | bioframe | polars-bio | Speedup |
 |-----------|----------|------------|---------|
 | overlap | 1.0x | 6.5x | 6.5x |
-| nearest | 1.0x | 38x | 38x |
-| merge | 1.0x | 8.2x | 8.2x |
-| coverage | 1.0x | 12x | 12x |
+| nearest | 1.0x | 15.5x | 15.5x |
+| count_overlaps | 1.0x | 38x | 38x |
+| coverage | 1.0x | 15x | 15x |
 
 Speedups come from:
 - Rust-based interval tree implementation

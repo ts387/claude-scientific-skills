@@ -68,11 +68,11 @@ GET /compound/{namespace}/{id}/property/{property_list}/JSON
 ```
 Properties are comma-separated. Available properties:
 
-`MolecularFormula`, `MolecularWeight`, `CanonicalSMILES`, `IsomericSMILES`, `InChI`, `InChIKey`, `IUPACName`, `XLogP`, `ExactMass`, `MonoisotopicMass`, `TPSA`, `Complexity`, `Charge`, `HBondDonorCount`, `HBondAcceptorCount`, `RotatableBondCount`, `HeavyAtomCount`, `CID`
+`MolecularFormula`, `MolecularWeight`, `SMILES` (absolute/isomeric; formerly `IsomericSMILES`), `ConnectivitySMILES` (formerly `CanonicalSMILES`; the old names are deprecated aliases still accepted by PUG REST), `InChI`, `InChIKey`, `IUPACName`, `XLogP`, `ExactMass`, `MonoisotopicMass`, `TPSA`, `Complexity`, `Charge`, `HBondDonorCount`, `HBondAcceptorCount`, `RotatableBondCount`, `HeavyAtomCount`, `CID`
 
 Example:
 ```
-/compound/cid/2244/property/MolecularFormula,MolecularWeight,CanonicalSMILES,IUPACName/JSON
+/compound/cid/2244/property/MolecularFormula,MolecularWeight,SMILES,IUPACName/JSON
 ```
 
 Response:
@@ -85,7 +85,7 @@ Response:
         "MolecularFormula": "C9H8O4",
         "MolecularWeight": 180.16,
         "IUPACName": "2-acetyloxybenzoic acid",
-        "CanonicalSMILES": "CC(=O)OC1=CC=CC=C1C(O)=O"
+        "SMILES": "CC(=O)OC1=CC=CC=C1C(=O)O"
       }
     ]
   }

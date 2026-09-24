@@ -316,7 +316,6 @@ Expected Output:
 - `gget` - Gene data retrieval
 - `matplotlib` - Visualization
 - `seaborn` - Heatmaps
-- `plotly` - Interactive visualization
 - `scikit-survival` - Survival analysis
 
 **Workflow**:
@@ -412,7 +411,6 @@ Expected Output:
 - `arboreto` - Gene regulatory networks
 - `pytorch-lightning` - Deep learning
 - `matplotlib` - Visualization
-- `plotly` - Interactive visualization
 - `statistical-analysis` - Hypothesis testing
 - `geniml` - Genomic ML embeddings
 
@@ -767,7 +765,6 @@ Expected Output:
 - `polars` - Data manipulation
 - `matplotlib` - Visualization
 - `seaborn` - Statistical plots
-- `plotly` - Interactive plots
 - `clinical-reports` - Report generation
 - `market-research-reports` - Competitive intelligence
 
@@ -895,7 +892,6 @@ Expected Output:
 - `statsmodels` - Multi-omics correlation
 - `networkx` - Network analysis
 - `pymc` - Bayesian modeling
-- `plotly` - Interactive network visualization
 
 **Workflow**:
 
@@ -1012,7 +1008,6 @@ Expected Output:
 - `vaex` - Large dataset handling
 - `dask` - Parallel computing
 - `matplotlib` - Visualization
-- `plotly` - Interactive visualization
 - `scientific-writing` - Report generation
 - `scientific-visualization` - Publication figures
 
@@ -1142,7 +1137,6 @@ Expected Output:
 - `pydicom` - DICOM handling
 - `omero-integration` - Image management
 - `matplotlib` - Visualization
-- `plotly` - Interactive visualization
 - `shap` - Model interpretability
 - `clinical-reports` - Clinical validation reports
 
@@ -1265,7 +1259,6 @@ Expected Output:
 - `simpy` - Process simulation
 - `polars` - Data processing
 - `matplotlib` - Plate visualization
-- `plotly` - Interactive plate heatmaps
 - `rdkit` - PAINS filtering for hits
 - `clinical-reports` - Screening report generation
 
@@ -1410,7 +1403,6 @@ Expected Output:
 - `statistical-analysis` - Hypothesis testing
 - `matplotlib` - Manhattan plots
 - `seaborn` - Visualization
-- `plotly` - Interactive visualizations
 
 **Workflow**:
 
@@ -1544,7 +1536,6 @@ Expected Output:
 - `pymc` - Bayesian modeling
 - `matplotlib` - Brain visualization
 - `seaborn` - Connectivity matrices
-- `plotly` - Interactive brain networks
 
 **Workflow**:
 
@@ -1683,7 +1674,6 @@ Expected Output:
 - `statsmodels` - Diversity statistics
 - `statistical-analysis` - Hypothesis testing
 - `matplotlib` - Visualization
-- `plotly` - Interactive plots
 
 **Workflow**:
 
@@ -1828,7 +1818,6 @@ Expected Output:
 - `statsmodels` - Trend analysis
 - `statistical-analysis` - Hypothesis testing
 - `matplotlib` - Epidemiological plots
-- `plotly` - Interactive dashboards
 - `clinical-reports` - Surveillance reports
 
 **Workflow**:
@@ -2158,7 +2147,6 @@ Expected Output:
 - `statsmodels` - Hypothesis testing
 - `dask` - Large-scale data processing
 - `vaex` - Out-of-core dataframes
-- `plotly` - Interactive visualization
 
 **Workflow**:
 
@@ -2307,7 +2295,6 @@ Expected Output:
 - `scikit-learn` - Process modeling
 - `stable-baselines3` - Real-time control optimization
 - `matplotlib` - Process diagrams
-- `plotly` - Interactive process visualization
 - `fluidsim` - Fluid dynamics simulation
 - `scientific-writing` - Engineering reports
 - `pdf` - Technical documentation
@@ -2507,7 +2494,6 @@ Expected Output:
 **Skills Used**:
 - `generate-image` - AI image generation and editing
 - `matplotlib` - Data visualization
-- `plotly` - Interactive visualization
 - `scientific-visualization` - Best practices
 - `scientific-schematics` - Scientific diagrams
 - `scientific-writing` - Figure caption creation
@@ -2867,7 +2853,6 @@ Expected Output:
 - `umap-learn` - Dimensionality reduction
 - `statistical-analysis` - Population statistics
 - `matplotlib` - Flow cytometry plots
-- `plotly` - Interactive gating
 - `clinical-reports` - Clinical flow reports
 - `exploratory-data-analysis` - Data exploration
 
@@ -2989,7 +2974,7 @@ These examples demonstrate:
 The examples in this document cover the following skill categories:
 
 **Databases & Data Sources:**
-- `database-lookup` — unified access to 78 databases including ChEMBL, PubChem, DrugBank, UniProt, NCBI Gene, Ensembl, ClinVar, COSMIC, STRING, KEGG, Reactome, HMDB, PDB, AlphaFold DB, ZINC, GWAS Catalog, GEO, ENA, ClinicalTrials.gov, FDA, Open Targets, ClinPGx, Metabolomics Workbench, and more
+- `database-lookup` — unified access to 81 databases including ChEMBL, PubChem, DrugBank, UniProt, NCBI Gene, Ensembl, ClinVar, COSMIC, STRING, KEGG, Reactome, HMDB, PDB, AlphaFold DB, ZINC, GWAS Catalog, GEO, ENA, ClinicalTrials.gov, FDA, Open Targets, ClinPGx, Metabolomics Workbench, and more
 - `paper-lookup` — unified access to 10 academic paper databases including PubMed, PMC, bioRxiv, medRxiv, arXiv, OpenAlex, Crossref, Semantic Scholar, CORE, Unpaywall
 - `cellxgene-census` — CZ CELLxGENE single-cell reference data
 
@@ -2999,7 +2984,7 @@ The examples in this document cover the following skill categories:
 - Proteins: `esm`, `bioservices`
 - Machine Learning: `scikit-learn`, `pytorch-lightning`, `torch-geometric`, `transformers`, `stable-baselines3`, `shap`
 - Statistics: `statsmodels`, `statistical-analysis`, `pymc`, `scikit-survival`
-- Visualization: `matplotlib`, `seaborn`, `plotly`, `scientific-visualization`
+- Visualization: `matplotlib`, `seaborn`, `scientific-visualization`
 - Data Processing: `polars`, `dask`, `vaex`, `networkx`
 - Materials: `pymatgen`
 - Physics: `astropy`, `sympy`, `fluidsim`

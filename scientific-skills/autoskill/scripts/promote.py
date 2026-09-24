@@ -35,10 +35,10 @@ def promote(proposed_path, skills_dir, name):
 def main(argv=None):
     parser = argparse.ArgumentParser(
         prog="autoskill-promote",
-        description="Move a proposed skill from _proposed/<ts>/ into scientific-skills/",
+        description="Move a proposed skill from ~/.autoskill/proposed/<ts>/ into scientific-skills/",
     )
     parser.add_argument("--proposed", required=True,
-                        help="path to the _proposed/<ts>/ directory")
+                        help="path to a proposals run directory, e.g. ~/.autoskill/proposed/<ts>/ (run's default --out location)")
     parser.add_argument("--skills-dir", required=True,
                         help="path to scientific-skills/")
     parser.add_argument("--name", required=True, help="skill name to promote")

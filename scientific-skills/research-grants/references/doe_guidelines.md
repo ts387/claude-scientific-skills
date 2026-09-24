@@ -94,7 +94,8 @@
 - **Water Power Technologies Office (WPTO)**
 - **Geothermal Technologies Office (GTO)**
 - **Building Technologies Office (BTO)**
-- **Advanced Manufacturing Office (AMO)**
+- **Advanced Materials and Manufacturing Technologies Office (AMMTO)**
+- **Industrial Efficiency and Decarbonization Office (IEDO)**
 - **Vehicle Technologies Office (VTO)**
 - **Bioenergy Technologies Office (BETO)**
 - **Hydrogen and Fuel Cell Technologies Office (HFTO)**

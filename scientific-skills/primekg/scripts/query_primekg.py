@@ -4,7 +4,7 @@ import json
 from typing import List, Dict, Optional, Union
 
 # Default data path
-DATA_PATH = "/mnt/c/Users/eamon/Documents/Data/PrimeKG/kg.csv"
+DATA_PATH = os.environ.get("PRIMEKG_DATA_PATH", os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "data", "kg.csv"))
 
 def _load_kg():
     """Internal helper to load the KG efficiently."""
@@ -117,7 +117,7 @@ def get_disease_context(disease_name: str) -> Dict:
         "disease_info": results[0],
         "associated_genes": [n for n in neighbors if n['neighbor_type'] == 'gene/protein'],
         "associated_drugs": [n for n in neighbors if n['neighbor_type'] == 'drug'],
-        "phenotypes": [n for n in neighbors if n['neighbor_type'] == 'phenotype'],
+        "phenotypes": [n for n in neighbors if n['neighbor_type'] == 'effect/phenotype'],
         "related_diseases": [n for n in neighbors if n['neighbor_type'] == 'disease']
     }
     return summary

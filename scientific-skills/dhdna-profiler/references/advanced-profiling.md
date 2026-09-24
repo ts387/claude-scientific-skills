@@ -69,4 +69,4 @@ Et = Ethical, S = Strategic, M = Memory, So = Social
 D = Domain, I = Intuitive, T = Temporal, Mc = Metacognitive
 ```
 
-Example: `[A9 C4 E2 L7 Et3 S9 D8 I3 T8 Mc6]` = highly analytical-strategic mind with deep domain expertise and strong temporal awareness, but low emotional processing and intuitive reasoning. Likely an engineer or systems architect.
+Example: `[A9 C4 E2 L7 Et3 S9 M5 So4 D8 I3 T8 Mc6]` = highly analytical-strategic mind with deep domain expertise and strong temporal awareness, but low emotional processing and intuitive reasoning. Likely an engineer or systems architect.

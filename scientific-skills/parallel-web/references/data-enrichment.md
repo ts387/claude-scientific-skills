@@ -19,7 +19,7 @@ parallel-cli enrich run --data '[{"company": "Google"}, {"company": "Microsoft"}
 For CSV file:
 
 ```bash
-parallel-cli enrich run --source-type csv --source "input.csv" --target "/tmp/output.json" --source-columns '[{"name": "company", "description": "Company name"}]' --intent "CEO name and founding year" --no-wait --json
+parallel-cli enrich run --source-type csv --source "input.csv" --target "output.json" --source-columns '[{"name": "company", "description": "Company name"}]' --intent "CEO name and founding year" --no-wait --json
 ```
 
 If this is a **follow-up** to a previous research or enrichment task where you know the `interaction_id`, add context chaining:

@@ -61,14 +61,14 @@ print(result)
 BoltzGen is one of the flagship Spaces in the `hugging-science` org. It generates designed binders against a target protein.
 
 ```python
-from gradio_client import Client, file
+from gradio_client import Client, handle_file
 
 client = Client("hugging-science/boltzgen-demo")
 print(client.view_api())   # inspect first
 
 # Typical call shape (verify against view_api() — endpoint names evolve):
 result = client.predict(
-    target_pdb=file("/path/to/target.pdb"),
+    target_pdb=handle_file("/path/to/target.pdb"),
     binder_type="protein",         # or "peptide", "nanobody"
     n_designs=8,
     api_name="/generate",
@@ -81,11 +81,11 @@ When the Space returns a file path, `gradio_client` downloads the file to a loca
 
 ## File inputs
 
-Many scientific Spaces take structured file inputs (PDB, CIF, FASTA, NIfTI, FITS). Wrap them with `gradio_client.file(...)`:
+Many scientific Spaces take structured file inputs (PDB, CIF, FASTA, NIfTI, FITS). Wrap them with `gradio_client.handle_file(...)`:
 
 ```python
-from gradio_client import file
-result = client.predict(file("target.pdb"), api_name="/predict")
+from gradio_client import handle_file
+result = client.predict(handle_file("target.pdb"), api_name="/predict")
 ```
 
 Don't pass raw paths as strings — Gradio uploads files differently from text and the type wrapper signals which is which.

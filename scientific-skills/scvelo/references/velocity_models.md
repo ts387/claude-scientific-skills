@@ -34,7 +34,7 @@ Where:
 scv.tl.velocity(adata, mode='steady_state')
 ```
 
-### Stochastic Model (scVelo v1)
+### Stochastic Model (scVelo default)
 
 - Extends steady-state with variance/covariance terms
 - Models cell-to-cell variability in mRNA counts
@@ -44,7 +44,7 @@ scv.tl.velocity(adata, mode='steady_state')
 scv.tl.velocity(adata, mode='stochastic')
 ```
 
-### Dynamical Model (scVelo v2, recommended)
+### Dynamical Model (scVelo, recommended)
 
 - Jointly estimates all kinetic rates (α, β, γ) and cell-specific latent time
 - Does not assume steady state

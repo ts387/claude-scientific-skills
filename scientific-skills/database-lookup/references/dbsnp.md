@@ -48,7 +48,7 @@ GET esummary.fcgi?db=snp&id=334&retmode=json
 ```
 Response includes: `snp_id`, `chr`, `chrpos`, `genes`, `clinical_significance`, `global_mafs`, `docsum`.
 
-### 3. EFetch -- Fetch SNP details (XML only)
+### 3. EFetch -- Fetch SNP details (JSON or XML)
 ```
 GET efetch.fcgi?db=snp&id=IDS&rettype=json&retmode=text
 ```
@@ -60,7 +60,7 @@ Note: EFetch for dbSNP returns JSON with `rettype=json`. Also supports XML with 
 
 ### 1. Lookup variant by rsID
 ```
-GET /variation/v0/refsnp/{rsid}
+GET /refsnp/{rsid}
 ```
 
 **Example:**
@@ -93,7 +93,7 @@ Response (JSON, abbreviated):
 
 ### 2. Lookup variant by SPDI notation
 ```
-GET /variation/v0/spdi/{spdi}/rsids
+GET /spdi/{spdi}/rsids
 ```
 SPDI format: `SeqID:Position:Deletion:Insertion`
 
@@ -104,7 +104,7 @@ GET https://api.ncbi.nlm.nih.gov/variation/v0/spdi/NC_000011.10:5227002:T:A/rsid
 
 ### 3. Lookup variant by HGVS
 ```
-GET /variation/v0/hgvs/{hgvs}/contextuals
+GET /hgvs/{hgvs}/contextuals
 ```
 
 **Example:**
@@ -114,7 +114,7 @@ GET https://api.ncbi.nlm.nih.gov/variation/v0/hgvs/NC_000011.10:g.5227003T>A/con
 
 ### 4. Batch rsID lookup (POST)
 ```
-POST /variation/v0/refsnp/batch
+POST /refsnp/batch
 Content-Type: application/json
 
 {"refsnp_ids": ["334", "1805007", "7412"]}

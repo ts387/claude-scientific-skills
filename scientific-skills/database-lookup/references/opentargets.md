@@ -7,17 +7,14 @@
 https://api.platform.opentargets.org/api/v4/graphql
 ```
 
-**Important:** The GraphQL endpoint requires HTTP POST with `Content-Type: application/json`. WebFetch (GET-only) will not work — use `curl` via shell instead:
+**Important:** The GraphQL endpoint requires HTTP POST with `Content-Type: application/json`. WebFetch (GET-only) will not work for queries with variables — use `curl` via shell instead:
 ```bash
 curl -s -X POST -H "Content-Type: application/json" \
   -d '{"query":"{ target(ensemblId: \"ENSG00000157764\") { approvedSymbol approvedName } }"}' \
   https://api.platform.opentargets.org/api/v4/graphql
 ```
 
-**REST API (simpler queries):**
-```
-https://api.platform.opentargets.org/api/v4
-```
+The Platform API is GraphQL-only (the legacy v3 REST API was retired with the 2021 relaunch). For simple queries without variables, GET on the `/graphql` endpoint with a `query` parameter works (see the "Example as URL" entries below).
 
 ## Authentication
 
@@ -363,39 +360,6 @@ Included in the target query (see endpoint 1 above). Modalities include:
 
 ---
 
-## REST API Endpoints
-
-These are simpler alternatives for common operations.
-
-### Search
-
-```
-GET /api/v4/search?q={query}&page=0&size=10
-```
-
-**Example:**
-```
-https://api.platform.opentargets.org/api/v4/search?q=TP53&size=5
-```
-
-**Response:**
-```json
-{
-  "total": 15,
-  "data": [
-    {
-      "id": "ENSG00000141510",
-      "entity": "target",
-      "name": "TP53",
-      "description": "Cellular tumor antigen p53",
-      "score": 142.5
-    }
-  ]
-}
-```
-
----
-
 ## Key Identifiers
 
 | Entity  | ID Format | Example |
@@ -406,7 +370,7 @@ https://api.platform.opentargets.org/api/v4/search?q=TP53&size=5
 
 ## Datasource IDs (for filtering evidence)
 
-- `ot_genetics_portal` -- Open Targets Genetics
+- `gwas_credible_sets` -- GWAS credible sets / L2G (replaces the retired `ot_genetics_portal`)
 - `eva` -- ClinVar (via EVA)
 - `cancer_gene_census` -- COSMIC Cancer Gene Census
 - `chembl` -- ChEMBL (clinical trials)
@@ -425,7 +389,6 @@ https://api.platform.opentargets.org/api/v4/search?q=TP53&size=5
 ## Pagination
 
 GraphQL uses `page: { index: Int, size: Int }` (0-based index).
-REST uses `page` and `size` query parameters.
 
 ## Rate Limits
 
@@ -447,8 +410,6 @@ GraphQL errors:
   ]
 }
 ```
-
-REST errors return appropriate HTTP status codes with JSON error bodies.
 
 ## Tips
 

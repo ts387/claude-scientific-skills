@@ -329,10 +329,10 @@ Neu5Ac-Gal-GlcNAc-Man/
 
 ## Additional Resources
 
+- **Full database/tool catalog**: See `references/glycan_databases.md` for glycan databases, prediction servers, glycoproteomics tools, and glycan nomenclature systems.
 - **GlyTouCan** (glycan structure repository): https://glytoucan.org/
 - **GlyConnect**: https://glyconnect.expasy.org/
 - **CFG Functional Glycomics**: http://www.functionalglycomics.org/
 - **DTU Health Tech servers** (NetNGlyc, NetOGlyc): https://services.healthtech.dtu.dk/
-- **GlycoWorkbench**: https://glycoworkbench.software.informer.com/
 - **Review**: Apweiler R et al. (1999) Biochim Biophys Acta. PMID: 10564035
 - **Therapeutic glycoengineering review**: Jefferis R (2009) Nature Reviews Drug Discovery. PMID: 19448661

@@ -74,7 +74,7 @@ GET /data/pathway/{id}/containedEvents
 
 ### Participants of a reaction
 ```
-GET /data/event/{id}/participants
+GET /data/participants/{id}
 ```
 
 ### Ancestors of an event

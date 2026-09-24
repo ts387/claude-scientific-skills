@@ -19,12 +19,12 @@
 
 1. **BIO** - Biological Sciences
 2. **CISE** - Computer and Information Science and Engineering
-3. **EHR** - Education and Human Resources
+3. **EDU** - STEM Education (formerly EHR)
 4. **ENG** - Engineering
 5. **GEO** - Geosciences
 6. **MPS** - Mathematical and Physical Sciences
 7. **SBE** - Social, Behavioral, and Economic Sciences
-8. **TIP** - Technology, Innovation, and Partnerships (formerly EDA)
+8. **TIP** - Technology, Innovation and Partnerships (established 2022)
 9. **OPP** - Office of Polar Programs
 10. **OISE** - Office of International Science and Engineering
 
@@ -559,7 +559,6 @@ NSF uses two equally weighted criteria for all proposals:
 - **NSF Homepage**: https://www.nsf.gov
 - **Award Search**: https://www.nsf.gov/awardsearch/
 - **Proposal & Award Policies & Procedures Guide (PAPPG)**: https://www.nsf.gov/publications/pub_summ.jsp?ods_key=pappg
-- **FastLane**: https://www.fastlane.nsf.gov/
 - **Research.gov**: https://www.research.gov/
 - **Broader Impacts Resources**: https://www.nsf.gov/od/oia/special/broaderimpacts/
 - **NSF Funding Statistics**: https://www.nsf.gov/statistics/

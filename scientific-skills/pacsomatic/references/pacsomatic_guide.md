@@ -28,7 +28,7 @@ Important notes from docs:
 
 This skill can be reused by other agents in the same workspace.
 
-- Keep the whole folder `.github/skills/pacsomatic` intact when reusing.
+- Keep the whole `pacsomatic` skill folder (the directory containing `SKILL.md`, `references/`, and `scripts/`; `scientific-skills/pacsomatic` in this repository) intact when reusing.
 - Other agents can either:
   - call `scripts/run_pacsomatic.py` to generate a backend-aware launch script, or
   - emit a direct platform-native script and return the matching launcher command.
@@ -63,7 +63,7 @@ It produces:
 ## Example: generate script only
 
 ```bash
-python .github/skills/pacsomatic/scripts/run_pacsomatic.py \
+python scripts/run_pacsomatic.py \
   --tumor-bam /data/P1_tumor.bam \
   --normal-bam /data/P1_normal.bam \
   --patient-id P1 \
@@ -82,7 +82,7 @@ python .github/skills/pacsomatic/scripts/run_pacsomatic.py \
 ## Example: dry-run validation
 
 ```bash
-python .github/skills/pacsomatic/scripts/run_pacsomatic.py \
+python scripts/run_pacsomatic.py \
   --tumor-bam /data/P1_tumor.bam \
   --normal-bam /data/P1_normal.bam \
   --patient-id P1 \
@@ -98,7 +98,7 @@ python .github/skills/pacsomatic/scripts/run_pacsomatic.py \
 ## Example: generate and submit immediately
 
 ```bash
-python .github/skills/pacsomatic/scripts/run_pacsomatic.py \
+python scripts/run_pacsomatic.py \
   --tumor-bam /data/P1_tumor.bam \
   --normal-bam /data/P1_normal.bam \
   --patient-id P1 \
@@ -114,7 +114,7 @@ python .github/skills/pacsomatic/scripts/run_pacsomatic.py \
 ## Example: submit on Slurm
 
 ```bash
-python .github/skills/pacsomatic/scripts/run_pacsomatic.py \
+python scripts/run_pacsomatic.py \
   --tumor-bam /data/P1_tumor.bam \
   --normal-bam /data/P1_normal.bam \
   --patient-id P1 \
@@ -203,11 +203,13 @@ bsub < submit_pacsomatic_hg008.lsf.sh
 The script supports your style of submission, including `-P`, queue switching,
 `module load nextflow/21.10.5`, `-resume`, and report/DAG outputs.
 
-Built-in defaults now match your common combo:
+The helper has no built-in project, queue, or module-load defaults (all three
+default to empty, and the matching `#BSUB -P`, `#BSUB -q`, and module lines are
+left out). Pass them explicitly for your common combo:
 
-- project: `Somatic_singularity`
-- queue: `heavy_io`
-- module-load: `module load nextflow/21.10.5`
+- `--project Somatic_singularity`
+- `--queue heavy_io`
+- `--module-load "module load nextflow/21.10.5"`
 
 Default LSF output naming now follows your style:
 
@@ -218,7 +220,7 @@ You can override with `--stdout-file` and `--stderr-file`, and optionally set
 `--logdir` to place them under a specific directory.
 
 ```bash
-python .github/skills/pacsomatic/scripts/run_pacsomatic.py \
+python scripts/run_pacsomatic.py \
   --tumor-bam /data/P1_tumor.bam \
   --normal-bam /data/P1_normal.bam \
   --patient-id P1 \

@@ -226,17 +226,17 @@ When a database doesn't recognize an identifier, convert it using these workflow
 
 **Genes**: Symbol (e.g. "TP53") → look up in **NCBI Gene** (esearch by symbol) → get NCBI Gene ID → convert to Ensembl ID via **Ensembl** `/xrefs/symbol/homo_sapiens/{symbol}`, or to UniProt accession via **UniProt** search (`gene_exact:{symbol} AND organism_id:9606`).
 
-**Compounds**: Name → **PubChem** `/compound/name/{name}/cids/JSON` → get CID → convert to ChEMBL ID via **UniChem** or **ChEMBL** molecule search. If name lookup fails, try SMILES, InChIKey, or CAS number.
+**Compounds**: Name → **PubChem** `/compound/name/{name}/cids/JSON` → get CID → convert to ChEMBL ID via **ChEMBL** `/molecule/search?q={name}` (free-text; see references/chembl.md), or check **PubChem** `/compound/cid/{cid}/synonyms/JSON`, which usually lists the `CHEMBL#####` ID directly. If name lookup fails, try SMILES, InChIKey, or CAS number.
 
 **Variants**: rsID (e.g. "rs334") works directly in **dbSNP**, **ClinVar**, **GWAS Catalog**, **gnomAD**. For genomic coordinates, use **Ensembl** VEP to get consequence annotations and linked rsIDs.
 
 **Diseases**: Name → **Open Targets** or **Monarch** search → get EFO or MONDO ID → use in downstream queries.
 
-## POST-Only APIs
+## APIs That Need curl (POST or custom headers)
 
-These databases require HTTP POST and **will not work with WebFetch** (GET-only). Use `curl` via your platform's shell tool instead:
+These databases require HTTP POST or a custom request header and **will not work with WebFetch** (GET-only, no custom headers). Use `curl` via your platform's shell tool instead:
 
-| Database | Why POST needed | Example |
+| Database | Why curl needed | Example |
 |---|---|---|
 | Open Targets | GraphQL endpoint | `curl -X POST -H "Content-Type: application/json" -d '{"query":"..."}' https://api.platform.opentargets.org/api/v4/graphql` |
 | gnomAD | GraphQL endpoint | `curl -X POST -H "Content-Type: application/json" -d '{"query":"..."}' https://gnomad.broadinstitute.org/api` |
@@ -262,10 +262,11 @@ Some databases require API keys or have access restrictions. When an API key is 
 | NCBI (GEO, Gene) | `NCBI_API_KEY` | https://www.ncbi.nlm.nih.gov/account/settings/ |
 | OpenFDA | `OPENFDA_API_KEY` | https://open.fda.gov/apis/authentication/ |
 | USPTO (PatentsView) | `PATENTSVIEW_API_KEY` | https://patentsview.org/apis/keyrequest |
-| Data Commons | `DATACOMMONS_API_KEY` | Google Cloud Console |
+| OpenAlex | `OPENALEX_API_KEY` | https://openalex.org/settings/api (recommended, not required) |
+| Data Commons | `DATACOMMONS_API_KEY` | https://apikeys.datacommons.org/ |
 | Materials Project | `MP_API_KEY` | https://materialsproject.org (free account) |
 | NASA | `NASA_API_KEY` | https://api.nasa.gov (free, DEMO_KEY available) |
-| NOAA (CDO) | `NOAA_API_KEY` | https://www.ncdc.noaa.gov/cdo-web/token |
+| NOAA (CDO) | `NOAA_API_KEY` | https://www.ncei.noaa.gov/cdo-web/token |
 | OpenWeatherMap | `OPENWEATHERMAP_API_KEY` | https://openweathermap.org/appid |
 | OMIM | `OMIM_API_KEY` | https://omim.org/api (free academic) |
 | BioGRID | `BIOGRID_API_KEY` | https://webservice.thebiogrid.org (free) |

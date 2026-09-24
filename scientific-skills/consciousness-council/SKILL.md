@@ -107,7 +107,9 @@ The user can customize the Council:
 - **"Custom council: [list]"** → User picks exact members
 - **"Anonymous council"** → Don't reveal which archetype is speaking until synthesis (reduces anchoring bias)
 - **"Devil's advocate mode"** → Every member must argue AGAINST whatever seems most intuitive
-- **"Rounds mode"** → After initial positions, members respond to each other for a second round
+- **"Rounds mode"** → After initial positions, members respond to each other and then revise their positions (3-round protocol; see `references/advanced-configurations.md`)
+
+For domain-specific council presets (startups, hiring, crisis, investment, etc.), custom archetype creation, deliberation scoring (CQS), the multi-round protocol, and Silent Council mode, see `references/advanced-configurations.md`.
 
 ## What Makes a Good Council Question
 

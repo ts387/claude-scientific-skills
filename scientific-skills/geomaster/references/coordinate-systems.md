@@ -10,6 +10,8 @@ Complete guide to coordinate systems, projections, and transformations for geosp
 4. [UTM Zones](#utm-zones)
 5. [Transformations](#transformations)
 6. [Best Practices](#best-practices)
+7. [Common Pitfalls](#common-pitfalls)
+8. [Quick Reference](#quick-reference)
 
 ## Fundamentals
 
@@ -51,8 +53,8 @@ A Coordinate Reference System defines how coordinates relate to positions on Ear
 | EPSG | Name | Area | Distortion | Notes |
 |------|------|------|------------|-------|
 | 3857 | Web Mercator | Global (85°S-85°N) | High near poles | Web maps (Google, OSM) |
-| 32601-32660 | UTM Zone N | Global (1° bands) | <1% per zone | Metric calculations |
-| 32701-32760 | UTM Zone S | Global (1° bands) | <1% per zone | Southern hemisphere |
+| 32601-32660 | UTM Zone N | Global (6° zones) | <1% per zone | Metric calculations |
+| 32701-32760 | UTM Zone S | Global (6° zones) | <1% per zone | Southern hemisphere |
 | 3395 | Mercator | World | Moderate | World maps |
 | 5070 | CONUS Albers | USA (conterminous) | Low | US national mapping |
 | 2154 | Lambert-93 | France | Very low | French national projection |

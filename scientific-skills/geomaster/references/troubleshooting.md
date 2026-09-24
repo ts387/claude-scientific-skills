@@ -434,6 +434,6 @@ print(f"PROJ: {gdal.VersionInfo('PROJ')}")
 
 - **GeoPandas docs**: https://geopandas.org/
 - **Rasterio docs**: https://rasterio.readthedocs.io/
-- **PROJ datab**: https://epsg.org/
+- **EPSG Registry**: https://epsg.org/
 - **Stack Overflow**: Tag with `gis` and `python`
 - **GIS Stack Exchange**: https://gis.stackexchange.com/

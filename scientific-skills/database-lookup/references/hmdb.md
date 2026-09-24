@@ -77,7 +77,7 @@ No documented limits; download archives for large-scale analysis rather than fet
 Free for academic / non-commercial use. Commercial use requires explicit permission. Cite the HMDB paper (Wishart et al., *Nucleic Acids Research*) when using the data.
 
 ## Related Databases (same ecosystem)
-- **DrugBank** — drugs and pharmaceuticals (separate skill)
+- **DrugBank** — drugs and pharmaceuticals (see `references/drugbank.md`)
 - **T3DB** — toxins
 - **SMPDB** — small-molecule pathway diagrams (linked from HMDB pathway fields)
 - **FooDB** — food components

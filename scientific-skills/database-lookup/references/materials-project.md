@@ -18,7 +18,7 @@ All requests must include the API key header.
 
 ## API Version
 
-The current API is **v2** (based on the `mp-api` Python client and the new MAPI endpoints). The legacy v1 REST API at `https://www.materialsproject.org/rest/v2/` is deprecated.
+The current API is the new Materials Project API ("MAPI") at `https://api.materialsproject.org`, used by the `mp-api` Python client; it is not versioned in the URL path. The legacy REST API (`https://legacy.materialsproject.org/rest/v2/`, formerly `www.materialsproject.org/rest/v2/`, the backend of the old `pymatgen.ext.matproj` MPRester) is deprecated and no longer supported. Legacy API keys do not work with the new API; generate a new key at https://next-gen.materialsproject.org/api.
 
 ## Key Endpoints
 
