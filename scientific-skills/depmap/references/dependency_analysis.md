@@ -49,11 +49,11 @@ def compute_selectivity(gene_effect_df, cell_info, target_gene, cancer_lineage):
 
     # cell_info: DataFrame from load_cell_line_info() defined in SKILL.md
     scores_df = scores.reset_index()
-    scores_df.columns = ["DepMap_ID", "score"]
-    scores_df = scores_df.merge(cell_info[["DepMap_ID", "lineage"]])
+    scores_df.columns = ["ModelID", "score"]
+    scores_df = scores_df.merge(cell_info[["ModelID", "OncotreeLineage"]])
 
-    cancer_scores = scores_df[scores_df["lineage"] == cancer_lineage]["score"]
-    other_scores = scores_df[scores_df["lineage"] != cancer_lineage]["score"]
+    cancer_scores = scores_df[scores_df["OncotreeLineage"] == cancer_lineage]["score"]
+    other_scores = scores_df[scores_df["OncotreeLineage"] != cancer_lineage]["score"]
 
     # Selectivity: lower mean in cancer lineage vs others
     selectivity = other_scores.mean() - cancer_scores.mean()
@@ -86,22 +86,22 @@ Good screens: skewness < −1, AUC > 0.85
 
 ## Cancer Lineage Codes
 
-Common values for `lineage` field in `sample_info.csv`:
+Common values of the `OncotreeLineage` column in `Model.csv` (it replaced `lineage` in `sample_info.csv` from 22Q4; check `Model.csv["OncotreeLineage"].unique()` for the exact set in your release):
 
-| Lineage | Description |
-|---------|-------------|
-| `lung` | Lung cancer |
-| `breast` | Breast cancer |
-| `colorectal` | Colorectal cancer |
-| `brain_cancer` | Brain cancer (GBM, etc.) |
-| `leukemia` | Leukemia |
-| `lymphoma` | Lymphoma |
-| `prostate` | Prostate cancer |
-| `ovarian` | Ovarian cancer |
-| `pancreatic` | Pancreatic cancer |
-| `skin` | Melanoma and other skin |
-| `liver` | Liver cancer |
-| `kidney` | Kidney cancer |
+| OncotreeLineage | Description |
+|-----------------|-------------|
+| `Lung` | Lung cancer |
+| `Breast` | Breast cancer |
+| `Bowel` | Colorectal cancer |
+| `CNS/Brain` | Brain cancer (GBM, etc.) |
+| `Myeloid` | Myeloid leukemias (AML, CML) |
+| `Lymphoid` | Lymphomas and lymphoid leukemias |
+| `Prostate` | Prostate cancer |
+| `Ovary/Fallopian Tube` | Ovarian cancer |
+| `Pancreas` | Pancreatic cancer |
+| `Skin` | Melanoma and other skin |
+| `Liver` | Liver cancer |
+| `Kidney` | Kidney cancer |
 
 ## Synthetic Lethality Analysis
 

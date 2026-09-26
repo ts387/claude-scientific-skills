@@ -223,8 +223,11 @@ uv pip install bids-validator-deno
 # Validate a dataset
 bids-validator /path/to/bids_dataset
 
-# Ignore specific warnings/errors
-bids-validator /path/to/bids_dataset --ignoreNiftiHeaders --ignoreSubjectConsistency
+# Skip NIfTI header checks and suppress all warnings
+bids-validator /path/to/bids_dataset --ignoreNiftiHeaders --ignoreWarnings
+
+# Ignore specific issue codes via a JSON config file, e.g. {"ignore": [{"code": "JSON_KEY_RECOMMENDED"}]}
+bids-validator /path/to/bids_dataset -c validator_config.json
 ```
 
 #### Using bids-validator via Deno directly
@@ -628,9 +631,9 @@ Update schema and BEPs with: `python scripts/update_schema.py`
 **Cause**: Missing `dataset_description.json` at the root.
 **Fix**: Create the file with at minimum `{"Name": "...", "BIDSVersion": "1.11.1"}`.
 
-### 2. Inconsistent subjects warning
-**Cause**: Not all subjects have the same set of files (some missing sessions, runs, etc.).
-**Fix**: This is a warning, not an error. Use `--ignoreSubjectConsistency` if intentional. Document missing data in `participants.tsv` or a `scans.tsv`.
+### 2. Inconsistent subjects warning (legacy validator)
+**Cause**: Not all subjects have the same set of files (some missing sessions, runs, etc.). Only the deprecated Node.js validator reports this (`INCONSISTENT_SUBJECTS`); the Deno-based validator has no `--ignoreSubjectConsistency` option.
+**Fix**: This is a warning, not an error. With the legacy validator, `--ignoreSubjectConsistency` silences it. Either way, document missing data in `participants.tsv` or a `scans.tsv`.
 
 ### 3. Missing SliceTiming
 **Cause**: `dcm2niix` couldn't extract slice timing from DICOM headers.

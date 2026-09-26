@@ -2,51 +2,49 @@
 
 ## Base URL
 ```
-https://www.disgenet.org/api
+https://api.disgenet.com/api/v1
 ```
+
+The legacy `www.disgenet.org/api` (v7 API with email/password token auth) was replaced when DISGENET moved to disgenet.com.
 
 ## Auth
-**API key required.** Register at disgenet.org, then authenticate:
+**API key required.** Register at https://www.disgenet.com (free academic plan), then copy the API key from your profile page. Send the key itself (no `Bearer` prefix) as the `Authorization` header:
 ```bash
-curl -X POST https://www.disgenet.org/api/auth/ \
-  -d 'email=you@example.com&password=yourpassword'
-# Returns: {"token": "abc123..."}
+curl -H "Authorization: $DISGENET_API_KEY" -H "accept: application/json" \
+  "https://api.disgenet.com/api/v1/gda/summary?gene_ncbi_id=7157&page_number=0"
 ```
-Pass as: `Authorization: Bearer <token>`
 
-Load token from `.env` as `DISGENET_API_KEY`.
+Load the key from `.env` as `DISGENET_API_KEY`.
 
 ## Key Endpoints
 
 | Endpoint | Description |
 |----------|-------------|
-| `/gda/gene/{gene_id}` | Gene-disease associations (NCBI gene ID) |
-| `/gda/disease/{disease_id}` | Gene-disease associations (UMLS CUI) |
-| `/gda/evidences/gene/{gene_id}` | Evidence-level data |
-| `/vda/gene/{gene_id}` | Variant-disease associations for a gene |
-| `/vda/variant/{rsid}` | Variant-disease associations (dbSNP rsID) |
+| `/gda/summary?gene_ncbi_id={id}` (or `gene_symbol=`) | Gene-disease associations for a gene |
+| `/gda/summary?disease=UMLS_{cui}` | Gene-disease associations for a disease |
+| `/vda/summary?variant={rsid}` | Variant-disease associations (dbSNP rsID) |
+
+Full endpoint and parameter reference (login required): https://api.disgenet.com/doc/swagger
 
 ## Parameters
-- `source` — `CURATED`, `BEFREE`, `ALL`
+- `source` — e.g. `CURATED` (academic keys are limited to curated sources)
 - `min_score` — GDA score threshold (0-1)
-- `min_ei` — evidence index threshold
-- `format` — `json` or `tsv`
-- `limit`, `offset` — pagination
+- `page_number` — 0-based pagination
 
 ## Example Calls
 ```
 # Gene-disease for TP53 (gene ID 7157)
-/gda/gene/7157?source=CURATED&min_score=0.3&limit=10&format=json
+/gda/summary?gene_ncbi_id=7157&source=CURATED&min_score=0.3&page_number=0
 
 # Disease-gene for Breast Cancer (UMLS CUI C0006142)
-/gda/disease/C0006142?limit=10
+/gda/summary?disease=UMLS_C0006142&page_number=0
 
 # Variant-disease for rs1042522
-/vda/variant/rs1042522
+/vda/summary?variant=rs1042522
 ```
 
 ## Rate Limits
-Free academic tier: ~few hundred requests/day. Paid tiers available.
+Free academic tier: ~few hundred requests/day. Paid tiers available. HTTP 429 responses mean the limit was hit; wait before retrying.
 
 ## Free alternative
 If no API key: use **Open Targets** for disease-gene associations.

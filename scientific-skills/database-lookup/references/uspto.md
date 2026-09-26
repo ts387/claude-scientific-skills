@@ -87,44 +87,53 @@ The user must have a PatentsView API key for this endpoint. If they don't have o
 
 **Note:** The legacy API at `api.patentsview.org` has been decommissioned (returns 410 Gone). Only the new API above works.
 
-## 2. PEDS — Patent Examination Data System
+## 2. Patent File Wrapper — USPTO Open Data Portal (ODP)
 
-**URL**: `https://ped.uspto.gov/api/queries`
+For patent prosecution data (application status, filing dates, examiner info, transactions, documents). This replaced the Patent Examination Data System (PEDS, `ped.uspto.gov`), which was retired on March 14, 2025.
 
-**Method**: POST
+**Base URL**: `https://api.uspto.gov/api/v1/patent/applications/`
 
-For patent prosecution data (application status, filing dates, examiner info).
+**API key required** — sign in at `https://data.uspto.gov/apikey` with a USPTO.gov account (MFA and ID verification required). Send it as the `X-API-KEY` header. Load the key from `.env` as `USPTO_API_KEY`.
 
-```json
-{
-  "searchText": "applicationNumberText:16123456",
-  "fl": "*",
-  "mm": "100%",
-  "df": "patentTitle",
-  "facet": "false",
-  "sort": "applId asc",
-  "start": 0
-}
+```
+# One application (bibliographic/application data)
+GET https://api.uspto.gov/api/v1/patent/applications/{applicationNumberText}
+
+# Documents in the file wrapper (with download URIs)
+GET https://api.uspto.gov/api/v1/patent/applications/{applicationNumberText}/documents
+
+# Search (GET with ?q=..., or POST with a JSON query body; see the ODP Search API docs)
+GET https://api.uspto.gov/api/v1/patent/applications/search?q=applicationNumberText:16123456
 ```
 
-No API key required but heavily rate limited. Availability can be unreliable.
+```bash
+curl -H "X-API-KEY: $USPTO_API_KEY" \
+  "https://api.uspto.gov/api/v1/patent/applications/search?q=applicationNumberText:16123456"
+```
+
+Covers applications filed after January 1, 2001; refreshed daily. Full endpoint reference and query syntax: `https://data.uspto.gov/apis/getting-started`.
 
 ## 3. TSDR — Trademark Status & Document Retrieval
 
 For trademark lookup by serial or registration number (not full-text search).
 
 ```
-GET https://tsdr.uspto.gov/documentxml/status/{serial_number}
-GET https://tsdr.uspto.gov/documentxml/status/rn{registration_number}
+GET https://tsdrapi.uspto.gov/ts/cd/casestatus/sn{serial_number}/info.xml
+GET https://tsdrapi.uspto.gov/ts/cd/casestatus/rn{registration_number}/info.xml
 ```
 
 Returns XML with mark details, status, owner, goods/services, prosecution history.
 
-No API key. Rate limited. No JSON endpoint — responses are XML.
+**API key required** (since October 2020): request a TSDR key with a USPTO.gov account in the API Key Manager (`https://account.uspto.gov/api-manager/`) and send it in the `USPTO-API-KEY` request header. Load it from `.env` as `USPTO_TSDR_API_KEY`. Rate limited to 60 requests/min per key (4/min for PDF and ZIP downloads).
+
+```bash
+curl -H "USPTO-API-KEY: $USPTO_TSDR_API_KEY" \
+  "https://tsdrapi.uspto.gov/ts/cd/casestatus/sn78787878/info.xml"
+```
 
 ## 4. Limitations
 
 - **No public REST API for trademark full-text search** (the USPTO Trademark Search tool at `https://tmsearch.uspto.gov`, which replaced TESS in November 2023, is web-only)
 - PatentsView new API requires registration for an API key
-- PEDS availability is inconsistent
-- TSDR requires knowing the serial/registration number already
+- The ODP Patent File Wrapper API requires an API key (USPTO.gov account at `https://data.uspto.gov/apikey`)
+- TSDR requires an API key and knowing the serial/registration number already

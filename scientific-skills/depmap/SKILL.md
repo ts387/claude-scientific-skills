@@ -19,8 +19,8 @@ The Cancer Dependency Map (DepMap) project, run by the Broad Institute, systemat
 **Key resources:**
 - DepMap Portal: https://depmap.org/portal/
 - DepMap data downloads: https://depmap.org/portal/download/all/
-- Python package: `depmap` (or access via API/downloads)
-- API: https://depmap.org/portal/api/
+- Python: no official client (the PyPI `depmap` package is unrelated); use the download files below. R users: Bioconductor `depmap` package (ExperimentHub)
+- API: https://depmap.org/portal/api/ (the portal's own Swagger API; not a stable public data API and subject to change; scripted access may hit a bot-verification page)
 
 ## When to Use This Skill
 
@@ -49,54 +49,24 @@ Use DepMap when:
 
 ### Cell Line Annotations
 
-Each cell line has:
-- `DepMap_ID`: unique identifier (e.g., `ACH-000001`)
-- `cell_line_name`: human-readable name
-- `primary_disease`: cancer type
-- `lineage`: broad tissue lineage
-- `lineage_subtype`: specific subtype
+Since the 22Q4 release, cell line metadata is in `Model.csv` (it replaced `sample_info.csv`). Each cell line has:
+- `ModelID`: unique identifier (e.g., `ACH-000001`)
+- `CellLineName`: human-readable name
+- `OncotreePrimaryDisease`: cancer type
+- `OncotreeLineage`: broad tissue lineage (e.g., `Lung`, `Myeloid`)
+- `OncotreeSubtype`: specific subtype
 
 ## Core Capabilities
 
-### 1. DepMap API
+### 1. Programmatic Access
 
-```python
-import requests
-import pandas as pd
-
-BASE_URL = "https://depmap.org/portal/api"
-
-def depmap_get(endpoint, params=None):
-    url = f"{BASE_URL}/{endpoint}"
-    response = requests.get(url, params=params)
-    response.raise_for_status()
-    return response.json()
-```
+DepMap does not document a stable public REST API for per-gene dependency scores. The supported programmatic route is to download the release files (CRISPRGeneEffect.csv, Model.csv, Omics*.csv) and analyze them locally, as shown below. Release files are listed on https://depmap.org/portal/download/all/ and each public release is also deposited on Figshare+ (e.g. DepMap 24Q4 Public: https://plus.figshare.com/articles/dataset/DepMap_24Q4_Public/27993248). R users can load the data through the Bioconductor `depmap` package.
 
 ### 2. Gene Dependency Scores
 
-```python
-def get_gene_dependency(gene_symbol, dataset="Chronos_Combined"):
-    """Get CRISPR dependency scores for a gene across all cell lines."""
-    url = f"{BASE_URL}/gene"
-    params = {
-        "gene_id": gene_symbol,
-        "dataset": dataset
-    }
-    response = requests.get(url, params=params)
-    return response.json()
+Per-gene scores are a column of `CRISPRGeneEffect.csv` (rows = `ModelID`, columns = genes); see `load_depmap_gene_effect()` below and select `df[gene_symbol]`.
 
-# Alternatively, use the /data endpoint:
-def get_dependencies_slice(gene_symbol, dataset_name="CRISPRGeneEffect"):
-    """Get a gene's dependency slice from a dataset."""
-    url = f"{BASE_URL}/data/gene_dependency"
-    params = {"gene_name": gene_symbol, "dataset_name": dataset_name}
-    response = requests.get(url, params=params)
-    data = response.json()
-    return data
-```
-
-### 3. Download-Based Analysis (Recommended for Large Queries)
+### 3. Download-Based Analysis (Recommended)
 
 For large-scale analysis, download DepMap data files and analyze locally:
 
@@ -120,20 +90,20 @@ FILES = {
     # OmicsExpressionProteinCodingGenesTPMLogp1.csv - mRNA expression
     # OmicsSomaticMutationsMatrixDamaging.csv - mutation binary matrix
     # OmicsCNGene.csv - copy number
-    # sample_info.csv - cell line metadata
+    # Model.csv - cell line metadata (replaced sample_info.csv in 22Q4)
 }
 
 def load_depmap_gene_effect(filepath="CRISPRGeneEffect.csv"):
     """
     Load DepMap CRISPR gene effect matrix.
-    Rows = cell lines (DepMap_ID), Columns = genes (Symbol (EntrezID))
+    Rows = cell lines (ModelID), Columns = genes (Symbol (EntrezID))
     """
     df = pd.read_csv(filepath, index_col=0)
     # Rename columns to gene symbols only
     df.columns = [col.split(" ")[0] for col in df.columns]
     return df
 
-def load_cell_line_info(filepath="sample_info.csv"):
+def load_cell_line_info(filepath="Model.csv"):
     """Load cell line metadata."""
     return pd.read_csv(filepath)
 ```
@@ -157,18 +127,18 @@ def find_selective_dependencies(gene_effect_df, cell_line_info, target_gene,
 
     # Add cell line info
     result = pd.DataFrame({
-        "DepMap_ID": dependent.index,
+        "ModelID": dependent.index,
         "gene_effect": dependent.values
-    }).merge(cell_line_info[["DepMap_ID", "cell_line_name", "primary_disease", "lineage"]])
+    }).merge(cell_line_info[["ModelID", "CellLineName", "OncotreePrimaryDisease", "OncotreeLineage"]])
 
     if cancer_type:
-        result = result[result["primary_disease"].str.contains(cancer_type, case=False, na=False)]
+        result = result[result["OncotreePrimaryDisease"].str.contains(cancer_type, case=False, na=False)]
 
     return result.sort_values("gene_effect")
 
 # Example usage (after loading data)
 # df_effect = load_depmap_gene_effect("CRISPRGeneEffect.csv")
-# cell_info = load_cell_line_info("sample_info.csv")
+# cell_info = load_cell_line_info("Model.csv")
 # deps = find_selective_dependencies(df_effect, cell_info, "KRAS", cancer_type="Lung")
 ```
 
@@ -247,7 +217,7 @@ def co_essentiality(gene_effect_df, target_gene, top_n=20):
 
 ### Workflow 1: Target Validation for a Cancer Type
 
-1. Download `CRISPRGeneEffect.csv` and `sample_info.csv`
+1. Download `CRISPRGeneEffect.csv` and `Model.csv`
 2. Filter cell lines by cancer type
 3. Compute mean gene effect for target gene in cancer vs. all others
 4. Calculate selectivity: how specific is the dependency to your cancer type?
@@ -273,7 +243,7 @@ def co_essentiality(gene_effect_df, target_gene, top_n=20):
 | `CRISPRGeneEffect.csv` | CRISPR Chronos gene effect (primary dependency data) |
 | `CRISPRGeneEffectUnscaled.csv` | Unscaled CRISPR scores |
 | `RNAi_merged.csv` | DEMETER2 RNAi dependency |
-| `sample_info.csv` | Cell line metadata (lineage, disease, etc.) |
+| `Model.csv` | Cell line metadata (`ModelID`, `OncotreeLineage`, `OncotreePrimaryDisease`, etc.) |
 | `OmicsExpressionProteinCodingGenesTPMLogp1.csv` | mRNA expression |
 | `OmicsSomaticMutationsMatrixDamaging.csv` | Damaging somatic mutations (binary) |
 | `OmicsCNGene.csv` | Copy number per gene |
@@ -286,7 +256,7 @@ Download all files from: https://depmap.org/portal/download/all/
 - **Use Chronos scores** (not DEMETER2) for current CRISPR analyses — better controlled for cutting efficiency
 - **Distinguish pan-essential from cancer-selective**: Target genes with low variance (essential in all lines) are poor drug targets
 - **Validate with expression data**: A gene not expressed in a cell line will score as non-essential regardless of actual function
-- **Use DepMap ID** for cell line identification — cell_line_name can be ambiguous
+- **Use DepMap ID** (`ModelID`) for cell line identification — `CellLineName` can be ambiguous
 - **Account for copy number**: Amplified genes may appear essential due to copy number effect (junk DNA hypothesis)
 - **Multiple testing correction**: When computing biomarker associations genome-wide, apply FDR correction
 
@@ -298,4 +268,4 @@ Download all files from: https://depmap.org/portal/download/all/
 - **DepMap paper**: Behan FM et al. (2019) Nature. PMID: 30971826
 - **Chronos paper**: Dempster JM et al. (2021) Genome Biology 22:343. PMID: 34930405 — https://doi.org/10.1186/s13059-021-02540-7
 - **GitHub**: https://github.com/broadinstitute/depmap-portal
-- **Figshare**: https://figshare.com/articles/dataset/DepMap_24Q4_Public/27993966
+- **Figshare+ (24Q4 release)**: https://plus.figshare.com/articles/dataset/DepMap_24Q4_Public/27993248

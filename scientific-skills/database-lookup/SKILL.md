@@ -148,7 +148,7 @@ Match the user's intent to the right database(s). Many queries benefit from hitt
 |---|---|---|
 | Patents by keyword or technology | USPTO (PatentsView) | — |
 | Patents by inventor or assignee | USPTO (PatentsView) | — |
-| Patent prosecution status | USPTO (PEDS) | — |
+| Patent prosecution status | USPTO (Open Data Portal, Patent File Wrapper) | — |
 | Trademark lookup | USPTO (TSDR) | — |
 | SEC company filings, 10-K, 10-Q | SEC EDGAR | — |
 
@@ -240,7 +240,7 @@ These databases require HTTP POST or a custom request header and **will not work
 |---|---|---|
 | Open Targets | GraphQL endpoint | `curl -X POST -H "Content-Type: application/json" -d '{"query":"..."}' https://api.platform.opentargets.org/api/v4/graphql` |
 | gnomAD | GraphQL endpoint | `curl -X POST -H "Content-Type: application/json" -d '{"query":"..."}' https://gnomad.broadinstitute.org/api` |
-| RummaGEO | POST-only enrichment | `curl -X POST -H "Content-Type: application/json" -d '{"genes":["..."]}' https://rummageo.com/api/enrich` |
+| RummaGEO | GraphQL endpoint | `curl -X POST -H "Content-Type: application/json" -d '{"query":"..."}' https://rummageo.com/graphql` |
 | GDC/TCGA | Complex filter queries | `curl -X POST -H "Content-Type: application/json" -d '{"filters":...}' https://api.gdc.cancer.gov/ssms` |
 | SEC EDGAR | Requires User-Agent header | `curl -H "User-Agent: YourApp you@email.com" https://efts.sec.gov/LATEST/search-index?q=...` |
 
@@ -262,6 +262,8 @@ Some databases require API keys or have access restrictions. When an API key is 
 | NCBI (GEO, Gene) | `NCBI_API_KEY` | https://www.ncbi.nlm.nih.gov/account/settings/ |
 | OpenFDA | `OPENFDA_API_KEY` | https://open.fda.gov/apis/authentication/ |
 | USPTO (PatentsView) | `PATENTSVIEW_API_KEY` | https://patentsview.org/apis/keyrequest |
+| USPTO (Open Data Portal) | `USPTO_API_KEY` | https://data.uspto.gov/apikey (USPTO.gov account, ID verification) |
+| USPTO (TSDR) | `USPTO_TSDR_API_KEY` | https://account.uspto.gov/api-manager/ (USPTO.gov account) |
 | OpenAlex | `OPENALEX_API_KEY` | https://openalex.org/settings/api (recommended, not required) |
 | Data Commons | `DATACOMMONS_API_KEY` | https://apikeys.datacommons.org/ |
 | Materials Project | `MP_API_KEY` | https://materialsproject.org (free account) |
@@ -272,7 +274,7 @@ Some databases require API keys or have access restrictions. When an API key is 
 | BioGRID | `BIOGRID_API_KEY` | https://webservice.thebiogrid.org (free) |
 | Alpha Vantage | `ALPHAVANTAGE_API_KEY` | https://www.alphavantage.co/support/#api-key |
 | US Census | `CENSUS_API_KEY` | https://api.census.gov/data/key_signup.html |
-| DisGeNET | `DISGENET_API_KEY` | https://www.disgenet.org (free academic) |
+| DisGeNET | `DISGENET_API_KEY` | https://www.disgenet.com (free academic) |
 | Addgene | `ADDGENE_API_KEY` | https://www.addgene.org (free account) |
 | LINCS L1000 (CLUE) | `CLUE_API_KEY` | https://clue.io (free academic) |
 
@@ -283,7 +285,7 @@ These are all free to obtain. The APIs work without keys but have lower rate lim
 | Database | Restriction | Free alternative |
 |---|---|---|
 | DrugBank | Paid API license required | Use **ChEMBL** + **PubChem** + **OpenFDA** instead |
-| COSMIC | Free academic registration required (JWT auth) | Use **Open Targets** for cancer mutation data |
+| COSMIC | Free academic registration; download-only (HTTP Basic Auth, no public query API) | Use **Open Targets** or **cBioPortal** for cancer mutation queries |
 | BRENDA | Free registration required (SOAP, not REST) | Use **KEGG** for enzyme/pathway data |
 
 When a database requires paid access or registration the user hasn't set up:
@@ -447,7 +449,7 @@ Read the relevant reference file before making any API call.
 | Human Protein Atlas | `references/human-protein-atlas.md` | Protein expression across tissues |
 | Human Cell Atlas | `references/hca.md` | Single-cell atlas data |
 | LINCS L1000 | `references/lincs-l1000.md` | Gene expression signatures (CMap) |
-| RummaGEO | `references/rummageo.md` | GEO gene set enrichment (POST) |
+| RummaGEO | `references/rummageo.md` | GEO gene set enrichment (GraphQL) |
 | PRIDE | `references/pride.md` | Proteomics data repository |
 | Metabolomics Workbench | `references/metabolomics-workbench.md` | Metabolomics studies, metabolites |
 | HMDB | `references/hmdb.md` | Human metabolites: structure, NMR/MS spectra, biofluid concentrations |

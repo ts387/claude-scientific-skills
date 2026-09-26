@@ -254,49 +254,45 @@ signed_items = [planetary_computer.sign(item) for item in items]
 ### Automated Download Script
 
 ```python
-# NOTE: sentinelsat targets the retired SciHub/DHuS API (closed Oct 2023) and does not work with the Copernicus Data Space Ecosystem; use CDSE OData/STAC APIs (https://dataspace.copernicus.eu/) instead.
-from sentinelsat import SentinelAPI
-import rasterio
-from rasterio.warp import calculate_default_transform, reproject, Resampling
+# SciHub/DHuS (and the sentinelsat library built for it) were retired in Oct 2023.
+# Search via STAC instead; Earth Search serves Sentinel-2 L2A as public COGs (no login).
+# For CDSE use https://stac.dataspace.copernicus.eu/v1 (asset downloads need a CDSE OAuth token).
 import os
+import numpy as np
+import rasterio
+from pystac_client import Client
 
-def download_and_process_sentinel2(aoi, date_range, output_dir):
+def download_and_process_sentinel2(aoi_geojson, date_range, output_dir):
     """
-    Download and process Sentinel-2 imagery.
+    Search Sentinel-2 L2A scenes and write an RGB composite per scene.
     """
-    # Initialize API
-    api = SentinelAPI('user', 'password', 'https://scihub.copernicus.eu/dhus')
+    catalog = Client.open("https://earth-search.aws.element84.com/v1")
 
     # Search
-    products = api.query(
-        aoi,
-        date=date_range,
-        platformname='Sentinel-2',
-        processinglevel='Level-2A',
-        cloudcoverpercentage=(0, 20)
+    search = catalog.search(
+        collections=["sentinel-2-l2a"],
+        intersects=aoi_geojson,
+        datetime=date_range,              # e.g. "2023-06-01/2023-08-31"
+        query={"eo:cloud_cover": {"lt": 20}},
     )
 
-    # Download
-    api.download_all(products, directory_path=output_dir)
+    os.makedirs(output_dir, exist_ok=True)
+    for item in search.items():
+        stacked, profile = process_sentinel2_item(item)
+        profile.update(count=3)
+        with rasterio.open(f"{output_dir}/{item.id}_rgb.tif", "w", **profile) as dst:
+            dst.write(stacked)
 
-    # Process each product
-    for product in products:
-        product_path = f"{output_dir}/{product['identifier']}.SAFE"
-        processed = process_sentinel2_product(product_path)
-        save_rgb_composite(processed, f"{output_dir}/{product['identifier']}_rgb.tif")
-
-def process_sentinel2_product(product_path):
-    """Process Sentinel-2 L2A product."""
-    # Find 10m bands (B02, B03, B04, B08)
+def process_sentinel2_item(item):
+    """Read the 10m RGB bands (red=B04, green=B03, blue=B02) of a STAC item."""
     bands = {}
-    for band_id in ['B02', 'B03', 'B04', 'B08']:
-        band_path = find_band_file(product_path, band_id, resolution='10m')
-        with rasterio.open(band_path) as src:
-            bands[band_id] = src.read(1)
+    for asset_key in ["red", "green", "blue"]:
+        with rasterio.open(item.assets[asset_key].href) as src:
+            bands[asset_key] = src.read(1)
             profile = src.profile
 
     # Stack bands
-    stacked = np.stack([bands['B04'], bands['B03'], bands['B02']])  # RGB
+    stacked = np.stack([bands["red"], bands["green"], bands["blue"]])  # RGB
 
     return stacked, profile
 ```

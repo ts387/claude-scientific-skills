@@ -451,7 +451,7 @@ For GAFF2 parameters with OpenMM's AMBER14 protein force field, use `openmmforce
 
 ## Additional Resources
 
-- **OpenMM documentation**: https://openmm.org/documentation.html
+- **OpenMM documentation**: https://docs.openmm.org/latest/userguide/
 - **MDAnalysis user guide**: https://docs.mdanalysis.org/
 - **GROMACS** (alternative MD engine): https://manual.gromacs.org/
 - **NAMD** (alternative): https://www.ks.uiuc.edu/Research/namd/
