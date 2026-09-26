@@ -16,6 +16,8 @@ curl -H "Authorization: $DISGENET_API_KEY" -H "accept: application/json" \
 
 Load the key from `.env` as `DISGENET_API_KEY`.
 
+The base URL is not a browsable page: only the endpoints below respond, and only with a valid key (unauthenticated requests are rejected). The API reference at https://api.disgenet.com is also behind the disgenet.com login. If the user has no key, tell them to register rather than treating the error as a broken endpoint.
+
 ## Key Endpoints
 
 | Endpoint | Description |

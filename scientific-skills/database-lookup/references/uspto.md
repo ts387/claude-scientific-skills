@@ -94,6 +94,7 @@ For patent prosecution data (application status, filing dates, examiner info, tr
 **Base URL**: `https://api.uspto.gov/api/v1/patent/applications/`
 
 **API key required** — sign in at `https://data.uspto.gov/apikey` with a USPTO.gov account (MFA and ID verification required). Send it as the `X-API-KEY` header. Load the key from `.env` as `USPTO_API_KEY`.
+Since 18 June 2026 the whole Open Data Portal (including `data.uspto.gov/apikey` and the API docs) requires signing in, so these URLs will not open anonymously in a browser, and every `api.uspto.gov` request without a valid `X-API-KEY` is rejected. If the user has no key, tell them to create one; do not treat a 401/403 as the endpoint being wrong.
 
 ```
 # One application (bibliographic/application data)
