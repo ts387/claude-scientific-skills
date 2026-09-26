@@ -28,10 +28,13 @@ https://www.ebi.ac.uk/emdb/api/search/ribosome?rows=5
 
 # Experimental details
 https://www.ebi.ac.uk/emdb/api/entry/experiment/EMD-1234
+
+# Fitted PDB models (EMD-1234 has none and returns an empty crossreferences object)
+https://www.ebi.ac.uk/emdb/api/entry/fitted/EMD-2984
 ```
 
 ## Response Format
-JSON. Search includes pagination and matching entry array.
+JSON. Search returns a plain array of matching entries (no pagination metadata); paginate with the `rows` and `page` query parameters.
 
 ## Rate Limits
 EBI fair-use policy. Map files (MRC/CCP4) available via FTP for bulk access.

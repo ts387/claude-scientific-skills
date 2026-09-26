@@ -11,12 +11,15 @@
 ```python
 import requests
 
-def lookup_glytoucan(glytoucan_id: str) -> dict:
-    """Fetch glycan details from GlyTouCan."""
-    url = f"https://api.glytoucan.org/glycan/{glytoucan_id}"
+def lookup_glytoucan(glytoucan_id: str) -> list:
+    """Fetch the WURCS (and GlycoCT, where available) sequences for a GlyTouCan ID."""
+    url = f"https://api.glycosmos.org/sparqlist/gtcid2seqs?gtcid={glytoucan_id}"
     response = requests.get(url, headers={"Accept": "application/json"})
-    return response.json() if response.ok else {}
+    # e.g. [{"id": "G00055MO", "wurcs": "WURCS=2.0/..."}]; [] if the ID is unknown
+    return response.json() if response.ok else []
 ```
+
+The legacy per-glycan route `api.glytoucan.org/glycan/{id}` no longer works; GlyTouCan data is served through the GlyCosmos API (https://doc.glycosmos.org/en/api/glytoucan). An unknown ID returns `200` with an empty list, not a 404.
 
 ### GlyConnect
 - **URL**: https://glyconnect.expasy.org/
