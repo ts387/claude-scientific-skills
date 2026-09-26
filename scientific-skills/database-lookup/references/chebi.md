@@ -2,8 +2,9 @@
 
 ## Base URLs
 - **OLS (Ontology Lookup Service) API**: `https://www.ebi.ac.uk/ols4/api`
-- **ChEBI Web Services (SOAP)**: `https://www.ebi.ac.uk/webservices/chebi/2.0/webservice` (WSDL at `?wsdl`; SOAP/XML only)
-- **ChEBI LibChebi REST (limited)**: entity pages at `https://www.ebi.ac.uk/chebi`
+- **ChEBI REST API (ChEBI 2.0)**: `https://www.ebi.ac.uk/chebi/backend/api/public/` (interactive docs: https://www.ebi.ac.uk/chebi/backend/api/docs/)
+- **ChEBI website**: entity pages at `https://www.ebi.ac.uk/chebi`
+- **Legacy SOAP web services** (`https://www.ebi.ac.uk/webservices/chebi/2.0/...`): retired on 1 September 2025; do not use.
 
 ## Authentication
 None required. All endpoints are public.
@@ -12,7 +13,7 @@ None required. All endpoints are public.
 No published hard limits. EBI general guidance: reasonable usage.
 
 ## Important Note
-ChEBI's primary web service is **SOAP-based** (XML), not REST. For REST-style JSON access, use the **EBI OLS4 API** which indexes ChEBI as an ontology.
+Since the ChEBI 2.0 relaunch (2025), ChEBI provides its own **REST/JSON API**; the old SOAP web services were retired on 1 September 2025. The **EBI OLS4 API**, which indexes ChEBI as an ontology, remains a convenient REST alternative for ontology lookups.
 
 ---
 
@@ -80,24 +81,18 @@ GET https://www.ebi.ac.uk/ols4/api/ontologies/chebi
 }
 ```
 
-## ChEBI SOAP Web Service (Alternative)
-If you need chemical-specific data (formula, mass, structure, InChI), use the SOAP service:
-- WSDL: `https://www.ebi.ac.uk/webservices/chebi/2.0/webservice?wsdl`
-- Operations: `getCompleteEntity`, `getLiteEntity`, `getStructureSearch`, `getOntologyChildren`, `getOntologyParents`
-- Returns XML only.
+## ChEBI REST API (ChEBI 2.0)
+For chemical-specific data (formula, mass, structure, InChI, SMILES, cross-references), use ChEBI's own REST API:
+- Base: `https://www.ebi.ac.uk/chebi/backend/api/public/`
+- Free-text search: `es_search/`
+- Single compound record: `compound/{CHEBI:id}/` (e.g. `compound/CHEBI:15365/`)
+- Ontology parent/child routes are also available.
+- Check exact paths and query parameters in the interactive docs: https://www.ebi.ac.uk/chebi/backend/api/docs/
 
-Example SOAP request for `getCompleteEntity`:
-```xml
-<soapenv:Body>
-  <chebi:getCompleteEntity>
-    <chebi:chebiId>CHEBI:15365</chebi:chebiId>
-  </chebi:getCompleteEntity>
-</soapenv:Body>
-```
-Returns: formula, mass, charge, InChI, InChIKey, SMILES, synonyms, database links, ontology parents/children.
+The legacy SOAP service (`getCompleteEntity`, `getLiteEntity`, etc. via `webservices/chebi/2.0/webservice?wsdl`) was retired on 1 September 2025; clients that wrap it (e.g. older `bioservices` `ChEBI()` calls) need to migrate to the REST API.
 
 ## Notes
 - For programmatic REST access, OLS4 is the easiest path.
-- For chemical structure searches (by InChI, SMILES, substructure), the SOAP service is required.
+- For chemical data and structure searches, use the ChEBI REST API (see its docs for the available search routes); the SOAP service no longer exists.
 - ChEBI IDs are numeric (e.g., 15365) but referenced as "CHEBI:15365" in OBO format.
 - PubChem and UniChem can cross-reference ChEBI IDs to other chemical databases.

@@ -13,7 +13,7 @@ runtime:
   conda_env_file: ""
 
 execution:
-  profile: singularity,sanger
+  profile: singularity  # site-specific example: singularity,sanger (Wellcome Sanger Institute nf-core/configs)
   executor: local  # local | none | lsf | slurm | pbs | sge
   cpus: 16
   memory_gb: 64

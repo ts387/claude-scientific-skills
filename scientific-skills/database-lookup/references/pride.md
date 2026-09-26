@@ -5,9 +5,9 @@ PRIDE (PRoteomics IDEntifications Database) at EMBL-EBI provides a full public R
 
 ## Base URL
 ```
-https://www.ebi.ac.uk/pride/ws/archive/v2
+https://www.ebi.ac.uk/pride/ws/archive/v3
 ```
-(Legacy v1 also exists but v2 is current)
+v3 is the current API; v2 (`/ws/archive/v2`) was retired in January 2025. The endpoint paths and filter syntax below were written for v2; check each against the official API docs (https://www.ebi.ac.uk/pride/markdownpage/prideapi) before use. Project keyword search in v3 is `GET /search/projects?keyword=...`.
 
 ## Authentication
 - **No authentication required** for read access
@@ -17,7 +17,7 @@ https://www.ebi.ac.uk/pride/ws/archive/v2
 
 | Endpoint | Description |
 |---|---|
-| `GET /projects` | Search/list proteomics projects |
+| `GET /search/projects` | Search proteomics projects by keyword (v3) |
 | `GET /projects/{accession}` | Get a specific project by PXD accession |
 | `GET /projects/{accession}/files` | List files for a project |
 | `GET /spectra` | Search spectra |
@@ -37,11 +37,12 @@ https://www.ebi.ac.uk/pride/ws/archive/v2
 
 ```bash
 # Search projects by keyword
-curl "https://www.ebi.ac.uk/pride/ws/archive/v2/projects?keyword=alzheimer&pageSize=5"
+curl "https://www.ebi.ac.uk/pride/ws/archive/v3/search/projects?keyword=alzheimer&pageSize=5"
 
 # Get a specific project
-curl "https://www.ebi.ac.uk/pride/ws/archive/v2/projects/PXD010000"
+curl "https://www.ebi.ac.uk/pride/ws/archive/v3/projects/PXD010000"
 
+# The remaining examples use v2 paths (v2 is retired); confirm the v3 equivalents in the API docs
 # List files for a project
 curl "https://www.ebi.ac.uk/pride/ws/archive/v2/projects/PXD010000/files?pageSize=10"
 

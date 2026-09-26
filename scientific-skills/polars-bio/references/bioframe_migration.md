@@ -10,7 +10,7 @@ polars-bio is a drop-in replacement for bioframe's core interval operations, off
 |----------|------------|-------|
 | `bioframe.overlap(df1, df2)` | `pb.overlap(df1, df2)` | Returns LazyFrame; `.collect()` for DataFrame |
 | `bioframe.closest(df1, df2)` | `pb.nearest(df1, df2)` | Renamed; uses `k`, `overlap`, `distance` params |
-| `bioframe.count_overlaps(df1, df2)` | `pb.count_overlaps(df1, df2)` | Default suffixes differ: `("", "_")` vs bioframe's |
+| `bioframe.count_overlaps(df1, df2)` | `pb.count_overlaps(df1, df2)` | Same default suffixes as bioframe: `("", "_")` |
 | `bioframe.merge(df)` | `pb.merge(df)` | Output includes `n_intervals` column |
 | `bioframe.cluster(df)` | `pb.cluster(df)` | Output cols: `cluster`, `cluster_start`, `cluster_end` |
 | `bioframe.coverage(df1, df2)` | `pb.coverage(df1, df2)` | Two-input in both libraries |
@@ -206,7 +206,7 @@ import polars_bio as pb
 
 # Lazy scan, streaming execution
 lf = pb.scan_bed("huge_intervals.bed")
-result = pb.merge(lf).collect(streaming=True)
+result = pb.merge(lf).collect(engine="streaming")
 ```
 
 ## pandas Compatibility Mode

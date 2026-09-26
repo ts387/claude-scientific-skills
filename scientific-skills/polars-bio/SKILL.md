@@ -263,7 +263,7 @@ result = (
 
 ### Probe-Build Architecture
 
-For two-input operations (overlap, nearest, count_overlaps, coverage), polars-bio uses a probe-build join strategy:
+For two-input operations (overlap, nearest, count_overlaps, coverage, subtract), polars-bio uses a probe-build join strategy:
 - The **first** DataFrame is the **probe** (iterated over)
 - The **second** DataFrame is the **build** (indexed for lookup)
 
@@ -303,7 +303,7 @@ For datasets larger than available RAM, use `scan_*` functions and streaming exe
 lf = pb.scan_bed("large_intervals.bed")
 
 # Process with streaming
-result = lf.collect(streaming=True)
+result = lf.collect(engine="streaming")
 ```
 
 DataFusion streaming is enabled by default for interval operations, processing data in batches without loading the full dataset into memory.
@@ -318,7 +318,7 @@ DataFusion streaming is enabled by default for interval operations, processing d
 
 4. **Coordinate system metadata:** When constructing DataFrames manually (not via `read_*`/`scan_*`), polars-bio warns about missing coordinate metadata. Use `pb.set_option("coordinate_system", "0-based")` globally, or use I/O functions that set metadata automatically.
 
-5. **Probe-build order matters:** For overlap, nearest, and coverage, the first DataFrame is probed against the second. Swapping arguments changes which intervals appear in the left vs right output columns, and can affect performance.
+5. **Probe-build order matters:** For all two-input operations (overlap, nearest, count_overlaps, coverage, subtract), the first DataFrame is the probe and the second is the build. Swapping arguments changes the result (which set's intervals are returned, or which appear in the left vs right columns for overlap/nearest) and can affect performance.
 
 6. **INT32 position limit:** Genomic positions are stored as 32-bit integers, limiting coordinates to ~2.1 billion. This is sufficient for all known genomes but may be an issue with custom coordinate spaces.
 

@@ -10,7 +10,7 @@ metadata:
 
 ## Overview
 
-PrimeKG is a precision medicine knowledge graph that integrates over 20 primary databases and high-quality scientific literature into a single resource. It contains over 100,000 nodes and 4 million edges across 29 relationship types, including drug-target, disease-gene, and phenotype-disease associations.
+PrimeKG is a precision medicine knowledge graph that integrates over 20 primary databases and high-quality scientific literature into a single resource. It contains over 100,000 nodes and 4 million edges across 30 relationship types, including drug-target, disease-gene, and phenotype-disease associations.
 
 **Key capabilities:**
 - Search for nodes (genes, proteins, drugs, diseases, phenotypes)
@@ -41,7 +41,8 @@ from scripts.query_primekg import search_nodes
 
 # Search for Alzheimer's disease nodes
 results = search_nodes("Alzheimer", node_type="disease")
-# Returns: [{"id": "EFO_0000249", "type": "disease", "name": "Alzheimer's disease", ...}]
+# Returns e.g.: [{"id": "<MONDO-derived numeric id>", "type": "disease", "name": "Alzheimer disease", "source": "MONDO"}, ...]
+# Disease ids are MONDO-derived numbers, not EFO ids; always take them from search_nodes.
 ```
 
 ### 2. Get Neighbors (Direct Associations)
@@ -51,8 +52,9 @@ Retrieve all connected nodes and relationship types.
 ```python
 from scripts.query_primekg import get_neighbors
 
-# Get all neighbors of a specific disease ID
-neighbors = get_neighbors("EFO_0000249")
+# Get all neighbors of a specific disease ID (taken from search_nodes above)
+disease_id = results[0]["id"]
+neighbors = get_neighbors(disease_id)
 # Returns: List of neighbors like {"neighbor_name": "APOE", "relation": "disease_protein", ...}
 ```
 

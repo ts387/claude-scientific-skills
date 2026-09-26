@@ -7,7 +7,7 @@ Hugging Science model entries link to standard Hugging Face Hub repos. There are
 | Path | When to use | What it costs |
 |---|---|---|
 | **Local with `transformers`** | Models ≤ ~7B params, user has a GPU or wants offline use, or doing fine-tuning | Disk + VRAM; free |
-| **HF Inference API (serverless)** | Quick one-off inference on smaller hosted models, no GPU needed | Free tier exists, then pay-per-call |
+| **HF Inference (`hf-inference` provider, formerly the serverless Inference API)** | Quick one-off inference on smaller hosted models, no GPU needed | Monthly free credits shared across Inference Providers, then pay-as-you-go |
 | **HF Inference Providers** | Very large models (Evo-2 40B, Kimina-Prover 72B), or when you need throughput | Pay-per-token; routed to third-party providers |
 | **HF Space (gradio_client)** | The model has an interactive demo and you want easy structured I/O without managing weights | Free if Space is public; see `using-spaces.md` |
 
@@ -64,9 +64,9 @@ Rough memory for inference at fp16 (very approximate — quantization changes th
 
 For training/fine-tuning, multiply by ~3–4× for activations and optimizer state.
 
-## HF Inference API (serverless)
+## HF Inference (serverless, via Inference Providers)
 
-Fast for tiny one-off jobs without setting up a GPU. The model has to be supported on the serverless tier (smaller models, popular pipelines).
+Fast for tiny one-off jobs without setting up a GPU. The former serverless Inference API is now the `hf-inference` provider inside Inference Providers (the old `api-inference.huggingface.co` endpoint is replaced by `router.huggingface.co`); it shares the same credits and billing. The model has to be supported by `hf-inference` (smaller models, popular pipelines). `InferenceClient(model=...)` without `provider` uses `"auto"` routing; pass `provider="hf-inference"` to pin the HF-hosted backend.
 
 ```bash
 uv pip install huggingface_hub python-dotenv     # or: uv add huggingface_hub python-dotenv

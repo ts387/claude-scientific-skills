@@ -131,7 +131,7 @@ python scripts/run_pacsomatic.py \
 
 ## Configuration
 
-Use `config.yaml` as the baseline for profile/executor/runtime defaults. Override at invocation time when user requirements differ.
+Use `config.yaml` as the baseline for profile/executor/runtime defaults. Override at invocation time when user requirements differ. `config.yaml` is advisory reference data: `scripts/run_pacsomatic.py` does not read it, so its values must be passed as CLI flags. The `--profile singularity,sanger` examples above are site-specific (Sanger); the script default is `--profile singularity`.
 
 ## Testing
 

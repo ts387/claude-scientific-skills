@@ -34,7 +34,7 @@ Example:
 ```
 GET https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi?db=clinvar&id=37088,37087&retmode=json
 ```
-Returns JSON with clinical significance, variant name, gene, conditions, review status.
+Returns JSON with germline / somatic clinical-impact / oncogenicity classifications (each with conditions and review status), variant name, and gene. Since January 2024 the single `clinical_significance` field is split into these three objects.
 
 ### 3. Full Record (efetch)
 ```
@@ -43,14 +43,17 @@ GET https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=clinvar&id={id}
 Note: ClinVar efetch returns **XML only** (no JSON for efetch).
 
 ### 4. Variation Services API — SPDI/HGVS Lookup
+Variation Services has no ClinVar-specific route. Normalize the variant, map it to an rsID, then read the ClinVar annotations from the RefSNP record:
 ```
-GET https://api.ncbi.nlm.nih.gov/variation/v0/spdi/{spdi_expression}/clinvar
-GET https://api.ncbi.nlm.nih.gov/variation/v0/hgvs/{hgvs_expression}/clinvar
+GET https://api.ncbi.nlm.nih.gov/variation/v0/hgvs/{hgvs_expression}/contextuals   # HGVS -> SPDI
+GET https://api.ncbi.nlm.nih.gov/variation/v0/spdi/{spdi_expression}/rsids        # SPDI -> rsIDs
+GET https://api.ncbi.nlm.nih.gov/variation/v0/refsnp/{rsid}                       # RefSNP JSON (clinical annotations under primary_snapshot_data.allele_annotations[].clinical)
 ```
 Example:
 ```
-GET https://api.ncbi.nlm.nih.gov/variation/v0/hgvs/NM_007294.4%3Ac.5266dupC/clinvar
+GET https://api.ncbi.nlm.nih.gov/variation/v0/hgvs/NM_007294.4%3Ac.5266dupC/contextuals
 ```
+For a direct HGVS -> ClinVar lookup, esearch (section 1) with the HGVS expression as the term is simpler.
 
 ### 5. ClinVar VCV/RCV Direct Access
 ```
@@ -77,10 +80,15 @@ This returns HTML. For programmatic access, use E-utilities or the Variation Ser
     "37088": {
       "uid": "37088",
       "title": "NM_007294.4(BRCA1):c.5266dupC (p.Gln1756Profs*74)",
-      "clinical_significance": { "description": "Pathogenic" },
+      "germline_classification": {
+        "description": "Pathogenic",
+        "review_status": "reviewed by expert panel",
+        "trait_set": [{"trait_name": "Hereditary breast and ovarian cancer syndrome"}]
+      },
+      "clinical_impact_classification": {...},
+      "oncogenicity_classification": {...},
       "genes": [{"symbol": "BRCA1", "geneid": 672}],
-      "variation_set": [...],
-      "trait_set": [{"trait_name": "Hereditary breast and ovarian cancer syndrome"}]
+      "variation_set": [...]
     }
   }
 }

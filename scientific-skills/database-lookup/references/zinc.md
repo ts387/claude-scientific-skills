@@ -5,7 +5,7 @@
 https://cartblanche22.docking.org/
 ```
 
-ZINC22 (current; 230M+ purchasable + multi-billion make-on-demand) is served by the CartBlanche22 query layer. The legacy `zinc.docking.org` endpoint targets ZINC15 and is not actively maintained.
+ZINC22 (current; 230M+ purchasable + multi-billion make-on-demand) is served by the CartBlanche22 query layer. The legacy REST endpoint at `zinc.docking.org` now serves ZINC20 (ZINC15 remains at `zinc15.docking.org`); both share the legacy API pattern below and are not actively developed.
 
 ## Auth
 No API key required.
@@ -83,17 +83,19 @@ No published limits. Be respectful — similarity and substructure searches are 
 ## Notes
 - ZINC IDs are 15-digit zero-padded after `ZINC` (e.g. `ZINC000000000053`).
 - ZINC explicitly disclaims quality guarantees: verify SMILES, stereochemistry, and supplier availability before experimental use.
-- For ZINC15 / drug-like / lead-like compound subsets, the older `zinc.docking.org` endpoint may still resolve but is not the recommended target.
+- For ZINC15/ZINC20 drug-like / lead-like compound subsets, the older `zinc.docking.org` (ZINC20) or `zinc15.docking.org` (ZINC15) endpoints may still resolve but are not the recommended target.
 
 ---
 
-# ZINC15 Database API (Legacy)
+# ZINC15 / ZINC20 Database API (Legacy)
 
 ## Base URL
 
 ```
 https://zinc.docking.org
 ```
+
+`zinc.docking.org` serves ZINC20 (also at `zinc20.docking.org`); ZINC15 is at `https://zinc15.docking.org`.
 
 ## Auth
 

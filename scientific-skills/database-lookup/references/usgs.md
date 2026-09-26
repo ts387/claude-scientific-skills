@@ -132,8 +132,10 @@ Pattern: `{significance}_{timeperiod}.geojson` where significance is `significan
 https://waterservices.usgs.gov/nwis
 ```
 
+**Note:** The legacy WaterServices APIs at `waterservices.usgs.gov` are being decommissioned (USGS expects shutdown in early 2027, with possible service degradation/blackouts beforehand). The replacement is the USGS Water Data APIs (OGC API - Features) at `https://api.waterdata.usgs.gov/ogcapi/v0` (docs and migration guide: https://api.waterdata.usgs.gov/docs/). Example daily-values query: `https://api.waterdata.usgs.gov/ogcapi/v0/collections/daily/items?f=json&monitoring_location_id=USGS-01646500&parameter_code=00060&time=2023-01-01T00:00:00Z/2024-01-01T00:00:00Z` (site IDs are agency-prefixed, e.g. `USGS-01646500`). New code should target the new APIs.
+
 ### Authentication
-**None required.** Fully public, no API key needed.
+**None required** for legacy WaterServices. The new Water Data APIs accept a free API key (sent as the `X-Api-Key` header; see https://api.waterdata.usgs.gov/docs/ogcapi/keys/) and require one for more than a few queries per hour.
 
 ### Rate Limits
 - No strict per-user limit, but USGS recommends limiting automated requests. Large queries may time out.
@@ -257,4 +259,4 @@ https://waterservices.usgs.gov/nwis/stat/?format=rdb&sites=01646500&parameterCd=
 - Earthquake API returns coordinates as `[lon, lat, depth]` (note: longitude first).
 - Water Services JSON wraps data in a verbose WaterML-like structure. The `rdb` (tab-delimited) format is simpler for tabular data.
 - USGS site numbers are typically 8 digits for surface water, 15 for groundwater.
-- Both APIs are free, public, and require no authentication.
+- Both APIs are free and public. The Earthquake API and legacy WaterServices need no authentication; the replacement Water Data APIs (`api.waterdata.usgs.gov`) need a free API key for more than light use.

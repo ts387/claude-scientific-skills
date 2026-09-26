@@ -35,7 +35,7 @@ GET /expression/medianGeneExpression?gencodeId=ENSG00000139618.17&datasetId=gtex
 ```
 Parameters:
 - `gencodeId` -- Versioned Ensembl gene ID (required)
-- `datasetId` -- `gtex_v8` (required)
+- `datasetId` -- `gtex_v10` or `gtex_v8` (required)
 - `tissueSiteDetailId` -- filter to specific tissue (optional)
 
 Returns median TPM per tissue for the gene.
@@ -52,7 +52,7 @@ GET /association/singleTissueEqtl?gencodeId=ENSG00000139618.17&tissueSiteDetailI
 Parameters:
 - `gencodeId` -- Versioned Ensembl gene ID (required)
 - `tissueSiteDetailId` -- tissue ID (required)
-- `datasetId` -- `gtex_v8` (required)
+- `datasetId` -- `gtex_v10` or `gtex_v8` (required)
 
 ### Multi-tissue eQTLs
 ```
@@ -65,7 +65,7 @@ GET /reference/gene?geneId=BRCA2&gencodeVersion=v26&genomeBuild=GRCh38/hg38
 ```
 Parameters:
 - `geneId` -- gene symbol or Ensembl ID
-- `gencodeVersion` -- `v26` for GTEx v8
+- `gencodeVersion` -- `v39` for GTEx v10, `v26` for GTEx v8
 - `genomeBuild` -- `GRCh38/hg38`
 
 ### List tissues
@@ -130,7 +130,7 @@ Use the underscore-separated names exactly:
 - For bulk analysis, download full datasets from the GTEx Portal downloads page
 
 ## Notes
-- GTEx v8 is the primary dataset; always specify `datasetId=gtex_v8`
+- GTEx v10 (`datasetId=gtex_v10`, GENCODE v39, 54 tissues) is the latest release served by the Portal; GTEx v8 (`datasetId=gtex_v8`, GENCODE v26) is still served and widely cited. Always pass `datasetId` explicitly and use the matching `gencodeVersion`. (GTEx V11 re-annotates V10 with GENCODE 47 and is available as downloads; check the Portal before assuming the API serves it.)
 - Gene IDs must be versioned GENCODE IDs (e.g., ENSG00000139618.17)
 - Use the gene search endpoint to resolve symbols to versioned GENCODE IDs
-- `gencodeVersion=v26` corresponds to GTEx v8
+- `gencodeVersion=v39` corresponds to GTEx v10; `gencodeVersion=v26` corresponds to GTEx v8

@@ -370,7 +370,7 @@ If proposing extensive broader impacts activities but have no history of such wo
 ## Resources for Broader Impacts
 
 ### NSF Resources
-- **NSF Broader Impacts Website**: https://www.nsf.gov/od/oia/special/broaderimpacts/
+- **NSF Broader Impacts Website**: https://www.nsf.gov/funding/learn/broader-impacts
 - **Broader Impacts Toolkit**: Many universities provide institutional resources
 
 ### Assessment Tools

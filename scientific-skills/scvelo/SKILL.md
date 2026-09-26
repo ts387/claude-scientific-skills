@@ -318,7 +318,7 @@ After running the workflow, the following fields are added:
 ## Additional Resources
 
 - **scVelo documentation**: https://scvelo.readthedocs.io/
-- **Tutorial notebooks**: https://scvelo.readthedocs.io/tutorials/
+- **Tutorials**: https://scvelo.readthedocs.io/en/stable/getting_started.html
 - **GitHub**: https://github.com/theislab/scvelo
 - **Paper**: Bergen V et al. (2020) Nature Biotechnology. PMID: 32747759
 - **velocyto** (preprocessing): http://velocyto.org/

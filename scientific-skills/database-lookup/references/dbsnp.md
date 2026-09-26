@@ -112,12 +112,10 @@ GET /hgvs/{hgvs}/contextuals
 GET https://api.ncbi.nlm.nih.gov/variation/v0/hgvs/NC_000011.10:g.5227003T>A/contextuals
 ```
 
-### 4. Batch rsID lookup (POST)
+### 4. Batch rsID lookup
+Variation Services has no batch rsID endpoint; `GET /refsnp/{rsid}` takes one ID per request (keep to ~1 request/second). For many rsIDs, either loop over `/refsnp/{rsid}` or use E-utilities with comma-separated IDs:
 ```
-POST /refsnp/batch
-Content-Type: application/json
-
-{"refsnp_ids": ["334", "1805007", "7412"]}
+GET https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi?db=snp&id=334,1805007,7412&retmode=json
 ```
 
 ## Common E-utilities Search Patterns

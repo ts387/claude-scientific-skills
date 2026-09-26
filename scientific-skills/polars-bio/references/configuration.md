@@ -110,7 +110,7 @@ Use Polars' native streaming for post-processing operations:
 
 ```python
 # Collect with Polars streaming
-result = lf.collect(streaming=True)
+result = lf.collect(engine="streaming")
 ```
 
 ### Combining Both
@@ -126,7 +126,7 @@ lf2 = pb.scan_bed("large2.bed")
 result_lf = pb.overlap(lf1, lf2)
 
 # Collect with Polars streaming for final materialization
-result = result_lf.collect(streaming=True)
+result = result_lf.collect(engine="streaming")
 ```
 
 ## Logging

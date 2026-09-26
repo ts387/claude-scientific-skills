@@ -44,6 +44,7 @@ import rasterio
 import numpy as np
 
 with rasterio.open('sentinel2.tif') as src:
+    # assumes all bands stacked in native order (B01, B02, B03, B04, ..., B08, ...)
     red = src.read(4).astype(float)   # B04
     nir = src.read(8).astype(float)   # B08
     ndvi = (nir - red) / (nir + red + 1e-8)
@@ -144,6 +145,7 @@ area_sqm = gdf_metric.geometry.area
 def calculate_indices(image_path):
     """NDVI, EVI, SAVI, NDWI from Sentinel-2."""
     with rasterio.open(image_path) as src:
+        # assumes a 5-band stack ordered B02, B03, B04, B08, B11 (not the native full-band order)
         B02, B03, B04, B08, B11 = [src.read(i).astype(float) for i in [1,2,3,4,5]]
 
     ndvi = (B08 - B04) / (B08 + B04 + 1e-8)

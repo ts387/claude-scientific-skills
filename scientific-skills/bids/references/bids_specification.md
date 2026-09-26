@@ -149,13 +149,17 @@ Full list managed by TemplateFlow: https://www.templateflow.org/
 
 | Version | Key Changes |
 |---------|-------------|
-| 1.10.0 | Motion capture modality; refined derivative entity rules |
-| 1.9.0 | NIRS modality |
-| 1.8.0 | Microscopy modality; `chunk-` entity for large files |
-| 1.7.0 | PET modality fully specified |
-| 1.6.0 | EEG/MEG/iEEG matured; `_coordsystem.json` |
-| 1.5.0 | Genetic descriptors; ASL perfusion |
-| 1.4.0 | `dataset_description.json` expanded; derivatives framework |
+| 1.11.0 | EMG modality (BEP042) |
+| 1.10.0 | MR spectroscopy modality (BEP022) |
+| 1.9.0 | Motion capture modality (BEP029) |
+| 1.8.0 | NIRS modality (BEP030); BIDS URIs |
+| 1.7.0 | Microscopy modality (BEP031); `sample-`, `stain-`, `chunk-` entities |
+| 1.6.0 | PET modality (BEP009) |
+| 1.5.0 | ASL perfusion (BEP005); quantitative MRI (BEP001) |
+| 1.4.0 | Common derivatives framework (BEP003) |
+| 1.3.0 | Genetic descriptors (BEP018) |
+| 1.2.0 | EEG and iEEG (BEP006/BEP010) |
+| 1.1.0 | MEG (BEP008) |
 | 1.0.0 | Initial release: MRI only (anat, func, dwi, fmap) |
 
 Validator: the schema-based Deno bids-validator (PyPI `bids-validator-deno`) is the reference implementation for v1.9+; the legacy Node.js validator is deprecated.

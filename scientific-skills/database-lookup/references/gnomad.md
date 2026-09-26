@@ -13,14 +13,14 @@ and variant annotations across diverse populations.
 ## Key Queries
 
 ### Variant lookup by variant ID
-Variant IDs use format: `{chrom}-{pos}-{ref}-{alt}` (GRCh37 or GRCh38).
+Variant IDs use format: `{chrom}-{pos}-{ref}-{alt}`; coordinates must be in the build of the `dataset` queried (`gnomad_r4`/`gnomad_r3` = GRCh38, `gnomad_r2_1` = GRCh37).
 
 ```
 POST https://gnomad.broadinstitute.org/api
 Content-Type: application/json
 
 {
-  "query": "{ variant(variantId: \"1-55516888-G-A\", dataset: gnomad_r4) { variant_id rsids chrom pos ref alt exome { ac an af } genome { ac an af } } }"
+  "query": "{ variant(variantId: \"1-55039974-G-T\", dataset: gnomad_r4) { variant_id rsids chrom pos ref alt exome { ac an af } genome { ac an af } } }"
 }
 ```
 
@@ -41,7 +41,7 @@ Content-Type: application/json
 ### Variants in a region
 ```json
 {
-  "query": "{ region(chrom: \"1\", start: 55505222, stop: 55530526, reference_genome: GRCh38) { variants(dataset: gnomad_r4) { variant_id rsids consequence exome { ac af } genome { ac af } } } }"
+  "query": "{ region(chrom: \"1\", start: 55039445, stop: 55064852, reference_genome: GRCh38) { variants(dataset: gnomad_r4) { variant_id rsids consequence exome { ac af } genome { ac af } } } }"
 }
 ```
 
@@ -60,19 +60,19 @@ Content-Type: application/json
 ## Population frequency fields
 Within `exome` or `genome` objects, population-specific frequencies are available via
 `populations { id ac an af }` where `id` values include: `afr`, `amr`, `asj`, `eas`,
-`fin`, `mid`, `nfe`, `oth`, `sas`.
+`fin`, `mid`, `nfe`, `remaining` (v4; `oth` in v2/v3), `sas`.
 
 ## Response example (variant)
 ```json
 {
   "data": {
     "variant": {
-      "variant_id": "1-55516888-G-A",
+      "variant_id": "1-55039974-G-T",
       "rsids": ["rs11591147"],
       "chrom": "1",
-      "pos": 55516888,
+      "pos": 55039974,
       "ref": "G",
-      "alt": "A",
+      "alt": "T",
       "exome": { "ac": 1234, "an": 250000, "af": 0.004936 },
       "genome": { "ac": 456, "an": 150000, "af": 0.00304 }
     }

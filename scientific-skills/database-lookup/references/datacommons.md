@@ -14,7 +14,7 @@ Pass as query parameter: `&key=YOUR_KEY`
 
 Or as header: `X-API-Key: YOUR_KEY`
 
-Note: Many endpoints work without a key for light usage, but a key is recommended for reliable access.
+Note: A key is required for all REST V2 requests. The Data Commons docs publish a shared trial key for trying the API (limited quota); use your own key for real work.
 
 ## Key Endpoints
 
@@ -224,8 +224,8 @@ https://api.datacommons.org/v2/variable/search?key=YOUR_KEY&query=unemployment+r
 
 ## Rate Limits
 
-- Without API key: very limited (roughly a few requests per minute; may be blocked).
-- With API key: not formally published, but generally generous for normal use.
+- An API key is required on every V2 request; the shared trial key has a limited quota and is meant only for trying the API.
+- With your own API key: not formally published, but generally generous for normal use.
 - Implement client-side throttling (1-2 requests/second recommended).
 - Bulk data available via the Data Commons data download for large-scale analysis.
 

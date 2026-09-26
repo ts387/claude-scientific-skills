@@ -158,10 +158,6 @@ def find_conda_env_prefix(env_name):
     return None
 
 
-def default_conda_env_file():
-    return script_dir().parent / "environment" / "nextflow-env.yml"
-
-
 def create_conda_env(env_name, env_file):
     env_file = Path(env_file).expanduser().resolve()
     if not env_file.exists():
@@ -186,7 +182,9 @@ def resolve_runtime(args):
 
     prefix = find_conda_env_prefix(args.conda_env)
     if prefix is None and args.create_conda_env:
-        env_file = args.conda_env_file or str(default_conda_env_file())
+        if not args.conda_env_file:
+            fail("--create-conda-env requires --conda-env-file <conda YAML providing nextflow and openjdk>=17>")
+        env_file = args.conda_env_file
         create_conda_env(args.conda_env, env_file)
         prefix = find_conda_env_prefix(args.conda_env)
 
@@ -647,7 +645,7 @@ def parse_args():
     parser.add_argument("--nxf-opts", default="", help="Optional NXF_OPTS, e.g. '-Xms1g -Xmx4g'")
     parser.add_argument("--singularity-cache", default="", help="Optional NXF_SINGULARITY_CACHEDIR")
     parser.add_argument("--conda-env", default="pacsomatic-nextflow", help="Conda environment name used to resolve Nextflow runtime")
-    parser.add_argument("--conda-env-file", default="", help="Conda environment YAML used with --create-conda-env")
+    parser.add_argument("--conda-env-file", default="", help="Conda environment YAML (required with --create-conda-env)")
     parser.add_argument("--create-conda-env", action="store_true", help="Create conda environment when missing")
     parser.add_argument("--use-current-path", action="store_true", help="Use current PATH and skip conda runtime resolution")
     parser.add_argument(

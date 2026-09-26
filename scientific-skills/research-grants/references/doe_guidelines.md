@@ -59,7 +59,7 @@
    - Fundamental symmetries
 
 **Funding Mechanisms**:
-- **Early Career Research Program**: $750K over 5 years for early career scientists
+- **Early Career Research Program**: ~$875K over 5 years for university researchers (~$2.75M for national-lab researchers); confirm current amounts at https://science.osti.gov/early-career
 - **Funding Opportunity Announcements (FOAs)**: Program-specific solicitations
 - **Laboratory Directed Research and Development (LDRD)**: For national lab staff
 
@@ -435,7 +435,7 @@ Proposals typically evaluated on:
 
 **Sources**:
 - **EERE Exchange**: https://eere-exchange.energy.gov
-- **ARPA-E OPEN**: https://arpa-e.energy.gov
+- **ARPA-E**: https://arpa-e.energy.gov
 - **Office of Science FOAs**: https://science.osti.gov/grants/Funding-Opportunities
 - **Grants.gov**: Federal grants database
 - **FedConnect**: Subscribe to FOA announcements
@@ -445,7 +445,7 @@ Proposals typically evaluated on:
 **Varies by Office**:
 - **EERE Exchange**: EERE programs
 - **PAMS (Portfolio Analysis and Management System)**: Office of Science
-- **ARPA-E OPEN**: ARPA-E submissions
+- **ARPA-E eXCHANGE** (https://arpa-e-foa.energy.gov): ARPA-E submissions
 - **Grants.gov**: Some programs
 
 **Registration Required** (can take 2-4 weeks):

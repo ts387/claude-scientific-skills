@@ -40,7 +40,7 @@ uv add --extra-index-url=https://pypi.nvidia.com cucim-cu12    # For CUDA 12.x
 ```
 
 **Platform:** Linux only (x86-64 and aarch64) — no Windows or macOS GPU support.
-**Requires:** NVIDIA GPU with CUDA 12.x, Python 3.9+, CuPy, NumPy, SciPy, scikit-image.
+**Requires:** NVIDIA GPU with CUDA 12.x, Python 3.10+, CuPy, NumPy, SciPy, scikit-image.
 
 Verify:
 ```python

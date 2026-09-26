@@ -3,7 +3,7 @@
 ## Base URLs
 - **QuickGO (EBI, recommended)**: `https://www.ebi.ac.uk/QuickGO/services` — most reliable endpoint
 - **GO API**: `https://api.geneontology.org/api` — may return 403; use QuickGO as fallback
-- **AmiGO / GOlr (Solr-based)**: `http://golr-aux.geneontology.org/solr`
+- **AmiGO / GOlr (Solr-based)**: `https://golr-aux.geneontology.io/solr`
 
 ## Authentication
 None required. All endpoints are public.

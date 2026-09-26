@@ -39,7 +39,7 @@ GET /data/{datasetCode}/{filter}
 **Query parameters:**
 | Parameter | Required | Description |
 |-----------|----------|-------------|
-| `format` | No | `sdmx+json` (default), `sdmx+csv`, `sdmx+xml`, `TSV` |
+| `format` | No | `JSON` (JSON-stat 2.0), `SDMX-CSV`, `TSV`. Omit for SDMX-ML 2.1 (XML), the default. |
 | `startPeriod` | No | Start year/quarter/month: `2015`, `2020-Q1`, `2020-01` |
 | `endPeriod` | No | End year/quarter/month |
 | `detail` | No | `full` (default), `dataonly`, `serieskeysonly`, `nodata` |
@@ -52,7 +52,7 @@ https://ec.europa.eu/eurostat/api/dissemination/sdmx/2.1/data/nama_10_gdp/A.CP_M
 
 **Example (total population by country, annual):**
 ```
-https://ec.europa.eu/eurostat/api/dissemination/sdmx/2.1/data/demo_pjan/A.NR.T.TOTAL.DE+FR+IT+ES?startPeriod=2015&endPeriod=2023
+https://ec.europa.eu/eurostat/api/dissemination/sdmx/2.1/data/demo_pjan/A.NR.TOTAL.T.DE+FR+IT+ES?startPeriod=2015&endPeriod=2023
 ```
 
 **Example (unemployment rate, seasonally adjusted, monthly):**
@@ -62,16 +62,16 @@ https://ec.europa.eu/eurostat/api/dissemination/sdmx/2.1/data/une_rt_m/M.SA.TOTA
 
 **Example (HICP inflation, all items, monthly):**
 ```
-https://ec.europa.eu/eurostat/api/dissemination/sdmx/2.1/data/prc_hicp_mmor/M.RCH_A.CP00.DE+FR+IT?startPeriod=2023-01&endPeriod=2024-06&format=sdmx+json
+https://ec.europa.eu/eurostat/api/dissemination/sdmx/2.1/data/prc_hicp_manr/M.RCH_A.CP00.DE+FR+IT?startPeriod=2023-01&endPeriod=2024-06&format=JSON
 ```
 
 ### 2. Get Dataset as CSV
 
-Append `?format=sdmx+csv` to any data request for a flat CSV response that is easier to parse.
+Append `?format=SDMX-CSV` to any data request for a flat CSV response that is easier to parse.
 
 **Example:**
 ```
-https://ec.europa.eu/eurostat/api/dissemination/sdmx/2.1/data/nama_10_gdp/A.CP_MEUR.B1GQ.DE+FR?startPeriod=2018&endPeriod=2023&format=sdmx+csv
+https://ec.europa.eu/eurostat/api/dissemination/sdmx/2.1/data/nama_10_gdp/A.CP_MEUR.B1GQ.DE+FR?startPeriod=2018&endPeriod=2023&format=SDMX-CSV
 ```
 
 ### 3. Get Dataset Structure (Dimensions and Code Lists)
@@ -196,42 +196,15 @@ Aggregates: `EU27_2020` (EU-27), `EA20` (Euro area 20), `EA19` (Euro area 19), `
 
 **Note:** Greece uses `EL` (not `GR`) in Eurostat.
 
-## SDMX JSON Response Format
+## JSON Response Format
 
-```json
-{
-  "header": {
-    "id": "...",
-    "prepared": "2024-01-15T10:00:00"
-  },
-  "dataSets": [
-    {
-      "series": {
-        "0:0:0:0": {
-          "observations": {
-            "0": [3336010.0],
-            "1": [3601750.0]
-          }
-        }
-      }
-    }
-  ],
-  "structure": {
-    "dimensions": {
-      "series": [...],
-      "observation": [...]
-    }
-  }
-}
-```
-
-In SDMX+JSON, dimension values are encoded as integer indices. The `structure.dimensions` section maps indices to codes and labels. This is compact but requires index lookup.
+`format=JSON` on the SDMX 2.1 data endpoint returns JSON-stat 2.0, the same structure shown in the JSON-stat API response example above (flat `value` array plus `id`/`size`/`dimension`), not SDMX-JSON. Use `format=SDMX-CSV` if you want one row per observation.
 
 ## Notes
 - Dimension order in the filter path depends on the dataset structure. Always check `/datastructure/ESTAT/{code}` first.
 - Use `+` to select multiple values in one dimension (e.g., `DE+FR+IT`).
 - Leave a dimension segment empty (consecutive dots `..`) to select all values.
-- CSV format (`?format=sdmx+csv`) is recommended for easier parsing -- it returns flat rows with labeled columns.
+- CSV format (`?format=SDMX-CSV`) is recommended for easier parsing -- it returns flat rows with labeled columns.
 - The JSON-stat API is simpler for quick queries but the SDMX API is more powerful and complete.
 - Dataset codes can be found at https://ec.europa.eu/eurostat/databrowser/ by browsing themes.
 - Large unrestricted queries may time out. Always filter by country and time period.

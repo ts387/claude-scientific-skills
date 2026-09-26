@@ -172,5 +172,5 @@ def load_prism_data(filepath="primary-screen-replicate-collapsed-logfold-change.
 
 # Available datasets:
 # primary-screen: 4,518 compounds at single dose
-# secondary-screen: ~8,000 compounds at multiple doses (AUC available)
+# secondary-screen: 1,448 compounds at 8 doses, ~499 cell lines (AUC available)
 ```

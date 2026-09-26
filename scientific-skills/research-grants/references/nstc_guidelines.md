@@ -92,13 +92,13 @@ Based on official CM03 templates, the proposal must include:
 
 ---
 
-## 114年度 (2025) Application Requirements
+## Annual Application Requirements (e.g., 116年度 / 2027 cycle)
 
-Based on official announcements:
+Based on official announcements (the 6-hour ethics-training rule below still applied in the 115年度 / 2026 call). Ethics-training and disclosure details can change from year to year; check that year's 徵求公告 (call announcement) before applying.
 
 **Application Method**: Fully online through NSTC Academic Research Service Network (學術研發服務網)
 
-**Project Start Date**: Most projects begin August 1, 2025 (114年8月1日)
+**Project Start Date**: Most projects begin August 1 of the cycle year (e.g., 116年8月1日 = August 1, 2027)
 
 **Academic Ethics Requirement**:
 - First-time applicants and first-time participants must complete **at least 6 hours** of academic ethics training within 3 years before submission

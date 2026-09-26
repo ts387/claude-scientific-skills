@@ -18,8 +18,8 @@ export CPLUS_INCLUDE_PATH=/usr/include/gdal
 export C_INCLUDE_PATH=/usr/include/gdal
 pip install rasterio
 
-# Solution 3: Wheel files
-pip install rasterio --find-links=https://gis.wheelwrights.com/
+# Solution 3: Pre-built Windows wheels (unofficial)
+# Download from https://github.com/cgohlke/geospatial-wheels/releases and pip install the .whl
 
 # Verify installation
 python -c "from osgeo import gdal; print(gdal.__version__)"
