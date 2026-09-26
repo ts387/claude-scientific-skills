@@ -77,7 +77,7 @@ For domain-specific go-to picks (the "if in doubt, start here" entries), see `re
 The mechanics depend on resource type. Read the matching reference file before writing code:
 
 - **Datasets** → `references/using-datasets.md` — loading via `datasets`, streaming for huge corpora, common columns, splits
-- **Models** → `references/using-models.md` — local `transformers`, Hugging Face Inference API, Inference Providers for very large models, GPU sizing
+- **Models** → `references/using-models.md` — local `transformers`, HF Inference Providers (including the `hf-inference` provider, formerly the serverless Inference API) for hosted and very large models, GPU sizing
 - **Spaces (interactive demos)** → `references/using-spaces.md` — `gradio_client` pattern with a worked BoltzGen example
 
 The reference files are short and focused. If you're already fluent in the relevant API, skim; if not, read fully before writing code. The patterns are different from generic HF usage in a few important places (e.g., `trust_remote_code` requirements, scientific-data dtype gotchas).
@@ -126,6 +126,6 @@ If you're creating a new project, also add `.env` to `.gitignore` if it isn't al
 - `scripts/fetch_catalog.py` — fetch and filter catalog content. Run with `--help` for full usage. Use this in preference to ad-hoc WebFetch calls when you need structured access.
 - `references/topics-and-slugs.md` — exact topic slugs, what each covers, and the entry schema.
 - `references/using-datasets.md` — patterns and gotchas for loading scientific datasets.
-- `references/using-models.md` — running scientific models locally, via Inference API, or via Inference Providers.
+- `references/using-models.md` — running scientific models locally or via HF Inference Providers.
 - `references/using-spaces.md` — calling HF Spaces (notably BoltzGen) programmatically with `gradio_client`.
 - `references/flagship-resources.md` — go-to dataset/model picks per domain when the user wants a sensible default.

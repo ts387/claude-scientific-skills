@@ -432,7 +432,7 @@ Indirect cost rate is based on our institution's federally negotiated rate agree
 ## Agency-Specific Notes
 
 **NIH**: 
-- Salary cap applies (~$221,900 for 2024)
+- Salary cap applies ($228,000 for 2026, Executive Level II; updated annually, see NOT-OD-26-034)
 - Modular budgets (≤$250K direct) require less detail
 - Participant support costs excluded from F&A
 

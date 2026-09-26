@@ -179,7 +179,7 @@ Patient_HG008,DS_MT_T,1,https://raw.githubusercontent.com/nf-core/test-datasets/
 Patient_HG008,DS_MT_N,0,https://raw.githubusercontent.com/nf-core/test-datasets/pacsomatic/testdata/HG008_Downsample_MT_normal.bam,
 CSV
 
-module load nextflow/21.10.5
+module load nextflow/24.04.2
 export NXF_WORK="$WORKDIR"
 
 nextflow run nf-core/pacsomatic \
@@ -201,7 +201,7 @@ bsub < submit_pacsomatic_hg008.lsf.sh
 ## LSF examples aligned with your cluster style
 
 The script supports your style of submission, including `-P`, queue switching,
-`module load nextflow/21.10.5`, `-resume`, and report/DAG outputs.
+`module load nextflow/24.04.2`, `-resume`, and report/DAG outputs.
 
 The helper has no built-in project, queue, or module-load defaults (all three
 default to empty, and the matching `#BSUB -P`, `#BSUB -q`, and module lines are
@@ -209,7 +209,7 @@ left out). Pass them explicitly for your common combo:
 
 - `--project Somatic_singularity`
 - `--queue heavy_io`
-- `--module-load "module load nextflow/21.10.5"`
+- `--module-load "module load nextflow/24.04.2"`
 
 Default LSF output naming now follows your style:
 
@@ -232,7 +232,7 @@ python scripts/run_pacsomatic.py \
   --queue heavy_io \
   --memory-gb 20 \
   --job-name Somatic_test \
-  --module-load "module load nextflow/21.10.5" \
+  --module-load "module load nextflow/24.04.2" \
   --with-report HiFi_Somatic_Nextflow_Run_Report.html \
   --with-dag HiFi_Somatic_Flowchart.png
 ```
@@ -253,4 +253,4 @@ Reference: <https://nf-co.re/configs/sanger/>
 - Use `--params-file` for large parameter sets and keep script options minimal.
 - Prefer containerized profile (`singularity` or `docker`) on HPC.
 - Set `NXF_OPTS` memory ceiling if Nextflow launcher memory spikes.
-- nf-core/pacsomatic may require a newer Nextflow than legacy module versions; if the cluster allows, prefer a modern Nextflow release compatible with the pipeline.
+- nf-core/pacsomatic's `manifest.nextflowVersion` is `!>=24.04.2` (hard requirement; older Nextflow aborts). Load a Nextflow module at or above that version; the module name above is an example, so match it to your cluster's available modules.

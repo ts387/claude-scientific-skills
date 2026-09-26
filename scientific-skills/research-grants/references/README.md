@@ -175,7 +175,7 @@ Typical success rates by agency:
 
 ### Understand Review Criteria
 - NSF: Intellectual Merit + Broader Impacts (equal weight)
-- NIH: Significance, Investigator, Innovation, Approach, Environment (scored 1-9)
+- NIH: Simplified Review Framework (since Jan 2025): Factor 1 Importance of the Research and Factor 2 Rigor & Feasibility scored 1-9; Factor 3 Expertise & Resources rated sufficient/insufficient
 - DOE: Technical merit, qualifications, budget, relevance
 - DARPA: Innovation, impact, team, feasibility, transition
 

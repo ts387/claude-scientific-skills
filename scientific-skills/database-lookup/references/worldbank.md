@@ -145,7 +145,7 @@ https://api.worldbank.org/v2/source?format=json
 | SI.POV.GINI           | Gini index                                      |
 | BX.KLT.DINV.CD.WD     | Foreign direct investment, net inflows (BoP, US$)|
 | NE.EXP.GNFS.ZS        | Exports of goods and services (% of GDP)        |
-| EN.ATM.CO2E.PC        | CO2 emissions (metric tons per capita)          |
+| EN.GHG.CO2.PC.CE.AR5  | CO2 emissions excl. LULUCF per capita (t CO2e/capita) |
 | SE.ADT.LITR.ZS        | Literacy rate, adult (% ages 15+)               |
 | SH.XPD.CHEX.PC.CD     | Current health expenditure per capita (US$)     |
 | IT.NET.USER.ZS        | Individuals using the Internet (% of pop)       |

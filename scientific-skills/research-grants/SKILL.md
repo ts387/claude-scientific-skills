@@ -507,7 +507,7 @@ Develop realistic budgets that align with the proposed work and agency guideline
 **NIH**:
 - Modular budgets for ≤$250K direct costs per year (R01)
 - Detailed budgets for >$250K or complex awards
-- Salary cap applies (~$221,900 for 2024)
+- Salary cap applies ($228,000 for 2026, Executive Level II; updated annually, see NOT-OD-26-034)
 - No fixed PI effort cap; typical PI effort is 2-3 calendar months (16-25%)
 
 **DOE**:

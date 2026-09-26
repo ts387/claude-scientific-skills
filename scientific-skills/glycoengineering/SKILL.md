@@ -229,20 +229,20 @@ GlycoShield-MD analyzes how glycans shield protein surfaces during MD simulation
 - **Output**: Per-residue shielding fraction, visualization
 
 ```bash
-# Installation
-pip install glycoshield
+# Installation (not on PyPI -- the `glycoshield` name on PyPI is not this tool; install from source)
+git clone https://gitlab.mpcdf.mpg.de/dioscuri-biophysics/glycoshield-md.git
+cd glycoshield-md
+pip install -e .
 
-# Basic usage: analyze glycan shielding from glycosylated protein MD trajectory
-glycoshield \
-    --topology glycoprotein.pdb \
-    --trajectory glycoprotein.xtc \
-    --glycan_resnames BGLCNA FUC \
-    --output shielding_analysis/
+# Workflow scripts shipped in the repo (see the repo README for current flags):
+#   GlycoSHIELD.py  - graft glycan conformer libraries onto a protein structure
+#   GlycoTRAJ.py    - merge per-site glycans into one master trajectory
+#   GlycoSASA.py    - compute shielding scores (requires GROMACS `gmx` on PATH)
 ```
 
 ### 3. GlycoWorkbench (Glycan Structure Drawing/Analysis)
 
-- **URL**: https://www.eurocarbdb.org/project/glycoworkbench
+- **URL**: https://code.google.com/archive/p/glycoworkbench/ (GlycoWorkbench 2 archive; the original EUROCarbDB project site is defunct)
 - **Use**: Draw glycan structures, calculate masses, annotate MS spectra
 - **Format**: GlycoCT, IUPAC condensed glycan notation
 

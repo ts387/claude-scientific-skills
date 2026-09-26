@@ -37,11 +37,13 @@
 
 ## Core Review Criteria
 
-NIH proposals are evaluated using **scored criteria** (1-9 scale, 1 = exceptional, 9 = poor) and **additional review considerations** (not scored but discussed).
+For research project grant (RPG) applications due on or after **January 25, 2025** (e.g., R01, R21, R03), NIH uses the **Simplified Review Framework**: the five long-standing criteria are reorganized into **three factors**. Reviewers give an Overall Impact score (1-9 scale, 1 = exceptional, 9 = poor); only Factors 1 and 2 receive individual criterion scores. **Additional review considerations** are discussed but not scored.
 
-### Scored Criteria (Overall Impact Score)
+**Note**: Fellowship (F), career development (K), and training (T) applications use their own mechanism-specific review criteria; the Simplified Review Framework below applies to RPGs.
 
-#### 1. Significance
+### Factor 1: Importance of the Research (Significance + Innovation) -- scored 1-9
+
+#### Significance
 
 **Definition**: Does the project address an important problem or critical barrier to progress?
 
@@ -65,33 +67,7 @@ NIH proposals are evaluated using **scored criteria** (1-9 scale, 1 = exceptiona
 - Demonstrate how your work will make a difference
 - Connect to clinical or translational outcomes when possible
 
-#### 2. Investigator(s)
-
-**Definition**: Are the investigators appropriately trained and well-suited to carry out this work?
-
-**Key Questions**:
-- Do they have appropriate expertise and track record?
-- Is the proposed leadership approach appropriate for the project?
-- Do they have prior experience in the research area?
-- For Early Stage Investigators (ESI), is appropriate mentoring/support available?
-
-**What Reviewers Look For**:
-- Publications in the relevant area
-- Preliminary data demonstrating capability
-- Productivity and consistency
-- Appropriate team composition
-- For new investigators: strong mentorship and institutional support
-- Career trajectory aligned with proposed work
-
-**Writing Strategy**:
-- Highlight most relevant publications (not total number)
-- Show progression and focus in research program
-- Demonstrate that you have necessary skills
-- If new area, show collaborations or training
-- For multi-PI, clearly define complementary roles
-- Show stability and institutional commitment
-
-#### 3. Innovation
+#### Innovation
 
 **Definition**: Does the application challenge existing paradigms or develop new methodologies, technologies, or interventions?
 
@@ -117,7 +93,9 @@ NIH proposals are evaluated using **scored criteria** (1-9 scale, 1 = exceptiona
 - Balance novelty with achievability
 - Avoid over-claiming (incremental work ≠ transformative)
 
-#### 4. Approach
+### Factor 2: Rigor and Feasibility (Approach) -- scored 1-9
+
+#### Approach
 
 **Definition**: Are the overall strategy, methodology, and analyses well-reasoned, appropriate, and rigorous?
 
@@ -148,7 +126,37 @@ NIH proposals are evaluated using **scored criteria** (1-9 scale, 1 = exceptiona
 - Show that timeline is realistic
 - Include preliminary data throughout
 
-#### 5. Environment
+### Factor 3: Expertise and Resources (Investigators + Environment) -- not scored
+
+Reviewers rate Factor 3 as either **sufficient** for the proposed research or **additional expertise and/or resources needed**; when they judge it insufficient they must briefly explain the gap. Concerns can still worsen the Overall Impact score.
+
+#### Investigator(s)
+
+**Definition**: Are the investigators appropriately trained and well-suited to carry out this work?
+
+**Key Questions**:
+- Do they have appropriate expertise and track record?
+- Is the proposed leadership approach appropriate for the project?
+- Do they have prior experience in the research area?
+- For Early Stage Investigators (ESI), is appropriate mentoring/support available?
+
+**What Reviewers Look For**:
+- Publications in the relevant area
+- Preliminary data demonstrating capability
+- Productivity and consistency
+- Appropriate team composition
+- For new investigators: strong mentorship and institutional support
+- Career trajectory aligned with proposed work
+
+**Writing Strategy**:
+- Highlight most relevant publications (not total number)
+- Show progression and focus in research program
+- Demonstrate that you have necessary skills
+- If new area, show collaborations or training
+- For multi-PI, clearly define complementary roles
+- Show stability and institutional commitment
+
+#### Environment
 
 **Definition**: Will the scientific environment contribute to the probability of success?
 
@@ -488,7 +496,7 @@ NIH requires explicit discussion of:
 - List all personnel with roles, effort (% calendar months)
 - Typical: PI (2-3 months = 16-25%), postdoc (12 months), grad student, tech
 - Justify effort for each person
-- Note: Salary cap applies (~$221,900 for 2024)
+- Note: Salary cap applies (Executive Level II; $228,000 for 2026, updated annually)
 
 **Consortium/Contractual Costs**:
 - F&A typically limited to 8% of total costs for subcontracts
@@ -516,7 +524,7 @@ NIH requires explicit discussion of:
 ### NIH Salary Cap
 
 **Annual Update**: NIH sets maximum salary for grants
-- 2024 Level: ~$221,900 (Executive Level II)
+- 2026 Level: $228,000 (Executive Level II, effective January 1, 2026; NOT-OD-26-034). Check the current NIH salary cap notice at grants.nih.gov
 - Applies to all personnel
 - Fringe benefits calculated on capped salary
 
@@ -633,12 +641,10 @@ NIH requires explicit discussion of:
   - 41-50: Very good (may be fundable)
   - 51+: Less competitive
 
-**Individual Criterion Scores**: Also scored 1-9
-- Significance
-- Investigator(s)
-- Innovation
-- Approach
-- Environment
+**Individual Criterion Scores** (Simplified Review Framework, RPGs due on/after Jan 25, 2025):
+- Factor 1, Importance of the Research (Significance + Innovation): scored 1-9
+- Factor 2, Rigor and Feasibility (Approach): scored 1-9
+- Factor 3, Expertise and Resources (Investigators + Environment): not scored; rated sufficient or additional expertise/resources needed
 
 ### Percentile Ranking
 
@@ -658,7 +664,7 @@ NIH requires explicit discussion of:
 
 **Contents**:
 - Overall Impact/Priority Score and Percentile
-- Individual criterion scores
+- Criterion scores for Factors 1 and 2, plus the Factor 3 (Expertise and Resources) determination
 - Resume and Summary of Discussion
 - Detailed critiques from 3 assigned reviewers
 - Additional comments from other panel members

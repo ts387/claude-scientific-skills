@@ -100,7 +100,7 @@ CUML_ACCEL_ENABLED=1 python script.py
 - Uses managed memory by default — host RAM augments GPU VRAM.
 - Models pickled under cuml.accel load as standard sklearn objects in non-GPU environments.
 - Accelerates 30+ algorithms across sklearn, umap-learn, and hdbscan.
-- Compatible with scikit-learn versions 1.4-1.7.
+- Tested with scikit-learn 1.6-1.9 as of cuML 26.08 (cuML 25.12/26.04: 1.4-1.7); untested versions emit a runtime warning, so check the cuml.accel compatibility docs for your cuML release.
 
 ### Known Fallback Triggers (Runs on CPU Instead)
 
