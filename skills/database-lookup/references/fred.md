@@ -202,6 +202,14 @@ Get child categories.
 https://api.stlouisfed.org/fred/category/children?category_id=0&api_key=YOUR_KEY&file_type=json
 ```
 
+#### `GET /series/categories`
+Get the categories a series belongs to.
+
+**Example:**
+```
+https://api.stlouisfed.org/fred/series/categories?series_id=FEDFUNDS&api_key=YOUR_KEY&file_type=json
+```
+
 #### `GET /category/series`
 Get all series in a category.
 
@@ -289,6 +297,9 @@ https://api.stlouisfed.org/fred/series/search/tags?series_search_text=mortgage+r
 | `DCOILWTICO`| WTI Crude Oil Price (daily) |
 | `BOPGSTB`   | Trade Balance (monthly, millions $) |
 | `GFDEBTN`   | Federal Debt Total Public Debt |
+| `DTWEXBGS`  | Nominal Broad U.S. Dollar Index (daily) |
+| `BOGMBASE`  | Monetary Base (total) |
+| `WALCL`     | Federal Reserve Total Assets (weekly) |
 
 ## Notes
 - Real-time periods: FRED supports vintage data. The `realtime_start`/`realtime_end` parameters let you retrieve data as it was known at a specific point in time (useful for analyzing data revisions).

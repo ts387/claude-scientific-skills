@@ -4,13 +4,13 @@ description: Query documented public database APIs with explicit endpoints, filt
 allowed-tools: Read Bash
 license: MIT
 metadata:
-  version: "1.7"
+  version: "1.8"
   skill-author: "K-Dense Inc."
 ---
 
 # Database Lookup
 
-This skill catalogs 83 public databases with documented API access patterns. Your job is to turn the user's intent into a reproducible retrieval: select the authoritative database(s), make bounded and rate-limited API calls, verify counts when completeness matters, and return results with enough provenance that another agent or human can repeat the lookup.
+This skill catalogs 82 public databases with documented API access patterns. Your job is to turn the user's intent into a reproducible retrieval: select the authoritative database(s), make bounded and rate-limited API calls, verify counts when completeness matters, and return results with enough provenance that another agent or human can repeat the lookup.
 
 For complex biomedical retrievals, assume small filtering differences can change downstream conclusions. Prefer deterministic APIs, explicit identifiers, exhaustive pagination, and auditable logs over broad searching or plausible summaries.
 
@@ -377,7 +377,6 @@ Read the relevant reference file before making any API call.
 | Database | Reference File | What it covers |
 |---|---|---|
 | FRED | `references/fred.md` | US economic time series |
-| Federal Reserve | `references/federal-reserve.md` | Monetary/financial data |
 | BEA | `references/bea.md` | GDP, national accounts |
 | BLS | `references/bls.md` | Employment, wages, CPI |
 | World Bank | `references/worldbank.md` | Development indicators |

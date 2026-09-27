@@ -146,7 +146,7 @@ Match the user's intent to the right database(s). Many queries benefit from hitt
 | Employment, wages, labor statistics | BLS | FRED |
 | GDP, national accounts | BEA | FRED, World Bank |
 | International development indicators | World Bank | FRED |
-| Interest rates, money supply | Federal Reserve | FRED |
+| Interest rates, money supply, Fed balance sheet | FRED | — |
 | Euro exchange rates, ECB monetary stats | ECB | — |
 | US debt, yield curves, fiscal data | US Treasury | FRED |
 | Stock prices, forex, crypto | Alpha Vantage | — |
@@ -177,6 +177,6 @@ Match the user's intent to the right database(s). Many queries benefit from hitt
 | Drug target pathways | ChEMBL + Reactome | Open Targets, GEO |
 | Prior art for a chemical invention | USPTO + PubChem | ChEMBL |
 | Everything about a material | Materials Project + COD | — |
-| US economic overview | FRED + BLS + BEA | Federal Reserve |
+| US economic overview | FRED + BLS + BEA | — |
 
 When the user's query spans multiple domains (e.g. "what do we know about aspirin" or "find everything about BRCA1"), rank sources by authority and start with the 2-3 databases most likely to answer the question. Add more databases only when the first pass leaves a specific gap. Keep at most 5 independent API requests in flight at once.

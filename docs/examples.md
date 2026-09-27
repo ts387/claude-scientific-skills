@@ -6644,7 +6644,7 @@ call them out individually rather than in a single checklist:
 Every skill in `skills/` appears in at least one example above. Grouped by what it is for:
 
 **Multi-database retrieval**
-`database-lookup` (83 documented public databases: ChEMBL, PubChem, DrugBank, UniProt,
+`database-lookup` (82 documented public databases: ChEMBL, PubChem, DrugBank, UniProt,
 NCBI Gene, Ensembl, ClinVar, COSMIC, STRING, KEGG, Reactome, HMDB, PDB, AlphaFold DB,
 ZINC, GWAS Catalog, GEO, ENA, ClinicalTrials.gov, FDA, Open Targets, ClinPGx,
 Metabolomics Workbench, RegulomeDB, MyVariant.info and more) · `paper-lookup`
