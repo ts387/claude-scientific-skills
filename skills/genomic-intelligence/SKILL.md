@@ -4,7 +4,7 @@ description: "Predict regulatory features, gene structure, and expression direct
 license: MIT
 compatibility: Python 3.10+ with the `requests` library for the REST path (no dedicated SDK). Network access required. The REST `/v1` API needs a `GI_API_KEY` (a `gi_` bearer); the hosted MCP server at mcp.genomicintelligence.ai/mcp works keyless against a rate- and concurrency-limited public demo tier, key optional.
 metadata:
-  version: "1.3"
+  version: "1.4"
   skill-author: Genomic Intelligence
   trigger-keywords: DNA sequence prediction, regulatory genomics, promoter prediction, splice site prediction, enhancer activity, chromatin state, gene expression prediction, sequence to expression, log TPM, gene annotation, transcript prediction, DNA language model, genomic intelligence, hosted inference, Ensembl sequence, FASTA prediction, cis-regulatory, TSS window, DeepSEA, DeepSTARR, BigBird splice, MCP genomics
   openclaw:
@@ -100,7 +100,7 @@ options?}`, returning a `{data, meta}` envelope. What differs per task:
 | `expression` | sync | **9,198–500,000 bp** | n/a (`trained_window_bp` 9,198) | log(TPM+1); needs `tss_index` unless exactly 9,198 bp, plus a cell-type `description` |
 | `annotation` | async | 1,000–500,000 bp | n/a | de-novo transcripts; submit + poll; sync above 200,000 bp is `413 sync_too_large` |
 
-`Recommended mode` is guidance, not a constraint — every task accepts both. Omit `Prefer` for a synchronous `200`; send `Prefer: respond-async` for a `202` plus `GET /v1/tasks/jobs/{job_id}`. The one enforced limit is per operation: where `/v1/openapi.json` publishes `x-sync-limit-bp` on a `POST`, a synchronous request above that length is `413 sync_too_large` — 200,000 bp on `annotation` and 50,000 bp on the composite workflow as of `info.version` 2026.09.10.1. Read the field rather than memorising the numbers; the other predict tasks carry no limit today.
+`Recommended mode` is guidance, not a constraint — every task accepts both. Omit `Prefer` for a synchronous `200`; send `Prefer: respond-async` for a `202` plus `GET /v1/tasks/jobs/{job_id}`. The one enforced limit is per operation: where `/v1/openapi.json` publishes `x-sync-limit-bp` on a `POST`, a synchronous request above that length is `413 sync_too_large` — 200,000 bp on `annotation` and 50,000 bp on the composite workflow as of `info.version` 2026.09.22.2. Read the field rather than memorising the numbers; the other predict tasks carry no limit today.
 
 **The minimum is admission control, not regime.** A request above the floor but
 shorter than the selected model's `bio_spec.context_window_bp` is *accepted and
@@ -346,7 +346,9 @@ the header first remains a safe default.
 Every response carries `RateLimit-Limit`, `RateLimit-Remaining`,
 `RateLimit-Reset`, `RateLimit-Policy`; a `429` adds `Retry-After`.
 
-> Verified against OpenAPI `info.version` **2026.08.20.7**. The contract moves,
+> Verified against OpenAPI `info.version` **2026.09.22.2** (sync limits and minimum lengths
+> re-checked on 27 Sep 2026). That release also adds
+> `POST /v1/workflows/genomic-variant-interpretation`, which this skill does not cover yet. The contract moves,
 > and `info.version` in `/v1/openapi.json` reports what a given deployment
 > serves: if it is ahead of the version above, re-check the numbers in this file
 > against that document, which is the arbiter if the two disagree.

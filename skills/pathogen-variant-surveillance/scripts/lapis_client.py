@@ -51,10 +51,10 @@ from typing import Any, Iterable, Sequence
 # introspects the schema at runtime rather than trusting this table.
 INSTANCES: dict[str, str] = {
     "sars-cov-2": "https://lapis.cov-spectrum.org/open/v2",
-    "influenza-a": "https://lapis.genspectrum.org/influenza-a",
-    "h1n1pdm": "https://lapis.genspectrum.org/h1n1pdm",
-    "h3n2": "https://lapis.genspectrum.org/h3n2",
-    "h5n1": "https://lapis.genspectrum.org/h5n1",
+    "influenza-a": "https://api.loculus.genspectrum.org/influenza-a",
+    "h1n1pdm": "https://api.loculus.genspectrum.org/h1n1pdm",
+    "h3n2": "https://api.loculus.genspectrum.org/h3n2",
+    "h5n1": "https://api.loculus.genspectrum.org/h5n1",
     "rsv-a": "https://lapis.pathoplexus.org/rsv-a",
     "rsv-b": "https://lapis.pathoplexus.org/rsv-b",
     "hmpv": "https://lapis.pathoplexus.org/hmpv",

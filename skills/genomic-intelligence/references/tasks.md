@@ -28,7 +28,7 @@ Source of truth for bounds: the live OpenAPI at
 | expression | sync | **9,198–500,000 bp** (scores one 9,198 bp window) | n/a (`trained_window_bp` 9,198) | log(TPM+1) |
 | annotation | async | 1,000–500,000 bp | n/a | de-novo transcripts; sync above 200,000 bp (`x-sync-limit-bp`) is `413 sync_too_large` |
 
-`Recommended mode` is guidance, not a constraint — every task accepts both. Omit `Prefer` for a synchronous `200`; send `Prefer: respond-async` for a `202` plus `GET /v1/tasks/jobs/{job_id}`. The one enforced limit is per operation: where `/v1/openapi.json` publishes `x-sync-limit-bp` on a `POST`, a synchronous request above that length is `413 sync_too_large` — 200,000 bp on `annotation` and 50,000 bp on the composite workflow as of `info.version` 2026.09.10.1. Read the field rather than memorising the numbers; the other predict tasks carry no limit today.
+`Recommended mode` is guidance, not a constraint — every task accepts both. Omit `Prefer` for a synchronous `200`; send `Prefer: respond-async` for a `202` plus `GET /v1/tasks/jobs/{job_id}`. The one enforced limit is per operation: where `/v1/openapi.json` publishes `x-sync-limit-bp` on a `POST`, a synchronous request above that length is `413 sync_too_large` — 200,000 bp on `annotation` and 50,000 bp on the composite workflow as of `info.version` 2026.09.22.2. Read the field rather than memorising the numbers; the other predict tasks carry no limit today.
 
 The minimum is published as `minLength` on each task's request schema and enforced
 before any model loads. There are **no per-model floors**: a task's floor is the

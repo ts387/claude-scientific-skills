@@ -5,7 +5,7 @@ license: MIT
 compatibility: Requires Python 3.11+. Scripts use only the standard library - no third-party packages. Needs network access to https://www.ebi.ac.uk/ols4, https://bioregistry.io, https://resolver.api.identifiers.org, and https://www.ebi.ac.uk/spot/zooma (all public, no API key).
 allowed-tools: Read Write Edit Bash
 metadata:
-  version: "1.3"
+  version: "1.4"
   skill-author: K-Dense Inc.
 ---
 
@@ -161,7 +161,7 @@ than a recipe. Full detail in `references/ols4-api.md`.
 | The same term appears once per importing ontology | Deduplicate on `obo_id`, keep `is_defining_ontology: true` |
 | The `obo_id` index has holes | `MONDO:0000001` is live but unindexed by `obo_id`; an IRI fallback is required to avoid a false `not_found` |
 | IRIs are not all OBO PURLs | EFO and Orphanet use their own namespaces — resolve IRIs, do not template them |
-| OxO is retired | Returns HTML with HTTP 200; use term cross-references or SSSOM instead |
+| OxO mappings are unqualified | `GET https://www.ebi.ac.uk/spot/oxo/api/search?ids=<CURIE>` returns JSON (`_embedded.searchResults[].mappingResponseList`), but entries carry no `exactMatch`/`closeMatch` predicate; use SSSOM when the predicate matters |
 | A branch check does not exclude cell types from anatomy | CARO puts `cell` under `anatomical structure`; constrain the prefix too |
 | ZOOMA without an ontology filter | `liver` returns 100+ HIGH hits across FOODON, XAO, BTO, UBERON |
 | Identifiers.org synonym prefixes | `HPO:0001250` is HTTP 400; Bioregistry accepted the same CURIE |

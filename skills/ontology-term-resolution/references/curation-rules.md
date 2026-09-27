@@ -86,7 +86,7 @@ term must be re-curated by hand; there is no automatic answer.
 
 ## Cross-ontology mapping
 
-OxO is retired and returns HTML with HTTP 200. Two workable routes:
+OxO (`https://www.ebi.ac.uk/spot/oxo/api/search?ids=<CURIE>`) returns JSON mappings but no mapping predicate. Two routes give more control:
 
 - **Term cross-references.** `term_detail(curie)["annotation"]["database_cross_reference"]` lists
   equivalents — `UBERON:0002107` carries `MESH:D008099`, `NCIT:C12392`, `FMA:7197`, `UMLS:C0023884`,

@@ -122,7 +122,8 @@ Do not template IRIs when you can resolve them. The OBO PURL pattern is not univ
 search fails on lab shorthand, and `lookup_prefix.py` for prefix/CURIE shape
 and landing pages. None of them replace OLS for emitting or validating a term.
 
-**OxO** (`https://www.ebi.ac.uk/spot/oxo/api/...`) is **retired**. It returns an HTML upgrade
-notice with HTTP **200**, so a naive `curl | jq` fails confusingly rather than cleanly. For
-cross-ontology mappings use the `annotation.database_cross_reference` list on the term detail
-(`UBERON:0002107` carries MESH, NCIT, FMA, UMLS, EFO, and others) or a published SSSOM mapping set.
+**OxO** (`https://www.ebi.ac.uk/spot/oxo/api/search?ids=<CURIE>`) returns JSON cross-ontology
+mappings under `_embedded.searchResults[].mappingResponseList` (each with `curie`, `label`,
+`targetPrefix`, `distance`). The mappings carry no predicate. For cross-ontology mappings you can
+also use the `annotation.database_cross_reference` list on the term detail (`UBERON:0002107` carries
+MESH, NCIT, FMA, UMLS, EFO, and others), or a published SSSOM mapping set when the predicate matters.

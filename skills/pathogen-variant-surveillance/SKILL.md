@@ -2,10 +2,10 @@
 name: pathogen-variant-surveillance
 description: Query live pathogen genomic surveillance data through the GenSpectrum LAPIS API to find which viral lineages are circulating now, how fast they are growing, and what mutations they carry. Use whenever a question depends on the current state of a pathogen population rather than on remembered facts - which SARS-CoV-2 variant is dominant, whether a Pango lineage is still designated or has been withdrawn, what clade or genotype of H5N1 is in a host or region, whether a PCR primer or assay target still matches circulating sequence, or how a lineage's prevalence has moved week to week. Triggers include "variant surveillance", "genomic surveillance", "what variant is circulating", "dominant variant", "Pango lineage", "lineage prevalence", "growth advantage", "SARS-CoV-2 variant", "XFG", "clade 2.3.4.4b", "H5N1 genotype", "influenza clade", "RSV/mpox/measles/dengue lineage", "CoV-Spectrum", "LAPIS", "Nextclade", "pango-designation", and any request to report what a pathogen population looks like today.
 license: MIT
-compatibility: Requires Python 3.11+. Scripts use only the standard library - no third-party packages. Needs network access to the public GenSpectrum LAPIS instances (lapis.cov-spectrum.org, lapis.genspectrum.org, lapis.pathoplexus.org) and to raw.githubusercontent.com for pango-designation. No API key.
+compatibility: Requires Python 3.11+. Scripts use only the standard library - no third-party packages. Needs network access to the public GenSpectrum LAPIS instances (lapis.cov-spectrum.org, api.loculus.genspectrum.org, lapis.pathoplexus.org) and to raw.githubusercontent.com for pango-designation. No API key.
 allowed-tools: Read Write Edit Bash
 metadata:
-  version: "1.2"
+  version: "1.3"
   skill-author: K-Dense Inc.
   last-reviewed: "2026-07-27"
 ---
@@ -50,7 +50,7 @@ reaches any other LAPIS instance.
 | Instance | Host | Lineage column | Indexed |
 | --- | --- | --- | --- |
 | `sars-cov-2` | lapis.cov-spectrum.org (open GenBank data) | `pangoLineage` | yes |
-| `h5n1`, `h3n2`, `h1n1pdm`, `influenza-a` | lapis.genspectrum.org | `clade` (h5n1), `cladeHA` (h3n2, h1n1pdm), `subtypeHA` (influenza-a) | no |
+| `h5n1`, `h3n2`, `h1n1pdm`, `influenza-a` | api.loculus.genspectrum.org | `clade` (h5n1), `cladeHA` (h3n2, h1n1pdm), `subtypeHA` (influenza-a) | no |
 | `rsv-a`, `rsv-b`, `mpox`, `measles`, `dengue`, `west-nile`, `hmpv`, `ebola-zaire`, `ebola-sudan`, `cchf` | lapis.pathoplexus.org | varies | varies |
 
 **Field names differ per instance and are never assumed.** Every script reads

@@ -12,8 +12,8 @@ Everything below was verified against the live services on 2026-07-27 (`lapisVer
 | `--instance` | Base URL | Backing data |
 | --- | --- | --- |
 | `sars-cov-2` | `https://lapis.cov-spectrum.org/open/v2` | Nextstrain open (GenBank) |
-| `influenza-a` | `https://lapis.genspectrum.org/influenza-a` | Loculus |
-| `h1n1pdm`, `h3n2`, `h5n1` | `https://lapis.genspectrum.org/<name>` | Loculus |
+| `influenza-a` | `https://api.loculus.genspectrum.org/influenza-a` | Loculus |
+| `h1n1pdm`, `h3n2`, `h5n1` | `https://api.loculus.genspectrum.org/<name>` | Loculus |
 | `rsv-a`, `rsv-b`, `hmpv`, `measles`, `mpox`, `west-nile`, `dengue`, `ebola-zaire`, `ebola-sudan`, `cchf` | `https://lapis.pathoplexus.org/<name>` | Pathoplexus |
 
 Approximate sizes when checked: SARS-CoV-2 open ~9M, influenza-a 1.07M, h3n2 277k, h1n1pdm 212k,
