@@ -47,7 +47,7 @@
           "nominal": 14.35,
           "tol_plus": 0.25,
           "tol_minus": 0.25,
-          "note": "Datum A (resting plane) to the maximum protrusion of the perimeter wells. Secondary sources also quote +/-0.76 mm; consult the document before relying on the tighter band. Lidded and deep-well plates are taller and out of scope of this dimension."
+          "note": "Datum A (resting plane) to the maximum protrusion of the perimeter wells. The same document gives +/-0.76 mm for the overall plate height (Datum A to the maximum protrusion of the plate); do not mix the two bands. Lidded and deep-well plates are taller and out of scope of this dimension."
         }
       },
       "fit_checks": [

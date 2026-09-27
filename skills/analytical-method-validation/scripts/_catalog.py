@@ -57,7 +57,7 @@ FRAMEWORKS: dict[str, dict[str, Any]] = {
             "Bioanalytical methods quantifying drug/metabolite concentrations in biological "
             "matrices supporting nonclinical and clinical studies, plus study sample analysis."
         ),
-        "governs": ["pk-concentration", "toxicokinetics", "bioequivalence", "biomarker-selected"],
+        "governs": ["pk-concentration", "toxicokinetics", "bioequivalence"],
         "companion": "Distinct criteria for chromatographic methods vs ligand binding assays",
     },
     "usp-1220": {

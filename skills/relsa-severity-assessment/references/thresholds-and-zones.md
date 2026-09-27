@@ -150,5 +150,5 @@ Two alternatives when KDE gives nothing usable:
 - Węglarczyk, S. (2018). Kernel density estimation and its application. *ITM Web Conf.* 23, 37.
 - Korneev, A. et al. (2022). Multiclass histogram-based thresholding using kernel density
   estimation and scale-space representations. arXiv:2202.04785.
-- EU Commission (2010). Directive 2010/63/EU. *Official Journal of the European Union* 53,
-  16–25.
+- EU Commission (2010). Directive 2010/63/EU. *Official Journal of the European Union* L 276,
+  33–79.

@@ -32,6 +32,11 @@ review date in the laboratory's controlled source register.
 | `<621>` | Chromatography | System suitability and chromatographic operating parameters, including the extent to which a compendial procedure may be adjusted without triggering revalidation. |
 | `<711>` / `<1092>` | Dissolution / The Dissolution Procedure | Dissolution testing and development/validation of the procedure. |
 
+A proposed revision of `<1225>`, retitled *Validation of Analytical Procedures* and aligned with
+ICH Q2(R2) and `<1220>`, was published for comment in PF 51(6) (comments closed 31 January 2026),
+and a new `<1221>` *Ongoing Procedure Performance Verification* (Stage 3) appeared in PF 51(4).
+Check whether either has become official before citing the chapter text.
+
 Obtain from the USP–NF (<https://www.uspnf.com/>). Regional pharmacopoeias — Ph. Eur., JP, ChP —
 carry their own general chapters; check which pharmacopoeia the specification cites, because
 adjustment allowances and system suitability requirements differ between them.

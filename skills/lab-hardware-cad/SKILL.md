@@ -5,7 +5,7 @@ license: MIT
 compatibility: Python 3.10-3.14 with build123d 0.11.1 and matplotlib for snapshots. Geometry commands require build123d; the standards lookup and the interface check run on the standard library alone. No network access needed.
 allowed-tools: Read Write Edit Bash Glob Grep
 metadata:
-  version: "1.3"
+  version: "1.4"
   skill-author: K-Dense Inc.
   last-reviewed: "2026-08-15"
   build123d-version: "0.11.1"
@@ -368,7 +368,9 @@ recommend printing a test coupon of the critical interface before committing to 
 | `check.py standards [--list\|--show ID]` | Browse the bundled standards data (standard library only) |
 | `snapshot.py <step> --out PNG` | Six-view orthographic and isometric render for visual review |
 
-All commands accept `--json` for machine-readable output and write progress to stderr.
+`gen.py` and `check.py` accept `--json` for machine-readable output — on `check.py` it goes
+before the subcommand (`check.py --json facts <step>`); `snapshot.py` has none. All write
+progress to stderr.
 `check.py standards`, and `check.py interfaces` on a manifest, run without build123d installed.
 
 ## Citing Scientific Agent Skills
