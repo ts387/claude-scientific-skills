@@ -15,7 +15,7 @@ sample,fastq_1,fastq_2,strandedness
 CONTROL_REP1,/data/ctrl1_R1.fastq.gz,/data/ctrl1_R2.fastq.gz,auto
 CONTROL_REP2,/data/ctrl2_R1.fastq.gz,/data/ctrl2_R2.fastq.gz,auto
 TREATED_REP1,/data/trt1_R1.fastq.gz,/data/trt1_R2.fastq.gz,auto
-TREATED_REP2,/data/trt1_R1.fastq.gz,,auto
+TREATED_REP2,/data/trt2_R1.fastq.gz,,auto
 ```
 
 - **sample** — sample ID. Rows that share a `sample` value are treated as the same sample sequenced over multiple lanes and are merged.
@@ -84,7 +84,7 @@ results/
 │   ├── salmon.merged.gene_counts.tsv                 # raw estimated gene counts (tximport, countsFromAbundance=no)
 │   ├── salmon.merged.gene_counts_length_scaled.tsv   # length-scaled counts -> use for DESeq2
 │   ├── salmon.merged.gene_tpm.tsv                     # TPM (for visualization, NOT for DESeq2)
-│   ├── salmon.merged.gene_counts.rds                  # SummarizedExperiment (R)
+│   ├── salmon.merged.gene.SummarizedExperiment.rds    # SummarizedExperiment (R)
 │   ├── <SAMPLE>/                                      # per-sample Salmon quant dirs
 │   └── deseq2_qc/                                     # PCA + sample-distance plots the pipeline already made
 └── pipeline_info/        # execution report, software versions, params

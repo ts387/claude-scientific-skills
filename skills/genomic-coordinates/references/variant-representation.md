@@ -99,8 +99,8 @@ python3 normalize_variant.py --fasta ref.fa --split --input cohort.vcf
 Splitting after normalising, or normalising a multi-allelic record as a unit,
 gives records that are individually wrong. `bcftools norm -m -any -f ref.fa` does
 both in the right order. Note that splitting rewrites the genotype and `INFO`
-fields; per-allele `INFO` entries with `Number=A` are split alongside, and
-anything else is duplicated to both records.
+fields; per-allele fields with `Number=A`, `R`, or `G` are subset to each
+record, and anything else is duplicated to both records.
 
 ## The other direction: HGVS shifts right
 

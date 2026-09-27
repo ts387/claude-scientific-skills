@@ -186,7 +186,8 @@ seed: 42
 
 ### Architectures
 
-All share `model_type: gpt2`, `n_positions: 512`, and a fixed per-head dimension of 64.
+All share `model_type: gpt2` and `n_positions: 512`. Per-head dimension is 64 everywhere except
+`gpt2-6m-mgm.yaml`, which keeps 256 hidden but uses 8 heads (32 per head) to match MGM.
 
 | Config | Layers | Hidden | Heads | ~Params |
 | --- | --- | --- | --- | --- |

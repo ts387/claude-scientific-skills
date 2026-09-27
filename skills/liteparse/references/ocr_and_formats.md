@@ -51,7 +51,7 @@ parser = LiteParse(ocr_server_url="http://localhost:8080/ocr")
 
 ### API contract (summary)
 
-- **POST** `{base_url}/ocr` (typically `http://host:8080/ocr`)
+- **POST** to the URL passed as `--ocr-server-url` / `ocr_server_url` — the server's `/ocr` endpoint itself (e.g. `http://host:8080/ocr`), not a base URL
 - **Content-Type:** `multipart/form-data`
 - **Fields:** `file` (image bytes, required), `language` (optional, ISO 639-1, default `en`)
 - **Response JSON:**

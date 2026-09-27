@@ -231,7 +231,7 @@ printf '1\n\n' | paperclip install --dir /path/to/project
 Interactively:
 
 ```bash
-paperclip install                 # prompts for client: Claude Code or Codex
+paperclip install                 # prompts for client (Claude Code, Cursor, Codex) and path
 paperclip install --dir ~/work/my-project
 ```
 

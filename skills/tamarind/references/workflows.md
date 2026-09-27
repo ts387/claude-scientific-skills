@@ -146,8 +146,8 @@ validation three ways and isn't how you fold a design anyway. When a chain reall
 does feed a file (e.g. a PDB into a docking tool), `getJobSchema`/`validateJob`
 first to confirm the param's type and conditions.
 
-For reusable multi-step flows, build a saved pipeline with `/submit-pipeline`
-and run it with `/run-pipeline`.
+For reusable multi-step flows, save a pipeline in the UI and run it with
+`/run-pipeline`, or define the stages inline with `/submit-pipeline`.
 
 ## 6. Batch screen many sequences through one tool
 
@@ -258,6 +258,6 @@ parent's `batchStatus` (recipe 6) instead of looping job-by-job.
 
 ## Notes
 
-- **Polling cadence:** 15-30s. `Complete` and `Stopped` are terminal.
+- **Polling cadence:** 15-30s. `Complete`, `Stopped`, and `Deleted` are terminal.
 - **Scores:** completed folding jobs return pLDDT / pTM / ipTM (and interface
   metrics like ipSAE / pDockQ for complexes) in the `Score` field.

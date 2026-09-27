@@ -136,5 +136,5 @@ curated priors:
 
 decoupler integrates natively with AnnData/Scanpy (per-cell activities) and with
 per-sample pseudobulk matrices. APIs evolve between major versions — check the
-current decoupler docs (https://decoupler-py.readthedocs.io/) for exact function
+current decoupler docs (https://decoupler.readthedocs.io/) for exact function
 names before writing code.

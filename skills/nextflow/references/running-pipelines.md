@@ -35,12 +35,14 @@ nextflow run nf-core/rnaseq -r 3.14.0 -profile test,docker --outdir test_results
 2. **Real run** — pin a revision, choose a container engine, provide a samplesheet:
 
 ```bash
+# -r pins the release; -profile: docker, singularity, or conda;
+# --outdir is required by nf-core; -resume reuses the cache on reruns
 nextflow run nf-core/<pipeline> \
-  -r <version> \                # pin release for reproducibility
-  -profile docker \             # or singularity / conda
-  --input samplesheet.csv \     # the samples to process
-  --outdir results \            # where results go (required by nf-core)
-  -resume                       # reuse cache on reruns
+  -r <version> \
+  -profile docker \
+  --input samplesheet.csv \
+  --outdir results \
+  -resume
 ```
 
 `nextflow run nf-core/rnaseq` auto-pulls the pipeline from GitHub into `~/.nextflow/assets`. Use `nextflow pull nf-core/rnaseq` to pre-fetch/update, and `-r` to pin a tag.
@@ -108,9 +110,10 @@ nf-core/configs provides ready-made profiles for many HPC systems and clouds (ex
 
 ```bash
 # On a connected machine: bundle pipeline + configs + containers
+# --container-system singularity pre-converts images to SIF
 nf-core pipelines download nf-core/rnaseq \
   --revision 3.14.0 \
-  --container-system singularity \      # pre-convert images to SIF
+  --container-system singularity \
   --compress none \
   --outdir nf-core-rnaseq
 

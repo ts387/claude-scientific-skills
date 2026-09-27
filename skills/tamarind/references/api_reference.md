@@ -45,7 +45,7 @@ Returns a JSON **array**. Each element:
 
 In each `settings` param, only `name` and `required` are guaranteed; `type`, `default`, `description`, `options` are present only when applicable (about 60% of params carry `type`). Read them with `param.get("type")`, not `param["type"]`.
 
-`settings` is the tool's inline parameter schema — read it directly, no separate schema endpoint over REST. The REST list is not filtered by query params; filter client-side on `name`/`displayName`/`description`. (The MCP `getAvailableTools` wraps the list as `{"totalTools", "tools":[...]}` and adds `categories`/`tags` per tool plus server-side `search`/`category`/`tag` filtering.)
+`settings` is the tool's inline parameter schema — read it directly, no separate schema endpoint over REST. The REST list is not filtered by query params; filter client-side on `name`/`displayName`/`description`. (The MCP `getAvailableTools` wraps the list as `{"totalTools", "tools":[...]}` and adds `categories`/`tags` per tool plus server-side `search`/`modality`/`function` filtering; `category`/`tag` are deprecated aliases.)
 
 ### POST /submit-job
 

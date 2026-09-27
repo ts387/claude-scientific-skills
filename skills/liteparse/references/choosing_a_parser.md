@@ -56,7 +56,7 @@ flowchart TD
 - Documents have **dense tables, multi-column layouts, charts, or handwriting** beyond what local parsers handle well.
 - You are building a **production document pipeline** and accept cloud dependency and signup.
 
-Link: https://docs.cloud.llamaindex.ai/llamaparse/overview
+Link: https://developers.llamaindex.ai/llamaparse/
 
 ## Combining tools
 

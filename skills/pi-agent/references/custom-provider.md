@@ -59,7 +59,7 @@ pi.registerProvider("my-provider", {
 });
 ```
 
-Use an **async extension factory** for dynamic model discovery so models are registered before startup finishes and are visible to `pi --list-models`. Dynamic providers can also implement `refreshModels({ signal, store, ... })`; Pi calls it during model refresh and publishes the result synchronously. Persist through `context.store` only when the catalog should survive — live servers such as llama.cpp can ignore it.
+Use an **async extension factory** for dynamic model discovery so models are registered before startup finishes and are visible to `pi --list-models`. Dynamic providers can also implement `refreshModels(context)`; Pi calls it during model refresh. Config-form callbacks that only return models need nothing more — Pi publishes the returned list. Complete providers read the read-only `context.stored` snapshot and publish through generation-checked `context.publish({ persist: entry })` (`context.store` was removed in 0.84.0); persist only when the catalog should survive — live servers such as llama.cpp can skip it.
 
 `pi.unregisterProvider(name)` removes that provider's dynamic models, API key fallback, OAuth registration, and custom stream handlers, restoring overridden built-in behavior. Calls made after the initial load phase take effect immediately — no `/reload`.
 

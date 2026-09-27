@@ -61,7 +61,8 @@ affected regions even though the coordinate system did not move.
 
 hg38 as UCSC ships it has 25 primary contigs, **261 `_alt`** contigs, 42
 `_random`, and 127 `chrUn_`. The ALT contigs are alternate representations of
-regions that are genuinely polymorphic — mostly MHC, and the HLA haplotypes.
+178 regions that are genuinely polymorphic; the largest clusters are the LRC/KIR
+region on chr19 (35 ALTs) and the MHC/HLA region on chr6.
 
 They break naive analysis in a specific way: a read from an ALT region can map
 equally well to the primary contig and to its ALT, so both alignments get

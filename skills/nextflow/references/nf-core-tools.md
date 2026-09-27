@@ -10,7 +10,7 @@ conda install -c bioconda nf-core
 nf-core --version
 ```
 
-In tools **v3+** the commands are grouped under `pipelines`, `modules`, `subworkflows`, and `test-datasets`. (Older flat commands like `nf-core create`/`nf-core lint` still work but emit deprecation warnings — use the grouped form.) Run `nf-core --help` or `nf-core <group> --help` to see current options, or `nf-core interface` for a graphical TUI command explorer.
+In tools **v3+** the commands are grouped under `pipelines`, `modules`, `subworkflows`, and `test-datasets`. (Older flat commands like `nf-core create`/`nf-core lint` were deprecated in v3 and removed in v4.0 — use the grouped form.) Run `nf-core --help` or `nf-core <group> --help` to see current options, or `nf-core interface` for a graphical TUI command explorer.
 
 For `modules`/`subworkflows`, group-level options go **before** the subcommand, e.g. to target a non-default component repo: `nf-core modules -g <git-url> -b <branch> install fastqc`.
 

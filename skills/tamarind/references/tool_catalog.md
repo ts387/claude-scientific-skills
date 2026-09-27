@@ -27,7 +27,7 @@ Verify exact names and availability with `/tools` — these are common anchors, 
 - `alphafold` — AlphaFold; monomer + multimer, MSA + templates, recycles, relaxation.
 - `boltz` — Boltz-2; structure + affinity, biomolecular complexes incl. ligands.
 - `chai` — Chai-1; complex structure prediction with optional MSA.
-- `esmfold` / `esmfold2` — fast single-sequence folding.
+- `esmfold` — fast single-sequence (no MSA) folding; `esmfold2` — newer, conditions on an MSA by default (its `model` setting offers a faster single-sequence mode).
 
 **Protein / binder design**
 - `rfdiffusion` — protein/binder design and motif scaffolding.
@@ -48,7 +48,7 @@ Verify exact names and availability with `/tools` — these are common anchors, 
 
 ## Reading a tool schema
 
-`getJobSchema(jobType)` (MCP) or the `/tools` entry returns a `parameters` list. Each parameter has:
+`getJobSchema(jobType)` (MCP) returns the full `parameters` list. The REST `/tools` entry's `settings` is a trimmed view (only `name` and `required` guaranteed; no `conditionals`/`exclude`). A full parameter has:
 
 - `name`, `type` (`sequence`, `number`, `boolean`, `dropdown`, file types like `pdb`/`cif`/`sdf`, …)
 - `descr`, `displayName`

@@ -35,7 +35,7 @@ The bundled `scripts/build_counts_matrix.py --from salmon --quant-dir quant/ --t
 ### Getting a tx2gene map
 
 A two-column transcript_id → gene_id table. Options:
-- `pytximport.utils.create_transcript_gene_map(species="human")` (or `human`/`mouse` etc.).
+- `pytximport.utils.create_transcript_gene_map(species="human")` (`species` is `"human"` or `"mouse"`; queries Ensembl BioMart).
 - From the annotation GTF (authoritative — matches your quant reference):
 
 ```bash

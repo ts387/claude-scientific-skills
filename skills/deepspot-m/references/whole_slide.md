@@ -46,9 +46,12 @@ tiler = GridTiler(
 tiler.extract(slide)
 ```
 
-Keep each tile's coordinates. `ScoreTiler.extract(slide, report_path="tiles_report.csv")`
-writes a CSV with `tile_name,x_coord,y_coord,level,...`, which is the least fragile way to
-carry them. See the `histolab` skill for tissue masks, filters and the other tilers.
+Keep each tile's coordinates. histolab writes them into every saved tile's filename,
+`tile_<n>_level<level>_<x_ul>-<y_ul>-<x_br>-<y_br>.png` (whole-slide pixel coordinates of
+the upper-left and lower-right corners), so parse them from the same paths the prediction
+loop reads and the rows stay aligned. (`ScoreTiler`'s `report_path` CSV carries only
+`filename`, `score` and `scaled_score`, and `GridTiler` writes no report.) See the
+`histolab` skill for tissue masks, filters and the other tilers.
 
 ## 3. Predict in batches
 
@@ -104,16 +107,21 @@ Pair the matrix with the tile coordinates and the gene list. `AnnData` is the na
 container, and it is what spatial analysis tools read:
 
 ```python
+import re
+
 import anndata as ad
 import numpy as np
 import pandas as pd
 
-report = pd.read_csv("tiles_report.csv")
-coords = report[["x_coord", "y_coord"]].to_numpy(dtype=float)
+# Upper-left corner from histolab's tile filename, in the same order as `expression`.
+corner = re.compile(r"_(\d+)-(\d+)-\d+-\d+\.png$")
+coords = np.array(
+    [[int(v) for v in corner.search(p.name).groups()] for p in tile_paths], dtype=float
+)
 
 adata = ad.AnnData(
     X=expression,
-    obs=pd.DataFrame({"tile_name": report["tile_name"]}).set_index("tile_name"),
+    obs=pd.DataFrame(index=pd.Index([p.name for p in tile_paths], name="tile_name")),
     var=pd.DataFrame(index=pd.Index(genes, name="gene")),
 )
 adata.obsm["spatial"] = coords

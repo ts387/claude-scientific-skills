@@ -5,7 +5,8 @@ don't have to bring a FASTA. Ensembl REST (`rest.ensembl.org`) is **public — n
 key**; only the *prediction* step needs a key (and only over REST).
 
 On MCP, the acquisition tools (`fetch_ensembl_sequence`, `fetch_region`,
-`fetch_gene_for_expression`, `find_genes`) do this for you and return a handle.
+`fetch_gene_for_expression`) do this for you and return a handle (`find_genes`
+is the annotation task, not an acquisition tool).
 Over REST, query Ensembl yourself, then feed the sequence to `/v1/tasks/...`.
 
 ## Modes

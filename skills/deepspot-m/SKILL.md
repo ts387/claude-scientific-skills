@@ -2,10 +2,10 @@
 name: deepspot-m
 description: Generate transcriptome-wide virtual spatial transcriptomics from H&E histology with DeepSpot-M. Use when you need spatial gene expression in log1p-CPM for 224x224 tiles at about 20x, want to query protein-coding genes by symbol instead of a fixed panel, or want to run prediction across a whole slide after tiling with histolab.
 license: PolyForm-Noncommercial-1.0.0
-compatibility: Needs deepspotm 1.0.0 from PyPI (Python 3.10 to 3.13) plus PyTorch. Weights at ratschlab/DeepSpotM on Hugging Face are gated and licensed CC-BY-NC-SA-4.0, so request access on the model page and then run huggingface-cli login. A CUDA GPU speeds up batched inference.
+compatibility: Needs deepspotm 1.0.0 from PyPI (Python 3.10 to 3.13) plus PyTorch. Weights at ratschlab/DeepSpotM on Hugging Face are gated and licensed CC-BY-NC-SA-4.0, so request access on the model page and then run hf auth login. A CUDA GPU speeds up batched inference.
 allowed-tools: Read Write Edit Bash
 metadata:
-  version: "1.0"
+  version: "1.1"
   skill-author: Ratschlab, ETH Zurich
 ---
 
@@ -51,7 +51,7 @@ The weights are gated:
 2. Once access is granted, authenticate the machine that will download them:
 
 ```bash
-huggingface-cli login
+hf auth login
 ```
 
 `from_pretrained` reads that cached token, so a login is needed once per machine.
@@ -106,7 +106,7 @@ an `ImportError` into a message that names every step:
 DEEPSPOTM_HELP = (
     "DeepSpot-M is unavailable. Install it with `uv pip install deepspotm==1.0.0`, request "
     "access to the gated weights at https://huggingface.co/ratschlab/DeepSpotM, then "
-    "authenticate with `huggingface-cli login`."
+    "authenticate with `hf auth login`."
 )
 
 def load_deepspotm(source="scgpt"):

@@ -21,7 +21,7 @@ model, image_processor = DeepSpotM.from_pretrained("ratschlab/DeepSpotM", source
 Arguments:
 
 - The repository id, `"ratschlab/DeepSpotM"`. It is gated, so request access on the model
-  page and run `huggingface-cli login` before the first call.
+  page and run `hf auth login` before the first call.
 - `source`: which frozen gene embedding the router builds gene-specific projections from.
   One of `evo2`, `orthrus`, `prott5`, `scgpt`, `apertus`.
 
@@ -161,7 +161,7 @@ still pending. Report the whole path back to a working call rather than the raw 
 DEEPSPOTM_HELP = (
     "DeepSpot-M is unavailable. Install it with `uv pip install deepspotm==1.0.0`, request "
     "access to the gated weights at https://huggingface.co/ratschlab/DeepSpotM, then "
-    "authenticate with `huggingface-cli login`."
+    "authenticate with `hf auth login`."
 )
 
 def load_deepspotm(source="scgpt"):

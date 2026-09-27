@@ -25,7 +25,7 @@ lit parse [OPTIONS] <file>
 | `--format <format>` | `json` or `text` (default: `text`) |
 | `--no-ocr` | Disable OCR |
 | `--ocr-language <lang>` | Tesseract language (default: `eng`) |
-| `--ocr-server-url <url>` | HTTP OCR server base URL |
+| `--ocr-server-url <url>` | HTTP OCR server endpoint URL (e.g. `http://localhost:8080/ocr`) |
 | `--tessdata-path <path>` | Tessdata directory |
 | `--max-pages <n>` | Max pages (default: 1000) |
 | `--target-pages <pages>` | e.g. `1-5,10,15-20` |

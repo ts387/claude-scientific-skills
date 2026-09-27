@@ -116,7 +116,7 @@ is itself unchanged:
 
 ```
 reference   ...  A  C  G  T  T  T  A  ...
-positions        4  5  6  7  8  9 10
+positions        5  6  7  8  9 10 11
 
 deletion of TT at 8-9    POS=7  REF=GTT   ALT=G
 insertion of AA after 7  POS=7  REF=G     ALT=GAA
@@ -140,7 +140,7 @@ Allele representation has its own reference: `variant-representation.md`.
 SAM text `POS` is 1-based; the BAM and CRAM encodings of the same field are
 0-based. Any library that reads BAM presents one or the other, and they disagree:
 
-- `pysam`'s `AlignmentSegment.reference_start` is **0-based**.
+- `pysam`'s `AlignedSegment.reference_start` is **0-based**.
 - `pysam`'s `.pos` is the same 0-based number.
 - The `POS` you see in `samtools view` output is **1-based**.
 
@@ -191,13 +191,16 @@ get coordinates in the original query, use `qSize - qEnd` and `qSize - qStart`.
 ## Tool behaviour
 
 `bedtools` reads each input in that input's own convention — BED as 0-based, GFF
-and VCF as 1-based — and converts internally. Output is BED-conventioned
-regardless of input. Mixing a GFF and a BED in one `intersect` is therefore
+and VCF as 1-based — and converts internally. Records from a GFF or VCF input
+are written back in that input's own format (hence `-header`), while tools that
+build new intervals, such as `merge`, emit BED. Mixing a GFF and a BED in one
+`intersect` is therefore
 correct; converting the GFF to BED coordinates first and then passing it as a GFF
 double-shifts it.
 
-`bedtools slop` and `flank` clip at contig ends only when given a `-g` genome
-file, and silently produce negative starts without one.
+`bedtools slop` and `flank` require a `-g` genome file and clip at the contig
+ends it declares, so a genome file from the wrong build clips silently in the
+wrong place.
 
 R and Python disagree by default: `GenomicRanges` is 1-based inclusive,
 `PyRanges` is 0-based half-open. `rtracklayer::import()` converts BED to 1-based

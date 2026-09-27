@@ -3,7 +3,7 @@ name: nextflow
 description: Build, run, and debug Nextflow data pipelines and nf-core workflows end to end. Use whenever the user mentions Nextflow, nf-core, .nf files, nextflow.config, DSL2, processes/channels/operators, samplesheets, or wants to run a community pipeline (e.g. nf-core/rnaseq, nf-core/sarek), write or test a module/subworkflow with nf-test, configure executors/containers (Docker, Singularity/Apptainer, Conda, Wave), scale a workflow to HPC/SLURM or cloud (AWS Batch, Google Batch, Azure, Kubernetes), or debug a failed/-resume run. Make sure to use this skill for any reproducible scientific/bioinformatics workflow work even if the user does not say the word "Nextflow", and for authoring nf-core-compliant pipelines, modules, configs, and linting.
 license: Apache-2.0
 metadata:
-  version: "1.2"
+  version: "1.3"
   skill-author: K-Dense Inc.
 ---
 
@@ -33,7 +33,7 @@ Use this skill when the user wants to:
 
 ## Setup
 
-Nextflow needs **Bash** and **Java 17 or newer** (17–25 supported). Verify with `java -version`.
+Nextflow needs **Bash** and **Java 17 or newer** (17–26 supported). Verify with `java -version`.
 
 ```bash
 # Install Nextflow (self-contained launcher)
@@ -133,7 +133,7 @@ The full language (processes, channels, operators, DSL2 workflows with `take`/`m
 
 ## nf-core tools CLI
 
-nf-core tools (v3+) group subcommands under `pipelines`, `modules`, and `subworkflows`. (Bare forms like `nf-core lint` still work but warn — prefer the grouped form.)
+nf-core tools (v3+) group subcommands under `pipelines`, `modules`, and `subworkflows`. (Bare pipeline forms like `nf-core lint` were deprecated in v3 and removed in v4.0 — use the grouped form.)
 
 | Command | Purpose |
 |---------|---------|

@@ -4,7 +4,7 @@ description: Use when working with Outpost Bio's open microbiome foundation mode
 license: MIT
 compatibility: Requires Python 3.10+ with `waypoint-bio` (pulls torch, transformers, datasets, peft, scikit-learn). Needs network access and a Hugging Face token with access granted to the gated outpost-bio repos. A GPU is strongly recommended for pretraining and benchmarking.
 metadata:
-  version: "1.1"
+  version: "1.2"
   skill-author: K-Dense Inc.
   upstream-version: "waypoint-bio 1.0.2 (PyPI); GitHub main 1.0.4"
   last-reviewed: "2026-08-17"
@@ -226,7 +226,7 @@ mean/std for z-score ordering, then trains with next-token prediction and early 
 `--max_samples N` for a smoke test.
 
 Nine architectures ship, from `gpt2-6m.yaml` (8 layers, 256 hidden) to `gpt2-170m.yaml` (24 layers,
-768 hidden); per-head dimension is fixed at 64 throughout. `references/cli-reference.md` has the
+768 hidden); per-head dimension is 64 in all but the MGM-matched `gpt2-6m-mgm.yaml` (8 heads of 32). `references/cli-reference.md` has the
 full table and every config key.
 
 ## Scientific caveats

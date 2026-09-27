@@ -84,7 +84,7 @@ Quantify each sample (`-l A` auto-detects library type/strandedness; enable bias
 ```bash
 salmon quant -i salmon_index -l A \
   -1 trimmed/s1_R1.fq.gz -2 trimmed/s1_R2.fq.gz \
-  --gcBias --seqBias --validateMappings -p 8 \
+  --gcBias --seqBias -p 8 \
   -o quant/s1
 ```
 
@@ -93,9 +93,10 @@ Each `quant/<sample>/quant.sf` is transcript-level; aggregate to gene level with
 ## 3c. featureCounts — counts from a STAR BAM (alternative to STAR GeneCounts)
 
 ```bash
+# -s = strandedness: 0 unstranded, 1 forward, 2 reverse
 featureCounts -T 8 -p --countReadPairs \
   -a annotation.gtf -g gene_id \
-  -s 2 \                       # strandedness: 0 unstranded, 1 forward, 2 reverse
+  -s 2 \
   -o counts/featurecounts.txt \
   star/s1.Aligned.sortedByCoord.out.bam star/s2.Aligned.sortedByCoord.out.bam ...
 ```

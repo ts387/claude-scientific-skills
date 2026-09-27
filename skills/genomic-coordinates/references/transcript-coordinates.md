@@ -121,8 +121,9 @@ it is the one choice where the RefSeq and Ensembl transcripts have identical
 sequence and identical exon coordinates.
 
 The version suffix matters. `ENST00000269305.9` and `ENST00000269305.8` can differ
-in UTR length, which shifts every `c.-` and `c.*` coordinate even though the CDS is
-unchanged. Record the version; a bare `ENST00000269305` is under-specified.
+in UTR length, which shifts every `n.` coordinate even though the CDS and its `c.`
+numbering are unchanged; a changed UTR exon structure also renumbers `c.-` and `c.*`
+positions. Record the version; a bare `ENST00000269305` is under-specified.
 
 ## Two traps at boundaries
 
@@ -132,7 +133,7 @@ from missense to splice-region accordingly. This is a real disagreement between
 annotation sources, not a bug in either.
 
 **Indels near boundaries.** HGVS shifts indels 3'-most along the *transcript*;
-VCF left-aligns along the *genome*. For a minus-strand gene these run in opposite
+VCF left-aligns along the *genome*. For a plus-strand gene these run in opposite
 genomic directions, so a deletion can be intronic in its VCF representation and
 exonic in its HGVS one. See `variant-representation.md`.
 

@@ -1,6 +1,6 @@
 # gseapy Reference
 
-gseapy (v1.1.x, Python/Rust) wraps GSEA, preranked GSEA, ssGSEA, GSVA, and the
+gseapy (v1.x, Python/Rust; current release 1.3.0) wraps GSEA, preranked GSEA, ssGSEA, GSVA, and the
 Enrichr API behind a pandas-friendly interface. License: BSD-3-Clause.
 
 ## Contents
@@ -160,7 +160,7 @@ gp.barplot(enr.results, column="Adjusted P-value", top_term=15, ofname="bar.png"
 gp.dotplot(pre.res2d, column="FDR q-val", title="GSEA", ofname="gsea_dot.png")  # GSEA
 gp.gseaplot(term=pre.res2d.Term.iloc[0], ofname="running.png",
             **pre.results[pre.res2d.Term.iloc[0]])                    # running-ES curve
-gp.enrichment_map(pre.res2d)          # nodes=terms, edges=gene overlap (returns graph)
+nodes, edges = gp.enrichment_map(pre.res2d)   # two DataFrames; build a graph with networkx
 ```
 `dotplot`/`barplot` return a Matplotlib `Axes`; `get_figure().savefig(...)` to save.
 

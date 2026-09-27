@@ -177,7 +177,7 @@ paperclip lookup title "CRISPR base editing" --json
 ```
 
 `--json` is accepted but was observed returning rendered text rather than JSON. Do not depend on it —
-see *Output shape is nondeterministic* below.
+see *Output shape is nondeterministic* above.
 
 Fields: `doi`, `author`, `title`, `abstract`, `source`, `date`, `pmc`, `pmid`, `arxiv`, `journal`,
 `publisher`, `type`, `keywords`, `category`, `license`, `year`, `volume`, `issue`, `issn`.

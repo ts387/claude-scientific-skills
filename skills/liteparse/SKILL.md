@@ -5,7 +5,7 @@ license: Apache-2.0
 allowed-tools: Read Write Edit Bash
 compatibility: Python 3.10+. Optional LibreOffice (Office formats) and ImageMagick (images). Bundled Tesseract for OCR. All processing is local — no cloud API required.
 metadata:
-  version: "1.2"
+  version: "1.3"
   skill-author: K-Dense Inc.
 ---
 
@@ -36,7 +36,7 @@ Use LiteParse when you need:
 |------|-------------|
 | Markdown for LLM ingestion (EPUB, audio, YouTube, HTML) | `markitdown` skill |
 | Merge/split PDFs, forms, watermarks, rotation | `pdf` skill |
-| Dense tables, handwriting, production cloud pipelines | [LlamaParse](https://docs.cloud.llamaindex.ai/llamaparse/overview) (cloud; sign up separately) |
+| Dense tables, handwriting, production cloud pipelines | [LlamaParse](https://developers.llamaindex.ai/llamaparse/) (cloud; sign up separately) |
 
 ## Installation
 

@@ -5,7 +5,7 @@ license: MIT
 compatibility: Requires Python 3.11+. Scripts use only the standard library - no third-party packages and no network access. Variant normalisation needs a reference FASTA, and uses its .fai index when one is present.
 allowed-tools: Read Write Edit Bash
 metadata:
-  version: "1.1"
+  version: "1.2"
   skill-author: K-Dense Inc.
 ---
 
@@ -100,9 +100,10 @@ variants and the reference are different assemblies — stop and run
 `check_contigs.py` rather than adjusting coordinates. Multi-allelic records must
 be split with `--split` **before** normalising, never after.
 
-HGVS shifts indels the opposite way, 3'-most along the transcript. For a
-minus-strand gene that is the opposite genomic direction from VCF's
-left-alignment. Details and the full procedure: `references/variant-representation.md`.
+HGVS shifts indels the other way, 3'-most along the reference it describes. For
+`g.` and plus-strand `c.` descriptions that is the opposite genomic direction
+from VCF's left-alignment; for a minus-strand gene it is the same direction.
+Details and the full procedure: `references/variant-representation.md`.
 
 ## Check the assembly before trusting a join
 
