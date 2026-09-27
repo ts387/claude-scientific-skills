@@ -50,7 +50,7 @@ def _build123d_version() -> str:
 def _export_dxf(part, path: Path, build123d, height: float | None) -> float:
     """Slice the part on a horizontal plane and write the profile as DXF.
 
-    ``section()`` is a module-level operation in build123d 0.11.1, not a method on
+    ``section()`` is a module-level operation in build123d 0.13.0, not a method on
     the shape. The default cut height is the middle of the part rather than z = 0,
     because a part modelled sitting on the build plate has nothing but a degenerate
     face at z = 0. Returns the height actually used, for the manifest.

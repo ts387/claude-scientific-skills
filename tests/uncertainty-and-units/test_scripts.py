@@ -10,6 +10,7 @@ import stat
 import sys
 import tempfile
 import unittest
+import warnings
 from pathlib import Path
 
 
@@ -467,6 +468,51 @@ class PropagationTests(unittest.TestCase):
         self.assertAlmostEqual(sensitivities["a"], 5.0)
         self.assertAlmostEqual(sensitivities["b"], 3.0)
 
+    def test_abs_and_fabs_emit_no_future_warning(self) -> None:
+        # uncertainties 3.2.3 deprecates the built-in abs() on a ufloat and
+        # umath.fabs with a FutureWarning; the GUM path must avoid both.
+        variables = [
+            {"name": "x", "value": 1.0, "standard_uncertainty": 0.1},
+            {"name": "y", "value": 3.0, "standard_uncertainty": 0.2},
+        ]
+        for expression in ("abs(x - y)", "fabs(x - y)", "abs(-3) * fabs(-x) + fabs(-2.5)"):
+            with self.subTest(expression=expression), warnings.catch_warnings():
+                warnings.simplefilter("error")
+                framework = self._framework(expression, variables, {("x", "y"): 0.3})
+            self.assertTrue(math.isfinite(framework["combined_standard_uncertainty"]))
+
+        framework = self._framework("abs(x - y)", variables, {("x", "y"): 0.3})
+        self.assertAlmostEqual(framework["value"], 2.0)
+        sensitivities = {item["name"]: item["sensitivity"] for item in framework["inputs"]}
+        self.assertEqual(sensitivities, {"x": -1.0, "y": 1.0})
+
+    def test_abs_and_fabs_match_the_deprecated_uncertainties_calls(self) -> None:
+        from uncertainties import ufloat, umath
+
+        functions = _common.scalar_functions()
+        x = ufloat(1.5, 0.1)
+        y = ufloat(-4.0, 0.3)
+        cases = (x, -x, x - x, x * y, y + 0.0 * x, ufloat(-0.0, 0.2), -2, -2.5, 0.0)
+        for argument in cases:
+            for name, deprecated in (("abs", abs), ("fabs", umath.fabs)):
+                with self.subTest(name=name, argument=repr(argument)):
+                    with warnings.catch_warnings():
+                        warnings.simplefilter("ignore", FutureWarning)
+                        expected = deprecated(argument)
+                    with warnings.catch_warnings():
+                        warnings.simplefilter("error")
+                        actual = functions[name](argument)
+                    self.assertIs(type(actual), type(expected))
+                    if hasattr(expected, "nominal_value"):
+                        self.assertEqual(repr(actual.nominal_value), repr(expected.nominal_value))
+                        self.assertEqual(actual.std_dev, expected.std_dev)
+                        self.assertEqual(
+                            {id(k): float(v) for k, v in actual.derivatives.items()},
+                            {id(k): float(v) for k, v in expected.derivatives.items()},
+                        )
+                    else:
+                        self.assertEqual(repr(actual), repr(expected))
+
     def test_correlation_reduces_the_uncertainty_of_a_difference(self) -> None:
         framework = self._framework(
             "a - b",
@@ -718,6 +764,21 @@ class AuditTests(unittest.TestCase):
         ):
             with self.subTest(rule=expected):
                 self.assertIn(expected, rules)
+
+    def test_fabs_remedy_avoids_deprecated_umath_fabs(self) -> None:
+        source = "import math\nfrom uncertainties import ufloat\ny = math.fabs(ufloat(1, 0.1))\n"
+        unc003 = [f for f in self._findings(source) if f["rule"] == "UNC003"]
+        self.assertEqual(len(unc003), 1)
+        self.assertIn("nominal_value", unc003[0]["remedy"])
+        self.assertNotIn("use uncertainties.umath", unc003[0]["remedy"])
+        other = [
+            f
+            for f in self._findings(
+                "import math\nfrom uncertainties import ufloat\ny = math.sin(ufloat(1, 0.1))\n"
+            )
+            if f["rule"] == "UNC003"
+        ]
+        self.assertIn("uncertainties.umath", other[0]["remedy"])
 
     def test_clean_source_produces_no_findings(self) -> None:
         self.assertEqual(self._findings(CLEAN_SOURCE), [])

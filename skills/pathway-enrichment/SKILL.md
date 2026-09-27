@@ -3,7 +3,7 @@ name: pathway-enrichment
 description: Run pathway and gene-set enrichment analysis on gene lists or ranked gene data, then interpret the results. Use whenever the user has a set of genes (differentially expressed genes from PyDESeq2/Scanpy, CRISPR-screen hits, cluster marker genes, proteomics hits) and wants to know which biological pathways, GO terms, or gene sets are over-represented or enriched. Covers over-representation analysis (ORA / Enrichr / Fisher / hypergeometric), ranked Gene Set Enrichment Analysis (GSEA / preranked), single-sample scoring (ssGSEA/GSVA), and functional profiling via gseapy, g:Profiler, Enrichr libraries, MSigDB, GO, KEGG, Reactome, and WikiPathways — plus gene-ID mapping, choosing the right background universe, multiple-testing correction, redundancy reduction, dotplots/enrichment maps, and publication-ready tables. Use this for "pathway analysis", "enrichment analysis", "GO enrichment", "KEGG/Reactome pathways", "GSEA", "over-representation", "functional annotation", or "what pathways are my genes in".
 license: MIT
 metadata:
-  version: "1.2"
+  version: "1.3"
   skill-author: K-Dense Inc.
 ---
 
@@ -121,7 +121,7 @@ Enrichr/MSigDB libraries are keyed by **gene symbols** (human UPPERCASE, mouse T
 Hallmark (broad themes) → GO:BP (mechanism) → KEGG/Reactome/WikiPathways (curated pathways) → C7 (immune), etc. Don't run 50 libraries; pick 2–4 that fit the biology. Catalog and selection guidance: `references/databases-and-gene-sets.md`.
 
 ### Step 4 — Set the background universe (ORA only)
-The background must be the genes that *could* have been detected in your assay (e.g., all expressed/tested genes), not the whole genome. The wrong background inflates significance. Enrichr uses a fixed background; when background matters, use g:Profiler with `domain_scope='custom'` + your `background`, or `gp.enrich()` with an explicit background. Rationale in `references/interpretation.md`.
+The background must be the genes that *could* have been detected in your assay (e.g., all expressed/tested genes), not the whole genome. The wrong background inflates significance. Without one, Enrichr tests against each library's fixed background. A gene-list `background=` *is* applied to Enrichr library names on the main human/mouse site: gseapy 1.3.x sends it to Enrichr's Speedrichr background API, despite its docstring saying it is ignored. Fly/yeast/worm/fish Enrichr sites have no background service, so for those — or offline — use local GMT gene sets (`gp.enrich()` / `gp.enrichr()` with a `.gmt`, tested locally against your background) or g:Profiler with `domain_scope='custom'`. Rationale in `references/interpretation.md`.
 
 ### Step 5 — Run the analysis
 Use the Quick Start patterns or the bundled `scripts/run_enrichment.py`. For GSEA always set a `seed` and report `permutation_num`.
@@ -157,6 +157,8 @@ python scripts/run_enrichment.py gsea --rnk ranked_genes.csv --outdir results/
 ```
 
 Run `python scripts/run_enrichment.py --help` for all options (background file, FDR cutoff, min/max set size, permutations).
+
+`ora --background universe.txt` is applied to local `.gmt` libraries offline and to Enrichr library names through Enrichr's background API (human/mouse only). The script prints a warning to stderr when it cannot take effect: Enrichr library names with `--organism` fly/yeast/worm/fish (pass `.gmt` files instead), or a background file that is empty after cleanup.
 
 ## Common Pitfalls
 

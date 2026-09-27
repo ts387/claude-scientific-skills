@@ -10,10 +10,15 @@ the list and quietly inverts GSEA's answer.
 
 from __future__ import annotations
 
+import argparse
+import contextlib
+import importlib
+import io
 import sys
 import tempfile
 import unittest
 from pathlib import Path
+from unittest import mock
 
 import pytest
 
@@ -226,6 +231,113 @@ class LibraryTests(unittest.TestCase):
             len(set(run_enrichment.DEFAULT_LIBRARIES)),
             len(run_enrichment.DEFAULT_LIBRARIES),
         )
+
+
+class BackgroundTests(unittest.TestCase):
+    """What --background actually reaches, with every Enrichr call mocked out.
+
+    gseapy's docstring says a background is ignored for Enrichr library names,
+    but its code (1.3.0, 1.3.1) uploads a gene-list background to Enrichr's
+    Speedrichr background API, which only the main human/mouse site offers. The
+    script warns only where the flag really cannot take effect.
+    """
+
+    def setUp(self) -> None:
+        self._temporary = tempfile.TemporaryDirectory()
+        self.addCleanup(self._temporary.cleanup)
+        self.root = Path(self._temporary.name)
+        self.genes = self.root / "hits.txt"
+        self.genes.write_text("TP53\nEGFR\nMYC\nKRAS\nBRCA1\n", encoding="utf-8")
+        self.universe = self.root / "universe.txt"
+        self.universe.write_text(
+            "TP53\nEGFR\nMYC\nKRAS\nBRCA1\nGAPDH\nACTB\n", encoding="utf-8"
+        )
+
+    def _run_ora(self, libraries, organism="human", background=True):
+        args = argparse.Namespace(
+            genes=str(self.genes),
+            background=str(self.universe) if background is True else background,
+            libraries=libraries,
+            organism=organism,
+            fdr=0.05,
+        )
+        result = mock.Mock()
+        result.results = pd.DataFrame(
+            {"Term": ["T1"], "Adjusted P-value": [0.01], "Genes": ["TP53;EGFR"]}
+        )
+        stderr = io.StringIO()
+        with mock.patch.object(
+            run_enrichment.gp, "enrichr", return_value=result
+        ) as enrichr, contextlib.redirect_stderr(stderr), contextlib.redirect_stdout(
+            io.StringIO()
+        ):
+            run_enrichment.run_ora(args)
+        return enrichr, stderr.getvalue()
+
+    def test_non_main_site_organism_warns_that_the_background_is_not_applied(self) -> None:
+        enrichr, stderr = self._run_ora(["GO_Biological_Process_2018"], organism="fly")
+        self.assertIn("WARNING: --background cannot be applied", stderr)
+        self.assertIn("GO_Biological_Process_2018", stderr)
+        self.assertIn(".gmt", stderr)  # says how to get the background honoured
+        # Behaviour is otherwise unchanged: the background still goes to gseapy.
+        self.assertEqual(
+            enrichr.call_args.kwargs["background"],
+            ["TP53", "EGFR", "MYC", "KRAS", "BRCA1", "GAPDH", "ACTB"],
+        )
+
+    def test_the_warning_names_only_the_enrichr_libraries(self) -> None:
+        _, stderr = self._run_ora(["WormPathways_2019", "local_sets.gmt"], organism="worm")
+        self.assertIn("WormPathways_2019", stderr)
+        self.assertNotIn("local_sets.gmt", stderr)
+
+    def test_human_and_mouse_library_names_do_not_warn(self) -> None:
+        # The main Enrichr site applies the background through Speedrichr.
+        for organism in ("human", "mouse", "Homo sapiens"):
+            with self.subTest(organism=organism):
+                enrichr, stderr = self._run_ora(["KEGG_2021_Human"], organism=organism)
+                self.assertEqual(stderr, "")
+                self.assertTrue(enrichr.call_args.kwargs["background"])
+
+    def test_local_gmt_libraries_do_not_warn_for_any_organism(self) -> None:
+        _, stderr = self._run_ora(["fly_sets.gmt", "more.GMT"], organism="fly")
+        self.assertEqual(stderr, "")
+
+    def test_no_background_means_no_warning(self) -> None:
+        enrichr, stderr = self._run_ora(["KEGG_2019"], organism="fly", background=None)
+        self.assertEqual(stderr, "")
+        self.assertIsNone(enrichr.call_args.kwargs["background"])
+
+    def test_an_empty_background_file_warns_instead_of_being_silently_dropped(self) -> None:
+        empty = self.root / "empty.txt"
+        empty.write_text("\n  \nnan\n", encoding="utf-8")
+        _, stderr = self._run_ora(["KEGG_2021_Human"], background=str(empty))
+        self.assertIn("contained no gene symbols", stderr)
+
+
+class UpstreamBackgroundRoutingTests(unittest.TestCase):
+    """Pin the gseapy behaviour the warning logic and docs rely on.
+
+    If a gseapy release stops sending a gene-list background for Enrichr
+    library names (or starts honouring it elsewhere), re-check the warning in
+    run_enrichment._background_warnings and the skill docs.
+    """
+
+    def test_a_gene_list_background_takes_the_speedrichr_path(self) -> None:
+        enrichr_module = importlib.import_module("gseapy.enrichr")
+        frame = pd.DataFrame({"Gene_set": ["KEGG_2021_Human"], "Term": ["T1"],
+                              "Adjusted P-value": [0.01]})
+        cls = enrichr_module.Enrichr
+        with mock.patch.object(cls, "get_libraries", return_value=["KEGG_2021_Human"]), \
+             mock.patch.object(cls, "get_results_with_background",
+                               return_value=("x", frame)) as with_bg, \
+             mock.patch.object(cls, "get_results", return_value=("x", frame)) as without_bg:
+            run_enrichment.gp.enrichr(
+                gene_list=["TP53", "EGFR"], gene_sets=["KEGG_2021_Human"],
+                organism="human", background=["TP53", "EGFR", "MYC"], outdir=None,
+            )
+            self.assertTrue(with_bg.called)
+            self.assertFalse(without_bg.called)
+            self.assertEqual(sorted(with_bg.call_args.args[1]), ["EGFR", "MYC", "TP53"])
 
 
 if __name__ == "__main__":

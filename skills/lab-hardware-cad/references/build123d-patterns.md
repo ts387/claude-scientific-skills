@@ -1,7 +1,7 @@
-# build123d 0.11.1 patterns
+# build123d 0.13.0 patterns
 
 An API cookbook for the geometry this skill actually needs. Every snippet here was run against
-build123d 0.11.1 on Python 3.12.
+build123d 0.13.0 (OCP 8.0) on Python 3.12 and 3.13, with the same results as 0.11.1.
 
 ## Builder mode or algebra mode
 
@@ -322,7 +322,7 @@ Useful for asserting an interface inside the model itself:
 bbox = part.bounding_box()
 print(bbox.size.X, bbox.size.Y, bbox.size.Z)
 print(part.volume, part.area)
-print(part.is_valid)          # a property in 0.11.1, not a method
+print(part.is_valid)          # a property in 0.11-0.13, not a method
 print(part.center(CenterOf.MASS))
 ```
 

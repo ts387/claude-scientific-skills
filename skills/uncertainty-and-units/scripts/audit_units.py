@@ -374,7 +374,13 @@ class Auditor(ast.NodeVisitor):
                     f"{module}.{name} has no derivative rule for an uncertain value; "
                     "on a scalar it raises TypeError, and on an object array it "
                     "fails in the ufunc loop",
-                    "use uncertainties.umath for scalars and "
+                    (
+                        "umath.fabs and abs() on a ufloat are deprecated in "
+                        "uncertainties 3.2.3; branch on the nominal value instead "
+                        "(x + 0.0 if x.nominal_value >= 0 else -x)"
+                    )
+                    if name in {"fabs", "abs", "absolute"}
+                    else "use uncertainties.umath for scalars and "
                     "uncertainties.unumpy for arrays",
                 )
 

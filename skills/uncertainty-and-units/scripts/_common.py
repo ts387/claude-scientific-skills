@@ -501,6 +501,30 @@ def reduce_expression(
         raise CliError(f"cannot compute the expression: {exc}") from exc
 
 
+def _uncertain_abs(value: Any) -> Any:
+    """Absolute value of a number or ufloat without a deprecated call.
+
+    uncertainties 3.2.3 deprecates ``AffineScalarFunc.__abs__`` (the built-in
+    ``abs``) and ``umath.fabs`` with a FutureWarning and names no replacement.
+    Branching on the nominal value reproduces both exactly: the value is
+    ``|x|`` and the derivative is +1 for a nominal value >= 0 (including -0.0)
+    and -1 below it. Adding 0.0 turns a -0.0 nominal value into +0.0, as abs does.
+    """
+
+    nominal = getattr(value, "nominal_value", None)
+    if nominal is None:
+        return abs(value)
+    return value + 0.0 if nominal >= 0 else -value
+
+
+def _uncertain_fabs(value: Any) -> Any:
+    """``math.fabs`` for plain numbers, ``_uncertain_abs`` for ufloats."""
+
+    if getattr(value, "nominal_value", None) is None:
+        return math.fabs(value)
+    return _uncertain_abs(value)
+
+
 def scalar_functions() -> dict[str, Callable[..., Any]]:
     """Return uncertainty-aware scalar functions with analytic derivatives."""
 
@@ -510,9 +534,12 @@ def scalar_functions() -> dict[str, Callable[..., Any]]:
         raise CliError(
             f"the uncertainties package is unavailable; install with `{PINNED_INSTALL}`"
         ) from exc
-    mapping: dict[str, Callable[..., Any]] = {"abs": abs}
+    mapping: dict[str, Callable[..., Any]] = {
+        "abs": _uncertain_abs,
+        "fabs": _uncertain_fabs,
+    }
     for name in ALLOWED_FUNCTIONS:
-        if name == "abs":
+        if name in mapping:
             continue
         handler = getattr(umath, name, None)
         if handler is not None:

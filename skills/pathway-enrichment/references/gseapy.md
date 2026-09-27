@@ -42,7 +42,7 @@ enr = gp.enrichr(
     gene_list=genes,                 # list, Series, DataFrame, or txt path (symbols)
     gene_sets=["MSigDB_Hallmark_2020", "KEGG_2021_Human"],  # names, GMT, or dict
     organism="human",                # human|mouse|fly|yeast|worm|fish
-    background=None,                  # list or count; default is the library background
+    background=None,                  # gene list (see note); default is the library background
     outdir=None,                      # None = in-memory only
 )
 enr.results        # DataFrame: all terms across all libraries (Gene_set column)
@@ -50,9 +50,15 @@ enr.results        # DataFrame: all terms across all libraries (Gene_set column)
 Key result columns: `Gene_set`, `Term`, `Overlap` (k/K), `P-value`,
 `Adjusted P-value` (BH within library), `Odds Ratio`, `Combined Score`, `Genes`.
 
-`background` note: Enrichr's online API largely ignores arbitrary custom
-backgrounds (it has fixed per-library backgrounds). For a true custom background
-use `gp.enrich()` (below) or g:Profiler. See `interpretation.md`.
+`background` note: gseapy's docstring says a background is ignored for Enrichr
+library names, but in 1.3.0/1.3.1 a gene-list (or gene-file) background is
+uploaded to Enrichr's Speedrichr background API (`/speedrichr/api/addbackground`,
+`/backgroundenrich`) and applied. Those results have no `Overlap` column (count
+the `Genes` instead). Caveats: an integer count is ignored for library names;
+Speedrichr exists only on the main human/mouse Enrichr site, so for fly, yeast,
+worm, or fish libraries the background is not applied. For those, or offline,
+use local GMT gene sets with `gp.enrich()` (below) or g:Profiler. See
+`interpretation.md`.
 
 ### enrich (offline, custom background)
 ```python

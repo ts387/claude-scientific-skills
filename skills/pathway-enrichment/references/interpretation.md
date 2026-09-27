@@ -35,10 +35,12 @@ all ~20,000 protein-coding genes. Using too large a background makes ordinary
 housekeeping categories look significant — the most common way ORA results
 mislead.
 
-- Enrichr's online API uses fixed per-library backgrounds and largely ignores a
-  custom one. If the background matters for your claim, use **g:Profiler**
-  (`domain_scope='custom'`, `background=...`) or **gseapy `gp.enrich()`** with an
-  explicit `background`.
+- Without a background, Enrichr uses fixed per-library backgrounds. A gene-list
+  `background` passed to `gp.enrichr()` with library names is applied through
+  Enrichr's Speedrichr API (gseapy 1.3.x), but only on the main human/mouse
+  site. For other organisms, offline work, or a background you must defend in
+  review, use **g:Profiler** (`domain_scope='custom'`, `background=...`) or
+  **gseapy `gp.enrich()`** with local GMT gene sets and an explicit `background`.
 - The background should use the same ID namespace as the query and the library.
 
 ## Multiple-testing correction

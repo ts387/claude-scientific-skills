@@ -72,7 +72,9 @@ umath.sqrt(a)  # 1.00+/-0.10
 hyperbolic functions and their inverses, atan2, hypot, degrees, radians, erf. Since
 3.2.3, `umath.fabs`, `ceil`, `floor`, `trunc`, `fmod`, `modf`, `frexp`, `ldexp`, and
 `copysign` (and the built-in `abs()` on a ufloat) emit a `FutureWarning` and are slated
-for removal.
+for removal. Upstream names no replacement; for `|x|`, branch on the nominal value,
+`x + 0.0 if x.nominal_value >= 0 else -x`, which gives the same value and derivative
+(±1) without a warning. `propagate_uncertainty.py` evaluates `abs` and `fabs` this way.
 
 For arrays, `unumpy` provides the wrapped versions plus constructors and accessors:
 

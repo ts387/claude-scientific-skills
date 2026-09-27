@@ -66,7 +66,7 @@ def require_build123d():
         raise LabCadError(
             "build123d is not installed in this interpreter.\n"
             "  uv venv --python 3.12 .venv-labcad\n"
-            '  uv pip install --python .venv-labcad/bin/python "build123d==0.11.1" "matplotlib>=3.8"'
+            '  uv pip install --python .venv-labcad/bin/python "build123d==0.13.0" "matplotlib>=3.8"'
         ) from exc
     return build123d
 
@@ -579,7 +579,7 @@ def load_shape(path: Path):
 
 
 def _is_valid(shape) -> bool:
-    """``Shape.is_valid`` is a property in build123d 0.11.x; older builds expose a method."""
+    """``Shape.is_valid`` is a property in build123d 0.11-0.13; older builds expose a method."""
     value = shape.is_valid
     return bool(value() if callable(value) else value)
 

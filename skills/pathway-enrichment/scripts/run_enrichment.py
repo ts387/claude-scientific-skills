@@ -48,6 +48,14 @@ DEFAULT_LIBRARIES = [
     "Reactome_2022",
 ]
 
+# Organism names gseapy routes to the main Enrichr site (human and mouse). Only
+# that site has Enrichr's custom-background service (Speedrichr); the fly,
+# yeast, worm and fish sites (FlyEnrichr etc.) do not.
+MAIN_ENRICHR_ORGANISMS = frozenset({
+    "human", "hsapiens", "homo sapiens", "hs", "h. sapiens",
+    "mouse", "mus musculus", "m. musculus", "mm", "enrichr",
+})
+
 
 def _clean_symbols(genes, organism: str):
     """Normalize gene symbols (human -> UPPER, mouse -> Title) and dedupe."""
@@ -134,6 +142,38 @@ def _dotplot(df: pd.DataFrame, column: str, title: str, outpath: Path):
         print(f"  (dotplot skipped: {exc})")
 
 
+def _background_warnings(libraries, organism: str, background) -> list[str]:
+    """Explain the cases where a --background file will not be applied.
+
+    With gseapy 1.3.x a gene-list background *is* used for Enrichr library
+    names on the main human/mouse site: gseapy uploads it to Enrichr's
+    Speedrichr background API instead of the ordinary Enrichr endpoint. Local
+    .gmt gene sets are tested offline against it. What remains are the cases
+    where the flag does not do what it says.
+    """
+    if background is None:
+        return []
+    if not background:
+        return [
+            "WARNING: --background contained no gene symbols after cleanup, so no "
+            "custom background is applied. Check the file (one symbol per line, or "
+            "genes in the first CSV/TSV column)."
+        ]
+    enrichr_names = [lib for lib in libraries if not str(lib).lower().endswith(".gmt")]
+    if enrichr_names and organism.lower().strip() not in MAIN_ENRICHR_ORGANISMS:
+        return [
+            f"WARNING: --background cannot be applied to the Enrichr libraries "
+            f"{', '.join(enrichr_names)} for organism '{organism}'. Enrichr's "
+            "custom-background service (Speedrichr) runs only on the main "
+            "human/mouse Enrichr site, not on Fly/Yeast/Worm/FishEnrichr, and gseapy "
+            "sends the request there anyway, so the result is not an enrichment of "
+            "those libraries against your background. To have the background "
+            "honoured, pass local .gmt gene-set files to --libraries instead; gseapy "
+            "tests those offline against your background."
+        ]
+    return []
+
+
 def run_ora(args):
     genes = _clean_symbols(_read_gene_list(Path(args.genes)), args.organism)
     if len(genes) < 5:
@@ -141,6 +181,8 @@ def run_ora(args):
     background = None
     if args.background:
         background = _clean_symbols(_read_gene_list(Path(args.background)), args.organism)
+    for message in _background_warnings(args.libraries, args.organism, background):
+        print(message, file=sys.stderr)
 
     enr = gp.enrichr(
         gene_list=genes,
@@ -196,7 +238,10 @@ def main():
 
     ora = sub.add_parser("ora", parents=[common], help="Over-representation analysis.")
     ora.add_argument("--genes", required=True, help="Hit list: one symbol per line or CSV first column.")
-    ora.add_argument("--background", help="Optional background gene list file.")
+    ora.add_argument("--background",
+                     help="Optional background gene list file (tested/expressed genes). "
+                          "Applied to local .gmt libraries offline, and to Enrichr library "
+                          "names via Enrichr's background API (human/mouse only).")
 
     gsea = sub.add_parser("gsea", parents=[common], help="Preranked GSEA.")
     gsea.add_argument("--deseq2", help="DESeq2 results CSV (index=genes; uses `stat`).")

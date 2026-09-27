@@ -280,12 +280,25 @@ class TestDeclaredInterfaces(unittest.TestCase):
         self.assertEqual(result.returncode, 0, result.stderr)
         self.assertIn("not verified", result.stdout)
 
-    def test_manifest_without_interfaces_says_how_to_add_them(self):
+    def test_manifest_without_interfaces_passes_and_says_to_name_them_unchecked(self):
+        # A part that mates with nothing in the bundled database correctly
+        # declares no interfaces, so check.py passes it by design (SKILL.md,
+        # step 5) -- but tells the user not to invent a declaration and to name
+        # every interface dimension as UNCHECKED in the report instead.
         result = run_cli(
             str(SCRIPTS / "check.py"), "interfaces", str(self._manifest([]))
         )
-        self.assertEqual(result.returncode, 2)
-        self.assertIn("INTERFACES", result.stderr)
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertIn("0 declared interfaces", result.stdout)
+        self.assertIn("Do not invent a declaration", result.stdout)
+        self.assertIn("UNCHECKED", result.stdout)
+
+    def test_manifest_without_interfaces_reports_a_pass_in_json(self):
+        result = self._check([])
+        self.assertEqual(result.returncode, 0, result.stderr)
+        payload = json.loads(result.stdout)
+        self.assertEqual(payload["checks"], [])
+        self.assertTrue(payload["pass"])
 
     def test_unsupported_target_is_rejected(self):
         result = run_cli(

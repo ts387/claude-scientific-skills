@@ -2,13 +2,13 @@
 name: lab-hardware-cad
 description: Design custom laboratory hardware as parametric build123d models and export fabrication-ready STEP, STL, and DXF files - microfluidic chips and molds, optomechanical mounts and breadboard adapters, cuvette and microplate holders, tube racks, animal-behavior rigs, and 3D-printed instrument fixtures. Use when a research task needs a physical part that must mate with standardized labware, an optical table, a cage system, or a printer, CNC, or laser process.
 license: MIT
-compatibility: Python 3.10-3.14 with build123d 0.11.1 and matplotlib for snapshots. Geometry commands require build123d; the standards lookup and the interface check run on the standard library alone. No network access needed.
+compatibility: Python 3.11-3.14 with build123d 0.13.0 and matplotlib for snapshots. Geometry commands require build123d; the standards lookup and the interface check run on the standard library alone. No network access needed.
 allowed-tools: Read Write Edit Bash Glob Grep
 metadata:
-  version: "1.4"
+  version: "1.5"
   skill-author: K-Dense Inc.
   last-reviewed: "2026-08-15"
-  build123d-version: "0.11.1"
+  build123d-version: "0.13.0"
 ---
 
 # Lab Hardware CAD
@@ -36,11 +36,11 @@ or scientific plotting. Those are different skills.
 
 ```bash
 uv venv --python 3.12 .venv-labcad
-uv pip install --python .venv-labcad/bin/python "build123d==0.11.1" "matplotlib>=3.8"
+uv pip install --python .venv-labcad/bin/python "build123d==0.13.0" "matplotlib>=3.8"
 ```
 
-build123d 0.11.1 requires Python >=3.10,<3.15 and pulls in the OpenCascade kernel through
-`cadquery-ocp-novtk`. The wheel is large; install once per project and reuse it.
+build123d 0.13.0 requires Python >=3.11,<3.15 and pulls in the OpenCascade kernel through
+`cadquery-ocp-novtk` 8.0. The wheel is large; install once per project and reuse it.
 
 All bundled scripts take `--help`. `check.py standards` runs without build123d installed.
 
@@ -350,7 +350,7 @@ recommend printing a test coupon of the critical interface before committing to 
 | `references/behavior-rigs.md` | Arena and maze geometry, head-fixation interfaces, spouts and ports, T-slot extrusion, cleaning and durability |
 | `references/fabrication-limits.md` | Process tolerances, minimum walls and features, clearance and thread inserts, materials, autoclave and solvent and biocompatibility |
 | `references/validation.md` | Pre-fabrication checklist and the failure modes each item catches |
-| `references/build123d-patterns.md` | build123d 0.11.1 API cookbook: builder vs algebra, sketches, selectors, joints, exports |
+| `references/build123d-patterns.md` | build123d 0.13.0 API cookbook: builder vs algebra, sketches, selectors, joints, exports |
 
 ## Scripts
 

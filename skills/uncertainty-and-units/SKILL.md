@@ -5,7 +5,7 @@ license: MIT
 compatibility: Requires Python 3.12+. The numeric CLIs need pint, uncertainties, NumPy, and SciPy; the static auditor is standard-library only. All bundled tooling runs locally with no network access.
 allowed-tools: Read Write Edit Bash
 metadata:
-  version: "1.2"
+  version: "1.3"
   skill-author: K-Dense Inc.
 ---
 
@@ -105,7 +105,7 @@ gives `68 degF ± 0.9 delta_degF`, two different conversions on one line.
 ### Logarithmic units that add by multiplying
 
 ```python
-Q(10, "dBm") + Q(10, "dBm")   # 0.0001 kilogram**2 * meter**4 / second**6
+Q(10, "dBm") + Q(10, "dBm")   # 0.00010000000000000005 kilogram ** 2 * meter ** 4 / second ** 6
 ```
 
 That is 10 mW × 10 mW, not 20 mW and not 13 dBm. Nothing raises. Convert to a linear
