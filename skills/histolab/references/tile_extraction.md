@@ -289,16 +289,21 @@ score_tiler = ScoreTiler(
 # Extract and save report
 score_tiler.extract(slide, report_path="tiles_report.csv")
 
-# Report contains: tile name, coordinates, score, tissue percentage
+# Report contains: filename, score, scaled_score (sorted by score)
 ```
 
-Report format:
+Report format (illustrative values):
 ```csv
-tile_name,x_coord,y_coord,level,score,tissue_percent
-tile_001.png,10240,5120,0,0.89,95.2
-tile_002.png,15360,7680,0,0.85,91.7
+filename,score,scaled_score
+tile_0_level0_10240-5120-10752-5632.png,0.89,1.0
+tile_1_level0_15360-7680-15872-8192.png,0.85,0.95
 ...
 ```
+
+The report has no coordinate or level columns. Tile coordinates are encoded in each filename,
+`tile_<n>_level<level>_<x_ul>-<y_ul>-<x_br>-<y_br>.png` (whole-slide pixel coordinates of the
+upper-left and lower-right corners), so parse them from the filename. `GridTiler` and
+`RandomTiler` write no report.
 
 ## Advanced Extraction Patterns
 

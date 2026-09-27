@@ -4,7 +4,7 @@ description: Lightweight WSI tile extraction and preprocessing. Use for basic sl
 license: Apache-2.0 license
 compatibility: Requires Python 3.8–3.11 (histolab 0.7.0), OpenSlide system libraries, and Linux or macOS. Sample data via histolab.data requires pooch.
 metadata:
-  version: "1.3"
+  version: "1.4"
   skill-author: K-Dense Inc.
 ---
 
