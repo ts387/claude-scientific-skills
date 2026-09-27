@@ -10,9 +10,9 @@ ID exists at all, whether it has been obsoleted (and what replaced it), whether 
 claimed label actually belongs to it, and optionally whether it sits in the
 branch and ontology the metadata field requires.
 
-Statuses: ``ok`` and ``matched_synonym`` pass, ``not_found``, ``obsolete``,
-``label_mismatch``, ``wrong_branch``, ``wrong_ontology`` fail, and
-``not_a_class`` warns. Exit code is 1 if anything failed, 0 otherwise, 2 on
+Statuses: ``ok`` passes; ``matched_synonym``, ``imported_only`` and
+``not_a_class`` warn; ``not_found``, ``obsolete``, ``label_mismatch``,
+``wrong_branch``, ``wrong_ontology`` and ``malformed_curie`` fail. Exit code is 1 if anything failed, 0 otherwise, 2 on
 usage or network trouble. ``--strict`` promotes warnings to failures.
 
 Examples:

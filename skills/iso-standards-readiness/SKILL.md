@@ -5,7 +5,7 @@ license: MIT
 compatibility: Python 3.11+; bundled CLIs use only the standard library and bounded local JSON/Markdown files, with no network access or credentials.
 allowed-tools: Read Write Bash Glob
 metadata:
-  version: "1.1"
+  version: "1.2"
   skill-author: K-Dense Inc.
   supersedes: iso-13485-certification
   last-reviewed: "2026-07-26"

@@ -188,7 +188,7 @@ and VEP consequence are **not** echoed back on a returned variant):
 | `ref` | str | Reference allele. |
 | `alt` | str | Alternate allele. |
 | `af` | float | Dataset allele frequency. |
-| `ac` | float | Dataset allele count (0.5 for male non-PAR het calls on on X and Y chromosomes). |
+| `ac` | float | Dataset allele count (0.5 for male non-PAR het calls on X and Y chromosomes). |
 | `an` | int | Dataset allele number. |
 | `hom_samples` | int | Number of all samples with a homozygous genotype. |
 | `het_samples` | int | Number of all samples with a heterozygous genotype. |

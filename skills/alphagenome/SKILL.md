@@ -5,7 +5,7 @@ license: MIT
 compatibility: "Python 3.10+ with the alphagenome package (0.9.0 or later for the Atlas client; brings numpy, pandas, anndata, grpcio). Network access to gdmscience.googleapis.com:443 and a free non-commercial AlphaGenome API key in ALPHAGENOME_API_KEY (ALPHA_GENOME_API_KEY also read). Human data is GRCh38 only; mouse is mm10 (model only)."
 allowed-tools: Read Write Edit Bash
 metadata:
-  version: "1.0"
+  version: "1.1"
   skill-author: K-Dense Inc.
   upstream-version: "alphagenome 0.9.0"
   last-reviewed: "2026-09-13"
@@ -255,7 +255,8 @@ diploid dosage, developmental time, species other than human and mouse.
   reporting checklist.
 - Scripts: `scripts/atlas_query.py` (Atlas: `avi`, `scores`, `scorers`,
   `tracks`), `scripts/score_variants.py` (model scoring, `--list-scorers`,
-  `--list-tracks`), `scripts/atlas_link.py` (portal deep links, offline).
+  `--list-tracks`), `scripts/atlas_link.py` (portal deep links, offline), and
+  `scripts/_common.py` (shared parsing, key loading, and output helpers).
 
 ## Citing Scientific Agent Skills
 

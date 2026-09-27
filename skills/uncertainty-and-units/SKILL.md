@@ -5,7 +5,7 @@ license: MIT
 compatibility: Requires Python 3.12+. The numeric CLIs need pint, uncertainties, NumPy, and SciPy; the static auditor is standard-library only. All bundled tooling runs locally with no network access.
 allowed-tools: Read Write Edit Bash
 metadata:
-  version: "1.1"
+  version: "1.2"
   skill-author: K-Dense Inc.
 ---
 
@@ -39,7 +39,7 @@ Verified 2026-07-26:
 - **pint 0.25.3**, released 2026-03-19; requires Python 3.11+.
 - **uncertainties 3.2.3**, released 2025-04-21; requires Python 3.8+.
 - **NumPy 2.5.1** and **SciPy 1.18.0**; both require Python 3.12+.
-- `scipy.constants` in SciPy 1.18.0 serves **CODATA 2022**. SciPy 1.11 and earlier
+- `scipy.constants` in SciPy 1.18.0 serves **CODATA 2022**. SciPy 1.14 and earlier
   served CODATA 2018, and several recommended values differ between them.
 
 ```bash

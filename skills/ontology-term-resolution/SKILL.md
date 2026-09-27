@@ -5,7 +5,7 @@ license: MIT
 compatibility: Requires Python 3.11+. Scripts use only the standard library - no third-party packages. Needs network access to https://www.ebi.ac.uk/ols4, https://bioregistry.io, https://resolver.api.identifiers.org, and https://www.ebi.ac.uk/spot/zooma (all public, no API key).
 allowed-tools: Read Write Edit Bash
 metadata:
-  version: "1.2"
+  version: "1.3"
   skill-author: K-Dense Inc.
 ---
 
@@ -41,7 +41,8 @@ questions — they do not replace that OLS check.
 | Which landing page should this CURIE open? | `scripts/lookup_prefix.py` | Identifiers.org + Ontobee URLs |
 
 All four scripts take single values or files, emit TSV or JSON, and need no packages beyond the
-standard library. Full traps for the non-OLS services are in `references/companion-apis.md`.
+standard library. They share three importable helper modules in `scripts/`: `ols_client.py`
+(OLS), `zooma_client.py` (ZOOMA), and `id_client.py` (Bioregistry, Identifiers.org, Ontobee). Full traps for the non-OLS services are in `references/companion-apis.md`.
 
 ## Resolve text to terms
 

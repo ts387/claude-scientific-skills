@@ -70,6 +70,9 @@ change after the research date.
   clause structure and numbering. **[confirm on iso.org]**
 - Verified status: a Technical Report. Its guidance is informative, not normative, and
   conformity is claimed to ISO 14971, never to ISO/TR 24971.
+- Revision: ISO lists the TR at stage 90.92 (to be revised);
+  [ISO/AWI TS 24971-1](https://www.iso.org/standard/94297.html) is under development to
+  replace it. Check that project's stage before citing either document.
 - Limitation: a TR cannot be used to relax or reinterpret a normative requirement.
   Record which guidance the organization adopted and why.
 
@@ -96,8 +99,9 @@ change after the research date.
   ISO 15189:2012. **[confirm on iso.org]**
 - Verified structural facts: the 2022 edition aligns structurally with
   ISO/IEC 17025:2017 and incorporates point-of-care testing requirements previously
-  held in ISO 22870. Do not cite ISO 22870 as a separate current POCT basis without
-  confirming its status.
+  held in ISO 22870. ISO lists
+  [ISO 22870:2016](https://www.iso.org/standard/71119.html) as withdrawn, replaced by
+  ISO 15189:2022; do not cite it as a separate current POCT basis.
 - Verified transition: the ILAC-agreed transition period for accredited medical
   laboratories ran to **December 2025**. Treat the 2022 edition as implemented, not
   upcoming; a 2012-based quality system is out of date, not "in transition."

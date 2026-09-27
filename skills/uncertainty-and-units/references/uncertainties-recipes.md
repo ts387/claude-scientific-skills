@@ -69,7 +69,10 @@ umath.sqrt(a)  # 1.00+/-0.10
 ```
 
 `umath` mirrors `math`: sqrt, exp, log, log10, log1p, expm1, the trigonometric and
-hyperbolic functions and their inverses, atan2, hypot, degrees, radians, fabs, erf.
+hyperbolic functions and their inverses, atan2, hypot, degrees, radians, erf. Since
+3.2.3, `umath.fabs`, `ceil`, `floor`, `trunc`, `fmod`, `modf`, `frexp`, `ldexp`, and
+`copysign` (and the built-in `abs()` on a ufloat) emit a `FutureWarning` and are slated
+for removal.
 
 For arrays, `unumpy` provides the wrapped versions plus constructors and accessors:
 
@@ -161,7 +164,8 @@ On one synthetic straight-line fit the two give parameter standard deviations of
   and normal inputs with the same u are indistinguishable to it.
 - **No degrees of freedom.** Coverage factors are your problem; use
   `scripts/uncertainty_budget.py`.
-- **`float()` fails**, deliberately, on anything with an uncertainty. Comparison
-  operators compare nominal values.
+- **`float()` fails**, deliberately, on anything with an uncertainty. Ordering
+  comparisons (`<`, `<=`, `>`, `>=`) compare nominal values and, since 3.2.3, emit a
+  `FutureWarning` ahead of removal.
 - **Object arrays are slow.** For large arrays, propagate analytically or by Monte Carlo
   rather than element-wise.

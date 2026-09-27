@@ -179,7 +179,7 @@ constants.precision("electron mass")   # 3.07e-10  relative standard uncertainty
 constants.precision("Planck constant") # 0.0       exact by definition
 ```
 
-`scipy.constants` in SciPy 1.18.0 defaults to **CODATA 2022**; SciPy 1.11 and earlier
+`scipy.constants` in SciPy 1.18.0 defaults to **CODATA 2022**; SciPy 1.14 and earlier
 served CODATA 2018. Hard-coding a constant pins you to whichever release you copied it
 from and discards its uncertainty entirely. `scripts/audit_units.py` flags literals that
 match a known constant (`CONST001`).

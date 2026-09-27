@@ -5,7 +5,7 @@ license: MIT
 compatibility: Requires Python 3.11+. Scripts use only the standard library - no third-party packages. Needs network access to the public GenSpectrum LAPIS instances (lapis.cov-spectrum.org, lapis.genspectrum.org, lapis.pathoplexus.org) and to raw.githubusercontent.com for pango-designation. No API key.
 allowed-tools: Read Write Edit Bash
 metadata:
-  version: "1.1"
+  version: "1.2"
   skill-author: K-Dense Inc.
   last-reviewed: "2026-07-27"
 ---
@@ -50,7 +50,7 @@ reaches any other LAPIS instance.
 | Instance | Host | Lineage column | Indexed |
 | --- | --- | --- | --- |
 | `sars-cov-2` | lapis.cov-spectrum.org (open GenBank data) | `pangoLineage` | yes |
-| `h5n1`, `h3n2`, `h1n1pdm`, `influenza-a` | lapis.genspectrum.org | `clade` | no |
+| `h5n1`, `h3n2`, `h1n1pdm`, `influenza-a` | lapis.genspectrum.org | `clade` (h5n1), `cladeHA` (h3n2, h1n1pdm), `subtypeHA` (influenza-a) | no |
 | `rsv-a`, `rsv-b`, `mpox`, `measles`, `dengue`, `west-nile`, `hmpv`, `ebola-zaire`, `ebola-sudan`, `cchf` | lapis.pathoplexus.org | varies | varies |
 
 **Field names differ per instance and are never assumed.** Every script reads

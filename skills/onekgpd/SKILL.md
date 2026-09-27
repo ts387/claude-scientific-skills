@@ -14,7 +14,7 @@ license: MIT
 compatibility: Requires Python >=3.11. Variant and sample queries require outbound network access to the public 1000 Genomes query endpoint over TLS; the sample/population metadata commands run fully offline over a data file bundled in the skill. No credentials, API keys, or environment variables are used.
 allowed-tools: Write Bash
 metadata:
-  version: "1.2"
+  version: "1.3"
   skill-author: Dnaerys
 ---
 
@@ -286,7 +286,7 @@ Single position via `--chrom` + `--position` (not a region).
 ## Sample & population metadata (offline)
 
 Population, sex, pedigree, and superpopulation questions are answered by a second
-script, `scripts/onekgpd_meta.py`, from a data file bundled in the skill — **no
+script, `scripts/onekgpd_meta.py`, from a data file bundled in the skill (`assets/kgpe.json`) — **no
 network, no credentials, no coordinates**. The sample IDs are the same names the
 variant commands use, so the two layers compose (e.g. pick a cohort by population,
 then query its variants). Run `uv run scripts/onekgpd_meta.py <command>`.
