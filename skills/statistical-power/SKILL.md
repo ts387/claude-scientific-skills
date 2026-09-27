@@ -5,7 +5,7 @@ allowed-tools: Read Write Edit Bash
 compatibility: Requires Python >=3.10. Examples target statsmodels >=0.14.6, scipy >=1.11, pingouin >=0.6, numpy >=1.26, and matplotlib. Optional extras are statsmodels mixed models and lifelines for simulation-based power.
 license: MIT license
 metadata:
-  version: "1.1"
+  version: "1.2"
   skill-author: K-Dense Inc.
 ---
 
@@ -157,7 +157,7 @@ a [between-group difference of Cohen's d = 0.50], which we considered the smalle
 effect of clinical interest. With α = .05 (two-sided) and power = .80, a two-sample
 t-test requires n = 64 per group (128 total; computed with statsmodels 0.14).
 Allowing for 20% attrition, we will enrol 160 participants. A sensitivity analysis
-showed required n ranges from 45 to 105 per group across plausible effects
+showed required n ranges from 45 to 100 per group across plausible effects
 d = 0.40–0.60 (Figure X).
 ```
 
@@ -181,7 +181,7 @@ For simulation: also state the data-generating assumptions (baseline rate, resid
 ## Resources
 
 ### Scripts
-- `scripts/power.py` — unified closed-form interface (`sample_size`, `power`, `mde`, `power_curve`) over statsmodels/pingouin for all standard tests.
+- `scripts/power.py` — unified closed-form interface (`sample_size`, `power`, `mde`, `power_curve`) over statsmodels/scipy for all standard tests.
 - `scripts/simulate_power.py` — Monte Carlo power harness with `simulate_power()` and `find_sample_size()`, plus worked examples (two-group, logistic regression, cluster-randomized, linear mixed model).
 
 ### References

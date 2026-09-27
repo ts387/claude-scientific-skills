@@ -120,7 +120,7 @@ For translating a model built here into a control stream:
 | ADVAN13 | General nonlinear ODE | user-written `$DES` |
 | ADVAN6, ADVAN8, ADVAN9 | General ODE (non-stiff, stiff, equilibrium) | user-written `$DES` |
 | ADVAN15 | General with equilibrium compartments | |
-| ADVAN16, ADVAN17 | **New in NONMEM 7.6**: stiff delay differential equations (RADAR5) and stiff delay differential-algebraic equations | |
+| ADVAN16, ADVAN17 | **NONMEM 7.5 and later**: stiff delay differential equations (RADAR5) and stiff delay differential-algebraic equations | |
 
 Watch the compartment numbering: in ADVAN4 the central compartment is 2 and `V2` is the central
 volume, whereas in ADVAN3 the central compartment is 1 and `V1` is central. Mixing the two

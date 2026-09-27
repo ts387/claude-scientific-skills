@@ -97,5 +97,5 @@ Power was estimated by simulation (5,000 replicates per sample size). Data were
 generated assuming a baseline event rate of 20%, a treatment log-odds of 0.8, and
 analyzed with logistic regression adjusting for age and site, matching the planned
 analysis. A sample of n = 150 per arm yielded 82% power (95% Monte Carlo CI
-80.5-83.5%) at α = .05 (two-sided). Code is available at [link].
+80.9-83.0%) at α = .05 (two-sided). Code is available at [link].
 ```

@@ -5,7 +5,7 @@ license: MIT
 compatibility: Requires Python 3.11+ with numpy and scipy. No network access and no proprietary software. The estimation tools this skill orients you towards (NONMEM, Monolix, Phoenix, Simcyp, GastroPlus) are licensed separately and are never invoked by these scripts.
 allowed-tools: Read Write Edit Bash
 metadata:
-  version: "1.2"
+  version: "1.3"
   skill-author: K-Dense Inc.
   last-reviewed: "2026-07-27"
 ---
@@ -326,15 +326,16 @@ validated in your population before the output means anything.
 Verified against live sources on 2026-07-27; see `references/software-ecosystem.md` for the full
 map and `references/source-ledger.md` for provenance.
 
-- **Pharmpy 2.1.1** (2026-05-19) is the practical Python entry point — model-agnostic, drives
-  NONMEM/nlmixr2/rxode2, and ships 19 `run_*` tools including `run_amd`, `run_modelsearch`,
-  `run_covsearch`, `run_structsearch`, `run_pdsearch`, `run_modelrank`, `run_vpc` and `run_qa`.
-  Two breaking changes are recent enough to catch you out: **2.0.0 (2026-02-12) changed dataset
-  row indices to start at 1**, and **2.1.0 (2026-05-08) renamed `add_placebo_model` to
-  `set_placebo_model`** and now requires numpy ≥ 2.
-- **NONMEM 7.6** (user guides dated November 2025) remains the regulatory default. New since 7.5:
-  ADVAN16 (RADAR5 implicit Runge-Kutta for stiff delay differential equations), ADVAN17 (stiff
-  delay differential-algebraic), NUTS Bayesian sampling, and SAEM storage of individual samples.
+- **Pharmpy 2.2.0** (2026-08-26; requires Python ≥ 3.12) is the practical Python entry point —
+  model-agnostic, drives NONMEM/nlmixr2/rxode2, and ships 19 `run_*` tools including `run_amd`,
+  `run_modelsearch`, `run_covsearch`, `run_structsearch`, `run_pdsearch`, `run_modelrank`,
+  `run_vpc` and `run_qa`. Three breaking changes are recent enough to catch you out: **2.0.0 (2026-02-12) changed dataset
+  row indices to start at 1**, **2.1.0 (2026-05-08) renamed `add_placebo_model` to
+  `set_placebo_model`** and now requires numpy ≥ 2, and **2.2.0 renamed `set_unit` to
+  `annotate_unit`**.
+- **NONMEM 7.6** (user guides dated November 2025) remains the regulatory default. Delay
+  differential equations are available through ADVAN16 (RADAR5, stiff DDEs) and ADVAN17 (delay
+  differential-algebraic), introduced in the 7.5 series; NUTS Bayesian sampling dates from 7.4.
 - **nlmixr2** (requires rxode2 ≥ 5.0.0) is the credible open-source NLME alternative;
   `babelmixr2` and `monolix2rx` translate models between it, NONMEM and Monolix.
 - **PKPy** (PeerJ, 2025) is a Python popPK framework but is **GitHub-only — not on PyPI**, so

@@ -6,7 +6,7 @@ let you stop early (for benefit, harm, or futility) or modify the design — sav
 participants, time, and money. The catch: every interim look at the data is another
 chance to cross the significance threshold by luck, so the error rate must be
 controlled explicitly. Peeking at accumulating data and stopping the first time
-p < 0.05 inflates the Type I error rate badly (to ~0.20+ with a few looks) — this is
+p < 0.05 inflates the Type I error rate badly (to ~0.14 with 5 looks and ~0.20 with 10) — this is
 the core problem these methods solve.
 
 ## Why naive peeking fails

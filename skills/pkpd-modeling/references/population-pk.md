@@ -27,7 +27,7 @@ which is close to `omega` itself below about 30%.
 | Laplace | Second-order expansion | Needed for non-continuous data (categorical, count, time-to-event) and for `LIKELIHOOD`/`-2LL` models |
 | SAEM | Stochastic approximation EM | Robust to poor initial estimates and to complex models; less prone to local minima; does not itself give an objective function for comparison — follow with an IMP evaluation |
 | Importance sampling (IMP) | Monte Carlo integration | Accurate objective function; usually run after SAEM |
-| MCMC / NUTS | Full Bayesian | NONMEM 7.6 adds NUTS; also Stan, Torsten, nlmixr2 |
+| MCMC / NUTS | Full Bayesian | NONMEM has had NUTS since 7.4; also Stan, Torsten, nlmixr2 |
 
 Compare objective functions only between models fitted with the **same** method on the **same**
 records. An OFV drop obtained by switching from FOCE to IMP is not evidence about the model.

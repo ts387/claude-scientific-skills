@@ -24,7 +24,7 @@ Retrieved from the PyPI JSON API on 2026-07-27.
 
 | Package | Version | Note |
 | --- | --- | --- |
-| `pharmpy-core` | 2.1.1 (2026-05-19) | 2.1.0 on 2026-05-08; 2.0.0 on 2026-02-12; 1.12.0 on 2025-12-05 |
+| `pharmpy-core` | 2.1.1 (2026-05-19) | 2.1.0 on 2026-05-08; 2.0.0 on 2026-02-12; 1.12.0 on 2025-12-05. Rechecked 2026-09-27: 2.2.0 released 2026-08-26 (requires Python ≥ 3.12; `set_unit` renamed `annotate_unit`), per the 2.2.0 `CHANGELOG.rst` and a clean install; still 19 `run_*` tools |
 | `numpy` | 2.5.1 | |
 | `scipy` | 1.18.0 | `requires_python >= 3.12` |
 | `chi-drm` | 1.0.3 | |
@@ -50,7 +50,7 @@ Retrieved from the PyPI JSON API on 2026-07-27.
 
 | Claim | Source |
 | --- | --- |
-| NONMEM 7.6 exists; adds ADVAN16 (RADAR5 stiff DDE), ADVAN17 (stiff delay DAE), NUTS Bayesian, SAEM sample storage | ICON NONMEM 7.6 workshop description and NONMEM 7.6.0 user guides dated November 2025 |
+| NONMEM 7.6 exists and supports ADVAN16 (RADAR5 stiff DDE), ADVAN17 (stiff delay DAE), NUTS Bayesian, SAEM sample storage | ICON NONMEM 7.6 workshop description and NONMEM 7.6.0 user guides dated November 2025. Rechecked 2026-09-27: ADVAN16/17 were introduced in NONMEM 7.5 (ICON *New Features of NONMEM 7.5*) and NUTS in 7.4 (Johnston et al., *CPT Pharmacometrics Syst Pharmacol* 2024), so neither is new in 7.6 |
 | nlmixr2 requires rxode2 ≥ 5.0.0; CRAN package updated 30 November 2025, manual dated 9 May 2026 | CRAN nlmixr2 package page and reference manual |
 | `babelmixr2` and `monolix2rx` interchange models between nlmixr2, NONMEM and Monolix | nlmixr2 project documentation and a February 2026 methods paper |
 | Open Systems Pharmacology Suite v12 (with Update 2) is current; `ospsuite` R package needs R 4.x and .NET 8 | OSP Suite GitHub releases and v12 documentation |

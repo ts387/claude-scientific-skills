@@ -14,7 +14,7 @@ own validated NCA and compartmental-fitting implementations instead of wrapping 
 
 | Tool | Licence | Notes |
 | --- | --- | --- |
-| **NONMEM 7.6** | Commercial (ICON) | The regulatory default. Fortran control streams. New in 7.6: **ADVAN16** (RADAR5 implicit Runge-Kutta for stiff delay differential equations), **ADVAN17** (stiff delay differential-algebraic), NUTS Bayesian sampling, SAEM storage of individual parameter samples, and optimal-design evaluation. User guides dated November 2025 |
+| **NONMEM 7.6** | Commercial (ICON) | The regulatory default. Fortran control streams. Supports **ADVAN16** (RADAR5 implicit Runge-Kutta for stiff delay differential equations) and **ADVAN17** (stiff delay differential-algebraic), both introduced in the 7.5 series; NUTS Bayesian sampling (since 7.4); SAEM storage of individual parameter samples; and optimal-design evaluation. User guides dated November 2025 |
 | **Monolix** (Lixoft/Simulations Plus) | Commercial | SAEM-based, strong GUI, good diagnostics |
 | **nlmixr2** | Open source (R, CRAN) | The credible open alternative. Requires **rxode2 ≥ 5.0.0**. FOCEi, SAEM, and more. `babelmixr2` and `monolix2rx` translate models to and from NONMEM and Monolix |
 | **Pumas** | Commercial (Julia) | Fast; growing regulatory use |
@@ -27,14 +27,17 @@ own validated NCA and compartmental-fitting implementations instead of wrapping 
 `pharmpy-core`, from the Uppsala Pharmacometrics group. Model-agnostic: it reads and writes NONMEM,
 nlmixr2 and rxode2 models and runs tools against whichever estimation engine is installed.
 
-**Current version 2.1.1 (2026-05-19), requires Python ≥ 3.11.** Two recent breaking changes:
+**Current version 2.2.0 (2026-08-26), requires Python ≥ 3.12.** Three recent breaking changes:
 
 - **2.0.0 (2026-02-12): dataset row indices now start at 1, not 0.** Any code indexing into a
   model's dataset by row breaks silently, off by one.
 - **2.1.0 (2026-05-08): `modeling.add_placebo_model` renamed to `modeling.set_placebo_model`**;
   numpy ≥ 2 now required; `modeling.get_observations` now includes all DVIDs by default. Also added
-  `convert_unit`, `set_unit`, `get_unit_of`, `add_output_variable`, dataset `Provenance` tracking,
+  `convert_unit`, `set_unit`, `get_unit_of`, `add_output_variables`, dataset `Provenance` tracking,
   an exhaustive stepwise algorithm for `pdsearch`, and pure-PD support in `add_indirect_effect`.
+- **2.2.0 (2026-08-26): `modeling.set_unit` renamed to `modeling.annotate_unit`**; Python 3.11
+  support dropped; the `steps` index column of `ofv_iterations` renamed to `step`. Also added
+  trial-design helpers (`create_trial_design`, `add_arm`, `create_dataset_from_design`).
 
 The 19 tools available as `pharmpy.tools.run_*`:
 
@@ -48,7 +51,7 @@ run_simulation  run_structsearch  run_tool     run_vpc
 `run_amd` is the automatic model development pipeline; `run_structsearch` covers PKPD, drug
 metabolite and TMDD structures; `run_pdsearch` takes `type='pd'` or `'kpd'`.
 
-Model transformations worth knowing (all verified present in 2.1.1):
+Model transformations worth knowing (all verified present in 2.1.1 and 2.2.0):
 
 ```python
 import pharmpy.modeling as m
@@ -107,7 +110,7 @@ want it.
 | --- | --- | --- |
 | `numpy` | 2.5.1 | Everything |
 | `scipy` | 1.18.0 (**requires Python ≥ 3.12**) | Optimisation, ODE integration, distributions |
-| `pharmpy-core` | 2.1.1 | Model manipulation and tool orchestration |
+| `pharmpy-core` | 2.2.0 | Model manipulation and tool orchestration |
 | `chi-drm` | 1.0.3 | Bayesian PK/PD modelling built on PINTS |
 | `pints` | 0.6.1 | Inference for ODE models |
 | `lmfit` | 1.3.4 | Convenient nonlinear least squares with bounded parameters |

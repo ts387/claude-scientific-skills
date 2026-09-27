@@ -5,7 +5,7 @@ license: BSD-3-Clause
 compatibility: Requires Python 3.10+ with openpiv installed (uv pip install openpiv). numpy, scipy, scikit-image, and matplotlib arrive as dependencies. No network access needed after install.
 allowed-tools: Read Write Edit Bash
 metadata:
-  version: "1.1"
+  version: "1.2"
   skill-author: OpenPIV Team
   tested-against: "openpiv 0.25.4"
 ---

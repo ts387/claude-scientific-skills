@@ -118,7 +118,7 @@ window, which a fixed-window single pass cannot.
 | `overlap` | `(32, 16, 8)` |
 | `num_iterations` | `3` |
 | `subpixel_method` | `"gaussian"` |
-| `use_vectorized` | `False` |
+| `use_vectorized` | `False` (`True` in openpiv 0.26.1) |
 | `deformation_method` | `"symmetric"` |
 | `interpolation_order` | `3` |
 

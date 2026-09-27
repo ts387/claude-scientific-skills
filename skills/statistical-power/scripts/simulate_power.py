@@ -12,7 +12,7 @@ This module provides the harness (`simulate_power`, `find_sample_size`) plus fou
 worked, runnable examples. Copy an example and swap in your own data-generating
 process and analysis -- that is the intended workflow.
 
-Requires: numpy, scipy, statsmodels. The survival example also needs lifelines.
+Requires: numpy, scipy, statsmodels; the cluster and mixed-model examples also need pandas.
 """
 
 from __future__ import annotations
@@ -73,7 +73,7 @@ def find_sample_size(gen_and_test, target_power=0.80, n_sims=2000, alpha=0.05,
                      lo=10, hi=2000, seed=0, verbose=True):
     """Smallest n reaching target_power, via bisection over n.
 
-    Assumes power is (roughly) monotincreasing in n -- true for essentially all
+    Assumes power is (roughly) monotonically increasing in n -- true for essentially all
     real designs. Uses a fixed seed per n so the search is stable; widen n_sims
     near the boundary if the curve is noisy. Returns (n, PowerEstimate).
     """
