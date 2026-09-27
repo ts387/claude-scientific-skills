@@ -3,7 +3,14 @@
 ## Built-in OCR (Tesseract)
 
 - **Default:** OCR enabled on parse.
-- **Engine:** Tesseract bundled with the library (zero extra setup for typical English PDFs).
+- **Engine:** Tesseract bundled with the library. Language data is not: the first page that needs
+  OCR downloads `<lang>.traineddata` from `github.com/tesseract-ocr/tessdata_best` into
+  `~/.tesseract-rs/tessdata` (network required once per language).
+- **Which pages:** scanned pages plus born-digital pages that look text-sparse; `lit is-complex`
+  shows the decision per page. Dense born-digital pages skip OCR entirely.
+- **Failures are fatal (2.7.0):** if every OCR task fails (e.g. the download is blocked), the parse
+  aborts with `OCR failed for all N page(s)` (CLI exit 1, Python `ParseError`). Python's
+  `ocr_failure_fatal=False` (Node `ocrFailureFatal: false`) keeps the native text instead.
 - **Disable** when PDFs have selectable text: `--no-ocr` or `ocr_enabled=False`.
 
 ```bash
@@ -43,10 +50,16 @@ For higher accuracy or GPU-backed OCR, run a server implementing the LiteParse O
 
 ```bash
 lit parse document.pdf --ocr-server-url http://localhost:8080/ocr
+# Authenticated server: repeat --ocr-server-header per header
+lit parse document.pdf --ocr-server-url https://ocr.internal/ocr --ocr-server-header "Authorization: Bearer $OCR_TOKEN"
 ```
 
 ```python
 parser = LiteParse(ocr_server_url="http://localhost:8080/ocr")
+parser = LiteParse(
+    ocr_server_url="https://ocr.internal/ocr",
+    ocr_server_headers={"Authorization": f"Bearer {token}"},
+)
 ```
 
 ### API contract (summary)

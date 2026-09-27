@@ -1,6 +1,6 @@
 # LiteParse API Reference
 
-Targets **liteparse 2.0.0** (Python) and **@llamaindex/liteparse** (Node). Rust crate: `liteparse = "2"`.
+Targets **liteparse 2.7.0** (Python) and **@llamaindex/liteparse** (Node). Rust crate: `liteparse = "2"`.
 
 ## Python: `LiteParse`
 
@@ -15,15 +15,20 @@ from liteparse import LiteParse, ParseResult, ParsedPage, TextItem, ScreenshotRe
 | `ocr_enabled` | bool | `True` | Run OCR on regions needing it |
 | `ocr_language` | str | `"eng"` | Tesseract language code |
 | `ocr_server_url` | str \| None | `None` | HTTP OCR server (see `ocr_and_formats.md`) |
+| `ocr_server_headers` | dict \| None | `None` | Extra HTTP headers for the OCR server (e.g. auth) |
 | `tessdata_path` | str \| None | `None` | Path to tessdata directory |
 | `max_pages` | int | `1000` | Maximum pages to parse |
 | `target_pages` | str \| None | `None` | e.g. `"1-5,10,15-20"` |
 | `dpi` | float | `150` | Render DPI (OCR / screenshots) |
-| `output_format` | str | `"json"` | `"json"` or `"text"` (affects native output mode) |
+| `output_format` | str | `"json"` | `"json"`, `"text"`, or `"markdown"` (markdown also fills `ParsedPage.markdown`) |
 | `preserve_very_small_text` | bool | `False` | Keep very small text runs |
 | `password` | str \| None | `None` | Encrypted PDF password |
 | `quiet` | bool | `False` | Suppress progress output |
 | `num_workers` | int | CPU−1 | Concurrent OCR workers |
+| `ocr_failure_fatal` | bool | `True` | Raise `ParseError` when every OCR task fails; `False` returns the native text |
+
+2.7.0 also accepts `image_mode`, `extract_links`, `emit_word_boxes`, `crop_box`, `skip_diagonal_text`,
+`include_complexity`, and `ocr_hedge_delays_ms`; `help(LiteParse)` documents each.
 
 ### `parse(file_data)`
 
@@ -36,6 +41,7 @@ from liteparse import LiteParse, ParseResult, ParsedPage, TextItem, ScreenshotRe
 class ParseResult:
     pages: List[ParsedPage]
     text: str              # full document text (layout-preserved)
+    images: List[ExtractedImage]   # populated by image_mode="embed"
 
     @property
     def num_pages(self) -> int
@@ -50,7 +56,9 @@ class ParsedPage:
     width: float
     height: float
     text: str
+    markdown: str                               # "" unless output_format="markdown"
     text_items: List[TextItem]
+    complexity: Optional[PageComplexityStats]   # set when include_complexity=True
 ```
 
 ```python
@@ -64,6 +72,8 @@ class TextItem:
     font_name: Optional[str]
     font_size: Optional[float]
     confidence: Optional[float]   # 0.0–1.0 when from OCR
+    rotation: float               # degrees; 0.0 for upright text
+    words: List[WordBox]          # per-word boxes when emit_word_boxes=True
 ```
 
 **Raises:** `FileNotFoundError`, `ParseError`
@@ -130,6 +140,8 @@ for (const page of result.pages) {
 | `password` | `password` |
 | `quiet` | `quiet` |
 | `numWorkers` | `num_workers` |
+| `ocrServerHeaders` | `ocr_server_headers` |
+| `ocrFailureFatal` | `ocr_failure_fatal` |
 
 ### Parse from bytes
 
@@ -143,7 +155,7 @@ const result = await parser.parse(pdfBytes);
 ### Screenshots
 
 ```typescript
-const screenshots = parser.screenshot('document.pdf', [1, 2, 3]);
+const screenshots = await parser.screenshot('document.pdf', [1, 2, 3]);
 for (const s of screenshots) {
   // s.pageNum, s.width, s.height, s.imageBuffer (PNG)
 }

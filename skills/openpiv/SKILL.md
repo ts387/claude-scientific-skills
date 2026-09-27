@@ -5,7 +5,7 @@ license: BSD-3-Clause
 compatibility: Requires Python 3.10+ with openpiv installed (uv pip install openpiv). numpy, scipy, scikit-image, and matplotlib arrive as dependencies. No network access needed after install.
 allowed-tools: Read Write Edit Bash
 metadata:
-  version: "1.2"
+  version: "1.3"
   skill-author: OpenPIV Team
   tested-against: "openpiv 0.25.4"
 ---
@@ -227,8 +227,8 @@ u, v = filters.replace_outliers(
 )
 ```
 
-`method` accepts `"localmean"`, `"disk"`, or `"distance"` — and only those three. An unrecognized
-name is not rejected; it falls through to an all-zero kernel and silently returns a useless field.
+`method` accepts `"localmean"`, `"disk"`, or `"distance"` — and only those three. Any other name
+raises `ValueError` ("Known methods are: `localmean`, `disk` or `distance`").
 Note that replacement *fills* the flagged
 positions with interpolated values — if you then overwrite them with NaN, the replacement was
 wasted. Choose one or the other:

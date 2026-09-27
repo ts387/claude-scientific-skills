@@ -8,6 +8,15 @@
 
 Use text output when feeding chunkers, summarizers, or keyword search that do not need coordinates.
 
+## Markdown output (`--format markdown`)
+
+- **CLI:** `lit parse document.pdf --format markdown -o document.md` (`batch-parse` writes `.md` files).
+- **Python:** `LiteParse(output_format="markdown")` — `result.text` and each `ParsedPage.markdown`.
+- Basic structure only: headings inferred from font size, hyperlinks as `[text](url)` (`--no-links`
+  to drop them), raster images as placeholders (`--image-mode`). No bounding boxes — use JSON for those.
+- Not lossless: lines it treats as running headers (same position on every page) can be dropped, so
+  spot-check against `--format text` before relying on it.
+
 ---
 
 ## JSON output (`--format json`)

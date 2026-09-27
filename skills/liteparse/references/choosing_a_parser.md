@@ -64,7 +64,7 @@ Common pipelines:
 
 1. **LiteParse → chunk + embed** — JSON/text for vector store; bboxes for UI highlights.
 2. **LiteParse screenshots + vision model** — figures and tables; text JSON for search.
-3. **LiteParse text → MarkItDown-style post-processing** — only if you must have Markdown; otherwise use LiteParse text directly.
+3. **LiteParse `--format markdown`** — basic headings/links Markdown from PDFs; switch to MarkItDown when the pipeline needs richer Markdown or non-PDF formats (HTML, EPUB, audio).
 4. **pdf skill merge** → **LiteParse parse** — assemble supplementary PDFs, then extract.
 
 Avoid running LiteParse and MarkItDown on the same file unless you have distinct consumers (coordinates vs Markdown).

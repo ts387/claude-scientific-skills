@@ -17,9 +17,11 @@ it prints `correlation method direct is not implemented` and then raises
 `UnboundLocalError: cannot access local variable 'corr'`. Do not offer it as an option.
 
 Use `"linear"` whenever `search_area_size > window_size`. `"circular"` accepts an extended search
-area without complaining but keeps relying on wrap-around, and on OpenPIV's own `test1` pair at
-`window_size=32, search_area_size=38` it produced a peak |u| of 255 px/s against 87 px/s for
-`"linear"` — the difference is aliased vectors, not physics.
+area without complaining but keeps relying on wrap-around, so correlation from the periodic
+extension can leak into the peak. On OpenPIV's own `test1` pair at `window_size=32,
+search_area_size=38, overlap=12, dt=0.02` the effect is small (peak |u| 88.5 px/s with
+`"circular"` against 87.0 px/s with `"linear"`, openpiv 0.25.4); `"linear"` is still the
+correct choice for an extended search area.
 
 `normalized_correlation=True` normalizes intensities per window before correlating, making peak
 heights comparable across windows of differing brightness — useful under uneven illumination. It also

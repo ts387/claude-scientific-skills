@@ -3,9 +3,9 @@ name: liteparse
 description: Local document and PDF parsing that returns spatial text with bounding boxes. Use for extracting text from PDFs, DOCX, Office files, and images; running OCR on scans; producing layout-preserved JSON for RAG; batch-ingesting folders of papers; or rendering pages to PNG for multimodal agents. Distinguishing capabilities are per-token bounding boxes, page raster output, and fully local processing with no cloud API.
 license: Apache-2.0
 allowed-tools: Read Write Edit Bash
-compatibility: Python 3.10+. Optional LibreOffice (Office formats) and ImageMagick (images). Bundled Tesseract for OCR. All processing is local — no cloud API required.
+compatibility: Python 3.10+. Optional LibreOffice (Office formats) and ImageMagick (images). Bundled Tesseract engine for OCR; its language data downloads on first OCR use unless TESSDATA_PREFIX or --tessdata-path points at local .traineddata files. No cloud API required.
 metadata:
-  version: "1.3"
+  version: "1.4"
   skill-author: K-Dense Inc.
 ---
 
@@ -13,9 +13,9 @@ metadata:
 
 ## Overview
 
-LiteParse is a fast, open-source document parser (Rust core, Python/Node bindings) focused on **local, layout-aware text extraction** with bounding boxes. It does not produce Markdown and does not call cloud LLMs. Outputs are **plain text** (layout-preserved) or **structured JSON** with per-page `text_items` (position, font metadata, optional confidence).
+LiteParse is a fast, open-source document parser (Rust core, Python/Node bindings) focused on **local, layout-aware text extraction** with bounding boxes. It does not call cloud LLMs. Outputs are **plain text** (layout-preserved) or **structured JSON** with per-page `text_items` (position, font metadata, optional confidence); a basic **Markdown** rendering (headings, links) is also available via `--format markdown` / `output_format="markdown"`.
 
-**Version note:** Examples target **liteparse 2.0.0** (PyPI, May 2026). The upstream V1 branch is legacy; this skill documents **V2 / main** only.
+**Version note:** Examples target **liteparse 2.7.0** (PyPI, July 2026). The upstream V1 branch is legacy; this skill documents **V2 / main** only.
 
 For parser selection vs MarkItDown, the `pdf` skill, or LlamaParse, see `references/choosing_a_parser.md`.
 
@@ -41,7 +41,7 @@ Use LiteParse when you need:
 ## Installation
 
 ```bash
-uv pip install "liteparse==2.0.0"
+uv pip install "liteparse==2.7.0"
 ```
 
 This installs the Python bindings and the **`lit`** CLI. Verify:
@@ -195,7 +195,9 @@ See `scripts/batch_parse_dir.py` for a Python batch wrapper without network call
 
 ### 7. OCR configuration
 
-OCR is **on by default**. Tesseract is bundled; no extra install for basic English OCR.
+OCR is **on by default**. The Tesseract engine is bundled; each language's `.traineddata` is downloaded from `tesseract-ocr/tessdata_best` into `~/.tesseract-rs/tessdata` the first time a page needs OCR.
+
+**OCR failure is fatal by default (2.7.0).** OCR runs on scanned pages *and* on born-digital pages the complexity check flags as text-sparse (`lit is-complex file.pdf` lists which). If language data cannot be loaded or downloaded for those pages, `lit parse` exits 1 with `OCR failed for all N page(s)` and Python raises `ParseError` — 2.0.0 silently returned empty OCR text instead. Offline, pre-seed tessdata (below), pass `--no-ocr`, or in Python set `ocr_failure_fatal=False` to keep the native text.
 
 ```python
 parser = LiteParse(
@@ -210,6 +212,7 @@ parser = LiteParse(
 lit parse scan.pdf --ocr-language fra
 lit parse scan.pdf --no-ocr
 lit parse scan.pdf --ocr-server-url http://localhost:8080/ocr
+lit parse scan.pdf --ocr-server-url http://localhost:8080/ocr --ocr-server-header "Authorization: Bearer $OCR_TOKEN"
 ```
 
 **Offline / air-gapped:** set `TESSDATA_PREFIX` to a directory of `.traineddata` files, or pass `--tessdata-path`. Details: `references/ocr_and_formats.md`.
@@ -282,6 +285,7 @@ Files are converted to PDF internally, then parsed. If conversion tools are miss
 | OCR poor quality | Increase `--dpi`; try `--ocr-language`; or HTTP OCR server |
 | OCR slow | `--no-ocr` if not needed; reduce pages; increase `num_workers` |
 | Air-gapped OCR | `export TESSDATA_PREFIX=/path/to/tessdata` or `--tessdata-path` |
+| `OCR failed for all N page(s)` / `failed to download tessdata` | No network to fetch `.traineddata`: pre-seed tessdata as above, add `--no-ocr`, or use `ocr_failure_fatal=False` in Python |
 | `ParseError` on bytes | Ensure input is valid PDF bytes (Office bytes need a file path + conversion) |
 
 ---
@@ -290,7 +294,7 @@ Files are converted to PDF internally, then parsed. If conversion tools are miss
 
 - **GitHub**: https://github.com/run-llama/liteparse
 - **Docs**: https://developers.llamaindex.ai/liteparse/
-- **PyPI**: https://pypi.org/project/liteparse/2.0.0/
+- **PyPI**: https://pypi.org/project/liteparse/2.7.0/
 - **npm**: https://www.npmjs.com/package/@llamaindex/liteparse
 - **OCR API spec**: https://github.com/run-llama/liteparse/blob/main/OCR_API_SPEC.md
 
