@@ -32,7 +32,7 @@ Key parameters:
 - `query.id` — NCT ID
 - `filter.overallStatus` — pipe-delimited: `RECRUITING|COMPLETED|ACTIVE_NOT_RECRUITING|...`
 - `aggFilters` — facet filters as `facet:keys` pairs (comma- or pipe-separated; multiple keys for one facet are space-separated), e.g. `phase:3`, `phase:2 3`, `status:rec`, `results:with`; phase keys are `0` (early phase 1), `1`, `2`, `3`, `4`, `na`
-- `filter.advanced` — Essie expression, e.g. `AREA[Phase]PHASE3` or `AREA[StartDate]RANGE[2023-01-01,MAX]`
+- `filter.advanced` — Essie expression, e.g. `AREA[Phase]PHASE3`; there is no `filter.phase` parameter
 - `filter.geo` — `distance(lat,lon,dist)` e.g. `distance(38.89,-77.03,50mi)`
 - `fields` — comma-separated field list to reduce payload
 - `sort` — e.g. `LastUpdatePostDate:desc`
@@ -42,7 +42,7 @@ Key parameters:
 
 Example — recruiting Phase 3 breast cancer trials:
 ```
-/studies?query.cond=breast+cancer&filter.overallStatus=RECRUITING&aggFilters=phase:3&pageSize=5&countTotal=true
+/studies?query.cond=breast+cancer&filter.overallStatus=RECRUITING&filter.advanced=AREA%5BPhase%5DPHASE3&pageSize=5&countTotal=true
 ```
 
 Response structure:
@@ -72,8 +72,10 @@ Example: `/studies/NCT05123456`
 
 ### Study count
 ```
-GET /stats/size?query.cond={condition}&filter.overallStatus=RECRUITING
+GET /studies?query.cond={condition}&filter.overallStatus=RECRUITING&pageSize=1&countTotal=true
 ```
+
+Read `totalCount` from the first response. `/stats/size` accepts no search parameters and reports registry-wide statistics, not a filtered count.
 
 ### Field metadata
 ```

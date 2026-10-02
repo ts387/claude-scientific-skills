@@ -42,18 +42,16 @@ GET https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=clinvar&id={id}
 ```
 Note: ClinVar efetch returns **XML only** (no JSON for efetch).
 
-### 4. Variation Services API — SPDI/HGVS Lookup
-Variation Services has no ClinVar-specific route. Normalize the variant, map it to an rsID, then read the ClinVar annotations from the RefSNP record:
-```
-GET https://api.ncbi.nlm.nih.gov/variation/v0/hgvs/{hgvs_expression}/contextuals   # HGVS -> SPDI
-GET https://api.ncbi.nlm.nih.gov/variation/v0/spdi/{spdi_expression}/rsids        # SPDI -> rsIDs
-GET https://api.ncbi.nlm.nih.gov/variation/v0/refsnp/{rsid}                       # RefSNP JSON (clinical annotations under primary_snapshot_data.allele_annotations[].clinical)
-```
-Example:
-```
-GET https://api.ncbi.nlm.nih.gov/variation/v0/hgvs/NM_007294.4%3Ac.5266dupC/contextuals
-```
-For a direct HGVS -> ClinVar lookup, esearch (section 1) with the HGVS expression as the term is simpler.
+### 4. Resolve HGVS/SPDI before searching ClinVar
+
+NCBI Variation Services normalizes variants; it has no `/clinvar` suffix endpoint.
+Use `GET https://api.ncbi.nlm.nih.gov/variation/v0/hgvs/{hgvs}/contextuals`,
+then `/spdi/{spdi}/rsids`. Search ClinVar with the resolved rsID (or a validated
+HGVS expression) using ESearch. An rsID can represent multiple alternate alleles:
+compare accession, assembly, position and alleles in the ClinVar record.
+SPDI positions are zero-based; HGVS genomic positions are one-based.
+The RefSNP record (`GET https://api.ncbi.nlm.nih.gov/variation/v0/refsnp/{rsid}`)
+also carries ClinVar annotations under `primary_snapshot_data.allele_annotations[].clinical`.
 
 ### 5. ClinVar VCV/RCV Direct Access
 ```
@@ -79,20 +77,49 @@ This returns HTML. For programmatic access, use E-utilities or the Variation Ser
   "result": {
     "37088": {
       "uid": "37088",
-      "title": "NM_007294.4(BRCA1):c.5266dupC (p.Gln1756Profs*74)",
+      "title": "NM_003238.6(TGFB2):c.687C>A (p.Cys229Ter)",
       "germline_classification": {
         "description": "Pathogenic",
-        "review_status": "reviewed by expert panel",
-        "trait_set": [{"trait_name": "Hereditary breast and ovarian cancer syndrome"}]
+        "last_evaluated": "2025/09/08 00:00",
+        "review_status": "criteria provided, single submitter",
+        "fda_recognized_database": "",
+        "trait_set": [
+          {
+            "trait_xrefs": [
+              {
+                "db_source": "MedGen",
+                "db_id": "C3553762"
+              },
+              {
+                "db_source": "MONDO",
+                "db_id": "MONDO:0013897"
+              },
+              {
+                "db_source": "OMIM",
+                "db_id": "614816"
+              }
+            ],
+            "trait_name": "Loeys-Dietz syndrome 4"
+          }
+        ]
       },
-      "clinical_impact_classification": {...},
-      "oncogenicity_classification": {...},
-      "genes": [{"symbol": "BRCA1", "geneid": 672}],
-      "variation_set": [...]
+      "genes": [
+        {
+          "symbol": "TGFB2",
+          "geneid": "7042",
+          "strand": "+",
+          "source": "submitted"
+        }
+      ]
     }
   }
 }
 ```
+
+Somatic clinical impact and oncogenicity are separate classifications; inspect the sibling
+`clinical_impact_classification` and `oncogenicity_classification` objects when present (the VCV
+XML names them `SomaticClinicalImpact` and `OncogenicityClassification`). Do not conflate these
+with germline classification or discard conflicting submissions.
 
 ## Notes
 - Combine esearch + esummary for search-then-fetch workflows.

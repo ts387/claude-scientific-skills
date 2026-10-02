@@ -24,7 +24,8 @@ No auth required.
 - `geneProductId` — UniProt accession
 - `evidenceCode` — ECO evidence code (e.g. ECO:0000269)
 - `aspect` — biological_process, molecular_function, cellular_component
-- `limit`, `page` — pagination
+- `limit`, `page` — pagination; page is one-based, and annotation search limits each page to 200
+- Include `Accept: application/json`; preserve evidence, qualifiers/negation and annotation provenance.
 
 ## Example Calls
 ```

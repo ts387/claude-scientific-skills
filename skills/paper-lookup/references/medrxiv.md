@@ -2,7 +2,7 @@
 
 medRxiv is a preprint server for health sciences. The API is identical to bioRxiv's API -- same endpoints, same response format -- just use `medrxiv` as the server parameter.
 
-**Important:** Like bioRxiv, there is **no keyword search**. Use Semantic Scholar, OpenAlex, or PubMed for keyword searches of medRxiv content.
+**Important:** Like bioRxiv, there is **no keyword search**. Use Europe PMC (`SRC:"PPR" AND PUBLISHER:"medRxiv"`), Semantic Scholar, or OpenAlex for keyword searches of medRxiv content. PubMed coverage of preprints is selective.
 
 ## Base URL
 
@@ -43,7 +43,7 @@ GET /details/medrxiv/{interval}/{cursor}/{format}
 | `cursor` | Integer (default `0`) | Absolute record offset. **`/details/` returns 30 per page, so step by 30** -- see Pagination. |
 | `format` | `json` (default), `xml` | Response format |
 
-Optional: `?category=cardiovascular_medicine` (use underscores for spaces; the API returns the name with spaces, e.g. "cardiovascular medicine")
+Optional: `?category=cardiovascular%20medicine` (use URL-encoding for spaces)
 
 **Examples:**
 ```
@@ -123,4 +123,10 @@ No documented rate limits. No authentication required.
 
 ## Categories
 
-`addiction_medicine`, `allergy_and_immunology`, `anesthesia`, `cardiovascular_medicine`, `dentistry_and_oral_medicine`, `dermatology`, `emergency_medicine`, `endocrinology`, `epidemiology`, `forensic_medicine`, `gastroenterology`, `genetic_and_genomic_medicine`, `geriatric_medicine`, `health_economics`, `health_informatics`, `health_policy`, `health_systems_and_quality_improvement`, `hematology`, `hiv_aids`, `infectious_diseases`, `intensive_care_and_critical_care_medicine`, `medical_education`, `medical_ethics`, `nephrology`, `neurology`, `nursing`, `nutrition`, `obstetrics_and_gynecology`, `occupational_and_environmental_health`, `oncology`, `ophthalmology`, `orthopedics`, `otolaryngology`, `pain_medicine`, `palliative_medicine`, `pathology`, `pediatrics`, `pharmacology_and_therapeutics`, `primary_care_research`, `psychiatry_and_clinical_psychology`, `public_and_global_health`, `radiology_and_imaging`, `rehabilitation_medicine_and_physical_therapy`, `respiratory_medicine`, `rheumatology`, `sexual_and_reproductive_health`, `sports_medicine`, `surgery`, `toxicology`, `transplantation`, `urology`
+These are website slugs; use spaces (URL-encoded) or underscores in API category values, e.g. `cardiovascular_medicine`.
+
+`addiction-medicine`, `allergy-and-immunology`, `anesthesia`, `cardiovascular-medicine`, `dentistry-and-oral-medicine`, `dermatology`, `emergency-medicine`, `endocrinology`, `epidemiology`, `forensic-medicine`, `gastroenterology`, `genetic-and-genomic-medicine`, `geriatric-medicine`, `health-economics`, `health-informatics`, `health-policy`, `health-systems-and-quality-improvement`, `hematology`, `hiv-aids`, `infectious-diseases`, `intensive-care-and-critical-care-medicine`, `medical-education`, `medical-ethics`, `nephrology`, `neurology`, `nursing`, `nutrition`, `obstetrics-and-gynecology`, `occupational-and-environmental-health`, `oncology`, `ophthalmology`, `orthopedics`, `otolaryngology`, `pain-medicine`, `palliative-medicine`, `pathology`, `pediatrics`, `pharmacology-and-therapeutics`, `primary-care-research`, `psychiatry-and-clinical-psychology`, `public-and-global-health`, `radiology-and-imaging`, `rehabilitation-medicine-and-physical-therapy`, `respiratory-medicine`, `rheumatology`, `sexual-and-reproductive-health`, `sports-medicine`, `surgery`, `toxicology`, `transplantation`, `urology`
+
+## Official sources reviewed 2026-09-30
+
+- https://api.biorxiv.org/

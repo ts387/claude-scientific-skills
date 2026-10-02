@@ -45,6 +45,13 @@ https://exoplanetarchive.ipac.caltech.edu/TAP/sync?query=SELECT discoverymethod,
 
 ### 2. Legacy API (older; serves only the KOI, K2 candidate, and time-series tables)
 
+Tables migrated to TAP (`ps`, `pscomppars`, `stellarhosts`, `toi`, `keplernames`,
+`k2names` and `TD`) cannot be queried through the old `nph-nstedAPI` recipe, and
+the legacy `exoplanets`, `compositepars` and `exomultpars` tables have been retired.
+Use TAP for the tables below and inspect `TAP_SCHEMA.tables` and
+`TAP_SCHEMA.columns` for the current catalogue.
+
+For the tables the legacy API still serves:
 ```
 GET /cgi-bin/nstedAPI/nph-nstedAPI?table={table}&format={format}&where={conditions}&select={columns}
 ```
@@ -55,8 +62,6 @@ https://exoplanetarchive.ipac.caltech.edu/cgi-bin/nstedAPI/nph-nstedAPI?table=cu
 ```
 (URL-encode the spaces and quotes in `where` when calling programmatically.)
 
-Note: The legacy API is deprecated in favor of TAP. The `ps`, `pscomppars`, `stellarhosts`, `toi`, `keplernames`, `k2names`, and `td` tables are available only via TAP; the legacy `exoplanets`, `compositepars`, and `exomultpars` tables have been retired. Use TAP for new applications.
-
 ## Key TAP Tables
 
 | Table  | Description |
@@ -64,7 +69,7 @@ Note: The legacy API is deprecated in favor of TAP. The `ps`, `pscomppars`, `ste
 | `ps`   | **Planetary Systems** — one row per reference per planet. Use `default_flag=1` for the default/best parameter set. |
 | `pscomppars` | **Planetary Systems Composite Parameters** — one row per planet with best-fit values from multiple references. |
 | `stellarhosts` | Stellar properties of host stars. |
-| `td`   | Time-series data (transit curves, RV curves). |
+| `TD`   | Transiting Planets table; not a generic time-series table. |
 | `keplernames` | Kepler Object of Interest cross-references. |
 | `k2names` | K2 campaign cross-references. |
 | `toi`  | TESS Objects of Interest. |
@@ -91,21 +96,19 @@ Note: The legacy API is deprecated in favor of TAP. The `ps`, `pscomppars`, `ste
 
 ## Response Format (TAP JSON)
 
+The archive returns an array of objects keyed by selected column names:
 ```json
-{
-  "metadata": [
-    {"name": "pl_name", "datatype": "char"},
-    {"name": "pl_orbper", "datatype": "double"}
-  ],
-  "data": [
-    ["Kepler-22 b", 289.8623]
-  ]
-}
+[{"pl_name": "Kepler-22 b", "pl_orbper": 289.8623}]
 ```
+URL-encode the ADQL using a query-parameter encoder (for curl, `--get --data-urlencode`).
+`default_flag=1` selects the archive's default parameter row; it is not a guarantee
+that every column is populated or that the chosen solution is best for your analysis.
+The orbital-distance/temperature filter above is illustrative, not a validated
+habitable-zone classification.
 
 ## Rate Limits
 
-No API key or authentication required. No formal rate limits documented, but the archive requests that users avoid excessive automated queries. Large result sets may cause timeouts; use `TOP N` in ADQL or paginate with `OFFSET` and `MAXREC`.
+No API key or authentication required. No formal rate limits documented, but the archive requests that users avoid excessive automated queries. Large result sets may cause timeouts; use bounded `TOP N` queries or partition on stable keys. `MAXREC` is a row cap, not an offset; inspect overflow status in VOTable results and never infer completeness from a capped JSON response.
 
 For very large downloads, use the bulk download interface at:
 ```

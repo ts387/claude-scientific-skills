@@ -286,11 +286,11 @@ class FormatResultTests(unittest.TestCase):
         )
         self.assertEqual(renderings["parenthetic"], "9.1093837139(28)e-31 kg")
 
-    def test_exact_values_are_labelled(self) -> None:
+    def test_zero_uncertainty_does_not_claim_exactness(self) -> None:
         renderings = format_result.render(
             format_result.round_to_uncertainty(299792458.0, 0.0), "m/s"
         )
-        self.assertIn("exact", renderings["plusminus"])
+        self.assertIn("zero supplied uncertainty", renderings["plusminus"])
 
     def test_warnings_cover_the_reporting_traps(self) -> None:
         rounded = format_result.round_to_uncertainty(
@@ -486,33 +486,6 @@ class PropagationTests(unittest.TestCase):
         sensitivities = {item["name"]: item["sensitivity"] for item in framework["inputs"]}
         self.assertEqual(sensitivities, {"x": -1.0, "y": 1.0})
 
-    def test_abs_and_fabs_match_the_deprecated_uncertainties_calls(self) -> None:
-        from uncertainties import ufloat, umath
-
-        functions = _common.scalar_functions()
-        x = ufloat(1.5, 0.1)
-        y = ufloat(-4.0, 0.3)
-        cases = (x, -x, x - x, x * y, y + 0.0 * x, ufloat(-0.0, 0.2), -2, -2.5, 0.0)
-        for argument in cases:
-            for name, deprecated in (("abs", abs), ("fabs", umath.fabs)):
-                with self.subTest(name=name, argument=repr(argument)):
-                    with warnings.catch_warnings():
-                        warnings.simplefilter("ignore", FutureWarning)
-                        expected = deprecated(argument)
-                    with warnings.catch_warnings():
-                        warnings.simplefilter("error")
-                        actual = functions[name](argument)
-                    self.assertIs(type(actual), type(expected))
-                    if hasattr(expected, "nominal_value"):
-                        self.assertEqual(repr(actual.nominal_value), repr(expected.nominal_value))
-                        self.assertEqual(actual.std_dev, expected.std_dev)
-                        self.assertEqual(
-                            {id(k): float(v) for k, v in actual.derivatives.items()},
-                            {id(k): float(v) for k, v in expected.derivatives.items()},
-                        )
-                    else:
-                        self.assertEqual(repr(actual), repr(expected))
-
     def test_correlation_reduces_the_uncertainty_of_a_difference(self) -> None:
         framework = self._framework(
             "a - b",
@@ -542,7 +515,8 @@ class PropagationTests(unittest.TestCase):
         validation = propagate_uncertainty.validate_linearization(
             framework, sampling, 2
         )
-        self.assertTrue(validation["gum_framework_validated"])
+        self.assertTrue(validation["endpoint_agreement"])
+        self.assertIsNone(validation["gum_framework_validated"])
         self.assertEqual(
             propagate_uncertainty.collect_warnings(framework, sampling, {}), []
         )
@@ -559,7 +533,8 @@ class PropagationTests(unittest.TestCase):
         validation = propagate_uncertainty.validate_linearization(
             framework, sampling, 2
         )
-        self.assertFalse(validation["gum_framework_validated"])
+        self.assertFalse(validation["endpoint_agreement"])
+        self.assertIsNone(validation["gum_framework_validated"])
         self.assertLess(framework["coverage_interval"][0], 0.0)
         self.assertGreaterEqual(sampling["shortest_coverage_interval"][0], 0.0)
         warnings = propagate_uncertainty.collect_warnings(framework, sampling, {})

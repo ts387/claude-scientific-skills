@@ -81,7 +81,7 @@ Tab-separated text (or JSON with `.json` suffix). One row per compound with the 
 No published limits. Be respectful — similarity and substructure searches are expensive. Cache results locally for repeat queries; parallelize file-repository downloads with `aria2c` or parallel `wget`.
 
 ## Notes
-- ZINC IDs are 15-digit zero-padded after `ZINC` (e.g. `ZINC000000000053`).
+- ZINC IDs are 12-digit zero-padded after `ZINC` (e.g. `ZINC000000000053`).
 - ZINC explicitly disclaims quality guarantees: verify SMILES, stereochemistry, and supplier availability before experimental use.
 - For ZINC15/ZINC20 drug-like / lead-like compound subsets, the older `zinc.docking.org` (ZINC20) or `zinc15.docking.org` (ZINC15) endpoints may still resolve but are not the recommended target.
 
@@ -99,7 +99,7 @@ https://zinc.docking.org
 
 ## Auth
 
-No API key required. Fully open public API.
+The documented ZINC15-style interface is public, but automated requests may be redirected to a human-verification page. A 2026-09-30 lookup returned such HTML instead of JSON. Detect this response and report the access limitation; do not bypass the challenge or interpret it as a compound record.
 
 ## URL Pattern
 
@@ -285,8 +285,8 @@ No documented rate limits. The API is publicly funded (NIH NIGMS GM71896). Be re
 
 ## Special Notes
 
-- ZINC contains **2+ billion** commercially available compounds — always use `count=` to limit results
-- ZINC IDs have the format `ZINC000000000053` (15-digit zero-padded after "ZINC")
+- These routes describe the official ZINC15-style syntax. Coverage is not interchangeable with ZINC22/CartBlanche or bulk tranche releases; record the interface and release actually used.
+- ZINC IDs have the format `ZINC000000000053` (12-digit zero-padded after "ZINC" in this interface)
 - The `.smi` format returns SMILES strings, useful for cheminformatics pipelines
 - The `.sdf` format returns 3D structures suitable for docking software
 - Subsets can be combined with `+` (e.g., `fda+in-stock` = FDA-approved AND in-stock)

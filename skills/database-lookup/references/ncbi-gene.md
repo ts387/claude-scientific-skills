@@ -51,13 +51,12 @@ GET /efetch.fcgi?db=gene&id={gene_ids}&rettype=gene_table&retmode=text
 GET /elink.fcgi?dbfrom=gene&db={target_db}&id={gene_id}&retmode=json
 ```
 
-Target databases: `pubmed`, `omim`, `nuccore`, `protein`, `snp`, `clinvar`
+Target databases include `pubmed`, `omim`, `nuccore`, and `protein`; discover supported links with EInfo. BioSystems is retired; use current KEGG/Reactome resources for pathways.
 
 Example — gene to PubMed:
 ```
 /elink.fcgi?dbfrom=gene&db=pubmed&id=672&retmode=json
 ```
-For pathway membership, use Reactome (`references/reactome.md`) or KEGG (`references/kegg.md`); the NCBI BioSystems database has been retired and `db=biosystems` no longer works.
 
 ## Rate Limits
 - Without API key: 3 requests/second

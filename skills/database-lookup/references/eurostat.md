@@ -62,7 +62,7 @@ https://ec.europa.eu/eurostat/api/dissemination/sdmx/2.1/data/une_rt_m/M.SA.TOTA
 
 **Example (HICP inflation, all items, monthly):**
 ```
-https://ec.europa.eu/eurostat/api/dissemination/sdmx/2.1/data/prc_hicp_manr/M.RCH_A.CP00.DE+FR+IT?startPeriod=2023-01&endPeriod=2024-06&format=JSON
+https://ec.europa.eu/eurostat/api/dissemination/sdmx/2.1/data/prc_hicp_mmor/M.RCH_M.CP00.DE+FR+IT?startPeriod=2023-01&endPeriod=2024-06&format=JSON
 ```
 
 ### 2. Get Dataset as CSV
@@ -196,9 +196,14 @@ Aggregates: `EU27_2020` (EU-27), `EA20` (Euro area 20), `EA19` (Euro area 19), `
 
 **Note:** Greece uses `EL` (not `GR`) in Eurostat.
 
-## JSON Response Format
+## Format and dimension handling
 
-`format=JSON` on the SDMX 2.1 data endpoint returns JSON-stat 2.0, the same structure shown in the JSON-stat API response example above (flat `value` array plus `id`/`size`/`dimension`), not SDMX-JSON. Use `format=SDMX-CSV` if you want one row per observation.
+The SDMX 2.1 API defaults to SDMX-ML Generic XML. Supported `format` values
+include `SDMX_2.1_STRUCTURED`, `SDMX-CSV`, `JSON` (JSON-stat), and `TSV`.
+Do not parse `format=JSON` as a SDMX-JSON dataSets/structure envelope.
+For JSON-stat, use `id`, `size`, and each dimension's category index to reshape
+`value`; values may be an array or a sparse index-keyed object. Missing cells
+are not zero. Preserve observation flags and dataset update time.
 
 ## Notes
 - Dimension order in the filter path depends on the dataset structure. Always check `/datastructure/ESTAT/{code}` first.

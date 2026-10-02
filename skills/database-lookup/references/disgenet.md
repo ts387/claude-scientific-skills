@@ -1,14 +1,19 @@
-# DisGeNET (Gene-Disease Associations)
+# DISGENET — Gene/variant–disease associations
+
+Use the current [DISGENET documentation](https://www.disgenet.com/docs) and
+[API/tools page](https://www.disgenet.com/Tools). The old disgenet.org API and
+email/password login recipes are not the current integration contract.
 
 ## Base URL
 ```
 https://api.disgenet.com/api/v1
 ```
 
-The legacy `www.disgenet.org/api` (v7 API with email/password token auth) was replaced when DISGENET moved to disgenet.com.
-
 ## Auth
-**API key required.** Register at https://www.disgenet.com (free academic plan), then copy the API key from your profile page. Send the key itself (no `Bearer` prefix) as the `Authorization` header:
+**API key required.** Access is plan-dependent: the [Academic plan](https://www.disgenet.com/Plans)
+exposes the curated subset; full-dataset API access requires an appropriate
+subscription. Register at https://www.disgenet.com, then copy the API key from
+your profile page. Send the key itself (no `Bearer` prefix) as the `Authorization` header:
 ```bash
 curl -H "Authorization: $DISGENET_API_KEY" -H "accept: application/json" \
   "https://api.disgenet.com/api/v1/gda/summary?gene_ncbi_id=7157&page_number=0"
@@ -30,7 +35,7 @@ Full endpoint and parameter reference (login required): https://api.disgenet.com
 
 ## Parameters
 - `source` — e.g. `CURATED` (academic keys are limited to curated sources)
-- `min_score` — GDA score threshold (0-1)
+- `min_score` — score threshold (see the score note below)
 - `page_number` — 0-based pagination
 
 ## Example Calls
@@ -45,8 +50,16 @@ Full endpoint and parameter reference (login required): https://api.disgenet.com
 /vda/summary?variant=rs1042522
 ```
 
-## Rate Limits
-Free academic tier: ~few hundred requests/day. Paid tiers available. HTTP 429 responses mean the limit was hit; wait before retrying.
+HTTP 429 responses mean the rate limit was hit; wait before retrying.
 
-## Free alternative
-If no API key: use **Open Targets** for disease-gene associations.
+## Interpreting results
+
+For a reproducible retrieval, choose gene–disease (GDA) or variant–disease (VDA),
+resolve the input identifier, and save source filters, release, evidence rows,
+PMIDs, score fields and pagination metadata. Summary rows aggregate evidence;
+inspect supporting evidence before making a mechanistic claim.
+
+[Current score guidance](https://support.disgenet.com/support/solutions/articles/202000100283-what-are-the-gda-score-vda-score-disgenet-score-)
+removes the former cap at 1. Do not treat the raw DISGENET score as a probability,
+clamp it to [0,1], or confuse it with a normalized score. DSI measures disease
+specificity and DPI pleiotropy; neither is causal evidence.
