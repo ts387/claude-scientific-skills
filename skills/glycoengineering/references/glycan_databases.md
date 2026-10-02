@@ -27,6 +27,12 @@ The legacy per-glycan route `api.glytoucan.org/glycan/{id}` no longer works; Gly
 - **Integration**: Links UniProt proteins to experimentally verified glycosylation
 - **Use**: Look up known glycosylation for your target protein
 
+> **Untested API routes.** As of 2 Oct 2026, `/api/proteins/uniprot/{id}` returns HTTP 500, and
+> neither it nor `/api/compositions/protein/{id}` could be checked against documentation:
+> GlyConnect's API docs page (`/api/docs`) loads without a spec behind it. Both functions return
+> an empty value on any error, so an empty result does not mean "no glycosylation". Use the
+> GlyConnect website for lookups until the API is documented again.
+
 ```python
 import requests
 

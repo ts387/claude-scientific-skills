@@ -3,7 +3,7 @@ name: glycoengineering
 description: Analyze and engineer protein glycosylation. Scan sequences for N-glycosylation sequons (N-X-S/T), predict O-glycosylation hotspots, and access curated glycoengineering tools (NetOGlyc, GlycoShield, GlycoWorkbench). For glycoprotein engineering, therapeutic antibody optimization, and vaccine design.
 license: Unknown
 metadata:
-  version: "1.3"
+  version: "1.4"
   skill-author: Kuan-lin Huang
 ---
 
@@ -268,6 +268,12 @@ setting.
 - **URL**: https://glyconnect.expasy.org/
 - **Use**: Find experimentally verified glycoproteins and glycosylation sites
 - **Query**: By protein (UniProt ID), glycan structure, or tissue
+
+> **Untested API route.** As of 2 Oct 2026, `/api/proteins/uniprot/{id}` returns HTTP 500, and
+> GlyConnect's API documentation page (`/api/docs`) loads without a spec behind it, so no
+> documented route could be confirmed. The function below returns `{}` on any non-200 response:
+> an empty result does not mean the protein has no recorded glycosylation. Use the GlyConnect
+> website for lookups until the API is documented again.
 
 ```python
 import requests
